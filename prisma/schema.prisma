@@ -1,0 +1,275 @@
+// ─────────────────────────────────────────────────────────────
+// Dakhli — Prisma schema
+// Stack: PostgreSQL (Supabase) + NextAuth Prisma Adapter
+// ─────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")       // pooled (PgBouncer) — runtime
+  directUrl = env("DIRECT_URL")         // direct — migrations
+}
+
+// ─────────────── NextAuth standard tables ───────────────
+// DO NOT RENAME: required by @auth/prisma-adapter
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // NextAuth relations
+  accounts Account[]
+  sessions Session[]
+
+  // Dakhli domain relations
+  financialAccounts FinancialAccount[]
+  transactions      Transaction[]
+  categories        Category[]          // user-created categories only
+  budgets           Budget[]
+  goals             Goal[]
+  importBatches     ImportBatch[]
+  chatMessages      ChatMessage[]
+  aiInsights        AiInsight[]
+
+  // User preferences
+  locale       String @default("fr")    // fr | en | ar
+  baseCurrency String @default("MAD")
+}
+
+model Account {
+  // NextAuth OAuth account — NOT a bank account
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  @@unique([identifier, token])
+}
+
+// ─────────────── Dakhli domain tables ───────────────
+
+enum FinancialAccountType {
+  BANK
+  CASH
+  WALLET         // CIH Mobile, cashplus, etc.
+  SAVINGS
+  OTHER
+}
+
+model FinancialAccount {
+  id        String                @id @default(cuid())
+  userId    String
+  name      String                // "CIH courant", "Cash poche", ...
+  type      FinancialAccountType
+  currency  String                @default("MAD")
+  balance   Decimal               @default(0) @db.Decimal(14, 2)
+  icon      String?
+  color     String?
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+  deletedAt DateTime?             // soft delete
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@index([userId, deletedAt])
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum TransactionSource {
+  MANUAL
+  CSV_IMPORT
+  PDF_IMPORT
+  DEMO_SEED
+  BANK_API_SIMULATED
+}
+
+model Transaction {
+  id          String            @id @default(cuid())
+  userId      String
+  accountId   String
+  categoryId  String?
+  type        TransactionType
+  description String
+  notes       String?           @db.Text
+
+  // Multi-currency: frozen at entry time
+  amount       Decimal  @db.Decimal(14, 2)  // original
+  currency     String                        // ISO 4217, e.g. "EUR"
+  amountMAD    Decimal  @db.Decimal(14, 2)  // converted to MAD at T
+  exchangeRate Decimal  @db.Decimal(14, 6)  // rate used (audit)
+
+  occurredAt  DateTime
+  source      TransactionSource @default(MANUAL)
+  importBatchId String?
+
+  // AI metadata
+  aiCategorized     Boolean @default(false)
+  aiConfidence      Float?                    // 0..1
+  isAnomaly         Boolean @default(false)
+  anomalyReason     String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account     FinancialAccount  @relation(fields: [accountId], references: [id])
+  category    Category?         @relation(fields: [categoryId], references: [id])
+  importBatch ImportBatch?      @relation(fields: [importBatchId], references: [id])
+
+  @@index([userId, occurredAt, deletedAt])
+  @@index([userId, categoryId])
+}
+
+model Category {
+  id       String  @id @default(cuid())
+  userId   String? // null = system/seed category (Morocco-adapted)
+  name     String  // "Famille", "Zakat & Sadaqa", "Telecom", ...
+  nameEn   String?
+  nameAr   String?
+  icon     String?
+  color    String?
+  isSystem Boolean @default(false)
+  type     TransactionType
+
+  user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  budgets      Budget[]
+
+  @@unique([userId, name])
+  @@index([isSystem])
+}
+
+model Budget {
+  id         String   @id @default(cuid())
+  userId     String
+  categoryId String
+  amountMAD  Decimal  @db.Decimal(14, 2)
+  period     String   // "YYYY-MM"
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  deletedAt  DateTime?
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@unique([userId, categoryId, period])
+}
+
+model Goal {
+  id           String    @id @default(cuid())
+  userId       String
+  title        String
+  targetMAD    Decimal   @db.Decimal(14, 2)
+  currentMAD   Decimal   @default(0) @db.Decimal(14, 2)
+  targetDate   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum ImportStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model ImportBatch {
+  id            String            @id @default(cuid())
+  userId        String
+  source        TransactionSource
+  fileName      String?
+  status        ImportStatus      @default(PENDING)
+  rowsTotal     Int               @default(0)
+  rowsImported  Int               @default(0)
+  errorMessage  String?           @db.Text
+  createdAt     DateTime          @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+}
+
+enum ChatRole {
+  USER
+  ASSISTANT
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  role      ChatRole
+  content   String   @db.Text
+  tokensIn  Int?
+  tokensOut Int?
+  model     String?  // "claude-haiku-4-5" | "claude-sonnet-4-6"
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+enum InsightType {
+  ANOMALY
+  FORECAST
+  ADVICE
+  SAVINGS_PLAN
+}
+
+model AiInsight {
+  id        String      @id @default(cuid())
+  userId    String
+  type      InsightType
+  title     String
+  content   String      @db.Text
+  payload   Json?       // structured data (chart, numbers)
+  model     String?
+  createdAt DateTime    @default(now())
+  readAt    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type, createdAt])
+}
