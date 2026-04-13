@@ -12,6 +12,9 @@ export const routing = defineRouting({
   locales: ["fr", "en", "ar"],
   defaultLocale: "fr",
   localePrefix: "always",
+  // Disable Accept-Language detection — always default to "fr" unless
+  // the user has an explicit locale cookie (set by a future language picker).
+  localeDetection: false,
 });
 
 export type Locale = (typeof routing.locales)[number];

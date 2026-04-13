@@ -3,5 +3,51 @@
     "title": "Dakhli",
     "subtitle": "Your personal finance assistant",
     "welcome": "Welcome to Dakhli"
+  },
+  "auth": {
+    "validation": {
+      "name_min": "Name must be at least 2 characters",
+      "email_invalid": "Invalid email address",
+      "password_min": "Password must be at least 8 characters",
+      "password_required": "Password is required",
+      "passwords_mismatch": "Passwords do not match"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Manage your finances with Dakhli",
+      "name_label": "Full name",
+      "name_placeholder": "Your name",
+      "email_label": "Email",
+      "email_placeholder": "you@email.com",
+      "password_label": "Password",
+      "password_placeholder": "At least 8 characters",
+      "confirm_password_label": "Confirm password",
+      "confirm_password_placeholder": "Repeat your password",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "already_have_account": "Already have an account?",
+      "sign_in_link": "Sign in",
+      "error_email_taken": "This email is already registered",
+      "error_server": "Something went wrong. Please try again."
+    },
+    "login": {
+      "title": "Sign in to Dakhli",
+      "subtitle": "Welcome back",
+      "email_label": "Email",
+      "email_placeholder": "you@email.com",
+      "password_label": "Password",
+      "password_placeholder": "Your password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "no_account": "Don't have an account?",
+      "sign_up_link": "Sign up",
+      "error_invalid": "Invalid email or password",
+      "error_server": "Something went wrong. Please try again."
+    },
+    "dashboard": {
+      "greeting": "Hello, {name}!",
+      "email_label": "Email",
+      "sign_out": "Sign out"
+    }
   }
 }

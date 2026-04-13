@@ -3,5 +3,51 @@
     "title": "Dakhli",
     "subtitle": "Votre assistant financier personnel",
     "welcome": "Bienvenue sur Dakhli"
+  },
+  "auth": {
+    "validation": {
+      "name_min": "Le nom doit contenir au moins 2 caractères",
+      "email_invalid": "Adresse email invalide",
+      "password_min": "Le mot de passe doit contenir au moins 8 caractères",
+      "password_required": "Le mot de passe est requis",
+      "passwords_mismatch": "Les mots de passe ne correspondent pas"
+    },
+    "signup": {
+      "title": "Créez votre compte",
+      "subtitle": "Gérez vos finances avec Dakhli",
+      "name_label": "Nom complet",
+      "name_placeholder": "Votre nom",
+      "email_label": "Email",
+      "email_placeholder": "vous@email.com",
+      "password_label": "Mot de passe",
+      "password_placeholder": "Au moins 8 caractères",
+      "confirm_password_label": "Confirmer le mot de passe",
+      "confirm_password_placeholder": "Répétez votre mot de passe",
+      "submit": "Créer un compte",
+      "submitting": "Création en cours…",
+      "already_have_account": "Vous avez déjà un compte ?",
+      "sign_in_link": "Se connecter",
+      "error_email_taken": "Cet email est déjà utilisé",
+      "error_server": "Une erreur est survenue. Réessayez."
+    },
+    "login": {
+      "title": "Connectez-vous à Dakhli",
+      "subtitle": "Bon retour",
+      "email_label": "Email",
+      "email_placeholder": "vous@email.com",
+      "password_label": "Mot de passe",
+      "password_placeholder": "Votre mot de passe",
+      "submit": "Se connecter",
+      "submitting": "Connexion en cours…",
+      "no_account": "Pas encore de compte ?",
+      "sign_up_link": "Créer un compte",
+      "error_invalid": "Email ou mot de passe incorrect",
+      "error_server": "Une erreur est survenue. Réessayez."
+    },
+    "dashboard": {
+      "greeting": "Bonjour, {name} !",
+      "email_label": "Email",
+      "sign_out": "Se déconnecter"
+    }
   }
 }

@@ -3,5 +3,51 @@
     "title": "دخلي",
     "subtitle": "مساعدك المالي الشخصي",
     "welcome": "مرحبا بك في دخلي"
+  },
+  "auth": {
+    "validation": {
+      "name_min": "يجب أن يحتوي الاسم على حرفين على الأقل",
+      "email_invalid": "عنوان البريد الإلكتروني غير صالح",
+      "password_min": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل",
+      "password_required": "كلمة المرور مطلوبة",
+      "passwords_mismatch": "كلمتا المرور غير متطابقتين"
+    },
+    "signup": {
+      "title": "أنشئ حسابك",
+      "subtitle": "أدر أموالك مع دخلي",
+      "name_label": "الاسم الكامل",
+      "name_placeholder": "اسمك",
+      "email_label": "البريد الإلكتروني",
+      "email_placeholder": "أنت@بريد.com",
+      "password_label": "كلمة المرور",
+      "password_placeholder": "8 أحرف على الأقل",
+      "confirm_password_label": "تأكيد كلمة المرور",
+      "confirm_password_placeholder": "أعد كلمة المرور",
+      "submit": "إنشاء حساب",
+      "submitting": "جارٍ الإنشاء…",
+      "already_have_account": "هل لديك حساب بالفعل؟",
+      "sign_in_link": "تسجيل الدخول",
+      "error_email_taken": "هذا البريد الإلكتروني مسجل مسبقاً",
+      "error_server": "حدث خطأ ما. يرجى المحاولة مجدداً."
+    },
+    "login": {
+      "title": "سجّل دخولك إلى دخلي",
+      "subtitle": "مرحباً بعودتك",
+      "email_label": "البريد الإلكتروني",
+      "email_placeholder": "أنت@بريد.com",
+      "password_label": "كلمة المرور",
+      "password_placeholder": "كلمة مرورك",
+      "submit": "تسجيل الدخول",
+      "submitting": "جارٍ تسجيل الدخول…",
+      "no_account": "ليس لديك حساب؟",
+      "sign_up_link": "إنشاء حساب",
+      "error_invalid": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+      "error_server": "حدث خطأ ما. يرجى المحاولة مجدداً."
+    },
+    "dashboard": {
+      "greeting": "مرحباً، {name}!",
+      "email_label": "البريد الإلكتروني",
+      "sign_out": "تسجيل الخروج"
+    }
   }
 }
