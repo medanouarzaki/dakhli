@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { FinancialAccountType } from "@prisma/client";
 
 const signupBodySchema = z
   .object({
@@ -57,16 +58,30 @@ export async function POST(request: Request) {
       ? "en"
       : "fr";
 
-  // 5. Create user
+  // 5. Create user + default Cash account atomically
+  // Interactive transaction required: FinancialAccount.userId depends on the
+  // user.id generated in the same transaction.
   try {
-    await prisma.user.create({
-      data: {
-        name,
-        email,
-        passwordHash,
-        locale: preferredLocale,
-        baseCurrency: "MAD",
-      },
+    await prisma.$transaction(async (tx) => {
+      const user = await tx.user.create({
+        data: {
+          name,
+          email,
+          passwordHash,
+          locale: preferredLocale,
+          baseCurrency: "MAD",
+        },
+      });
+
+      await tx.financialAccount.create({
+        data: {
+          userId: user.id,
+          name: "Cash",
+          type: FinancialAccountType.CASH,
+          currency: "MAD",
+          balance: 0,
+        },
+      });
     });
   } catch {
     return NextResponse.json({ error: "server_error" }, { status: 500 });
