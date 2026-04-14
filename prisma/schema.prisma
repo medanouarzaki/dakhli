@@ -164,6 +164,7 @@ model Transaction {
 model Category {
   id       String  @id @default(cuid())
   userId   String? // null = system/seed category (Morocco-adapted)
+  code     String? @unique  // stable identifier for system categories (e.g. "expense-food")
   name     String  // "Famille", "Zakat & Sadaqa", "Telecom", ...
   nameEn   String?
   nameAr   String?
