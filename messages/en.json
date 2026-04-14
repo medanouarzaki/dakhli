@@ -4,6 +4,30 @@
     "subtitle": "Your personal finance assistant",
     "welcome": "Welcome to Dakhli"
   },
+  "Transactions": {
+    "page_title": "Transactions",
+    "cta_new": "+ New transaction",
+    "dashboard_link": "View my transactions",
+    "columns": {
+      "date": "Date",
+      "description": "Description",
+      "category": "Category",
+      "account": "Account",
+      "amount": "Amount"
+    },
+    "amount_converted": "≈ {amount} MAD",
+    "category_none": "Uncategorised",
+    "empty": {
+      "title": "No transactions yet",
+      "subtitle": "Start recording your expenses and income",
+      "cta": "+ New transaction"
+    },
+    "new_page": {
+      "title": "New transaction",
+      "coming_soon": "Form coming soon (session T4)",
+      "back": "Back"
+    }
+  },
   "auth": {
     "validation": {
       "name_min": "Name must be at least 2 characters",

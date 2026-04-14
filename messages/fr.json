@@ -4,6 +4,30 @@
     "subtitle": "Votre assistant financier personnel",
     "welcome": "Bienvenue sur Dakhli"
   },
+  "Transactions": {
+    "page_title": "Transactions",
+    "cta_new": "+ Nouvelle transaction",
+    "dashboard_link": "Voir mes transactions",
+    "columns": {
+      "date": "Date",
+      "description": "Description",
+      "category": "Catégorie",
+      "account": "Compte",
+      "amount": "Montant"
+    },
+    "amount_converted": "≈ {amount} MAD",
+    "category_none": "Sans catégorie",
+    "empty": {
+      "title": "Aucune transaction pour l'instant",
+      "subtitle": "Commencez à enregistrer vos dépenses et revenus",
+      "cta": "+ Nouvelle transaction"
+    },
+    "new_page": {
+      "title": "Nouvelle transaction",
+      "coming_soon": "Formulaire à venir (session T4)",
+      "back": "Retour"
+    }
+  },
   "auth": {
     "validation": {
       "name_min": "Le nom doit contenir au moins 2 caractères",

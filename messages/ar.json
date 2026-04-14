@@ -4,6 +4,30 @@
     "subtitle": "مساعدك المالي الشخصي",
     "welcome": "مرحبا بك في دخلي"
   },
+  "Transactions": {
+    "page_title": "المعاملات",
+    "cta_new": "+ معاملة جديدة",
+    "dashboard_link": "عرض معاملاتي",
+    "columns": {
+      "date": "التاريخ",
+      "description": "الوصف",
+      "category": "الفئة",
+      "account": "الحساب",
+      "amount": "المبلغ"
+    },
+    "amount_converted": "≈ {amount} درهم",
+    "category_none": "بدون فئة",
+    "empty": {
+      "title": "لا توجد معاملات حتى الآن",
+      "subtitle": "ابدأ بتسجيل مصاريفك وإيراداتك",
+      "cta": "+ معاملة جديدة"
+    },
+    "new_page": {
+      "title": "معاملة جديدة",
+      "coming_soon": "النموذج قادم (الجلسة T4)",
+      "back": "رجوع"
+    }
+  },
   "auth": {
     "validation": {
       "name_min": "يجب أن يحتوي الاسم على حرفين على الأقل",
