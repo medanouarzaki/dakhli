@@ -131,11 +131,6 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
     // eslint-disable-next-line no-console
     console.log("[TransactionForm] onSubmit called with:", values);
 
-    // Belt-and-suspenders against rapid double-submit.
-    // The button's `disabled` state lags one render behind handleSubmit firing,
-    // so we also short-circuit here if a submission is already in flight.
-    if (form.formState.isSubmitting) return;
-
     // Convert sentinel "no category" value to null before sending
     const categoryId =
       values.categoryId === NONE_VALUE || values.categoryId == null
@@ -143,11 +138,15 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
         : values.categoryId;
 
     try {
+      // eslint-disable-next-line no-console
+      console.log("[TransactionForm] sending fetch with body:", { ...values, categoryId });
       const res = await fetch("/api/transactions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, categoryId }),
       });
+      // eslint-disable-next-line no-console
+      console.log("[TransactionForm] fetch response status:", res.status);
 
       if (res.ok) {
         toast.success(t("form.success_toast"));
