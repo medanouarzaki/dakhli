@@ -128,6 +128,9 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
   // ─── Submit ─────────────────────────────────────────────────────────────
 
   async function onSubmit(values: CreateTransactionInput) {
+    // eslint-disable-next-line no-console
+    console.log("[TransactionForm] onSubmit called with:", values);
+
     // Belt-and-suspenders against rapid double-submit.
     // The button's `disabled` state lags one render behind handleSubmit firing,
     // so we also short-circuit here if a submission is already in flight.
@@ -178,7 +181,11 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
       <CardContent>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(onSubmit, (errors) => {
+              // eslint-disable-next-line no-console
+              console.error("[TransactionForm] validation errors:", errors);
+              console.error("[TransactionForm] form values:", form.getValues());
+            })}
             className="space-y-5"
             noValidate
           >
