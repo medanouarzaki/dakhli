@@ -128,9 +128,6 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
   // ─── Submit ─────────────────────────────────────────────────────────────
 
   async function onSubmit(values: CreateTransactionInput) {
-    // eslint-disable-next-line no-console
-    console.log("[TransactionForm] onSubmit called with:", values);
-
     // Convert sentinel "no category" value to null before sending
     const categoryId =
       values.categoryId === NONE_VALUE || values.categoryId == null
@@ -138,15 +135,11 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
         : values.categoryId;
 
     try {
-      // eslint-disable-next-line no-console
-      console.log("[TransactionForm] sending fetch with body:", { ...values, categoryId });
       const res = await fetch("/api/transactions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, categoryId }),
       });
-      // eslint-disable-next-line no-console
-      console.log("[TransactionForm] fetch response status:", res.status);
 
       if (res.ok) {
         toast.success(t("form.success_toast"));
@@ -180,11 +173,7 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
       <CardContent>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit, (errors) => {
-              // eslint-disable-next-line no-console
-              console.error("[TransactionForm] validation errors:", errors);
-              console.error("[TransactionForm] form values:", form.getValues());
-            })}
+            onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-5"
             noValidate
           >
