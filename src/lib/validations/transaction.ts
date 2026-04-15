@@ -12,7 +12,10 @@ export const createTransactionSchema = z.object({
     .min(2, "Transactions.validation.description_min")
     .max(120, "Transactions.validation.description_max"),
   amount: z.coerce
-    .number()
+    .number({
+      required_error: "Transactions.validation.amount_positive",
+      invalid_type_error: "Transactions.validation.amount_positive",
+    })
     .positive("Transactions.validation.amount_positive")
     .max(99_999_999.99, "Transactions.validation.amount_too_large"),
   occurredAt: z

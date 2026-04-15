@@ -88,7 +88,13 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
     const localKey = key.startsWith("Transactions.")
       ? key.slice("Transactions.".length)
       : key;
-    return t(localKey as Parameters<typeof t>[0]);
+    try {
+      return t(localKey as Parameters<typeof t>[0]);
+    } catch {
+      // Defensive: if Zod returned a raw English message that isn't an i18n key,
+      // fall back to a generic validation error rather than crashing the form.
+      return t("form.error_validation");
+    }
   };
 
   const cashAccount = accounts.find((a) => a.type === "CASH");
