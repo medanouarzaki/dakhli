@@ -26,6 +26,38 @@
       "title": "معاملة جديدة",
       "coming_soon": "النموذج قادم (الجلسة T4)",
       "back": "رجوع"
+    },
+    "form": {
+      "title": "معاملة جديدة",
+      "subtitle": "سجّل مصروفاً أو إيراداً",
+      "type_label": "النوع",
+      "type_expense": "مصروف",
+      "type_income": "إيراد",
+      "amount_label": "المبلغ",
+      "amount_placeholder": "0.00",
+      "description_label": "الوصف",
+      "description_placeholder": "مثال: تسوق من مرجان",
+      "category_label": "الفئة",
+      "category_placeholder": "اختر فئة",
+      "category_none": "بدون فئة",
+      "account_label": "الحساب",
+      "account_placeholder": "اختر حساباً",
+      "date_label": "التاريخ",
+      "submit": "حفظ",
+      "submitting": "جارٍ الحفظ…",
+      "back": "رجوع",
+      "success_toast": "تم تسجيل المعاملة",
+      "error_validation": "يرجى مراجعة حقول النموذج",
+      "error_server": "حدث خطأ ما. يرجى المحاولة مجدداً."
+    },
+    "validation": {
+      "type_required": "النوع مطلوب",
+      "account_required": "الحساب مطلوب",
+      "description_min": "يجب أن يحتوي الوصف على حرفين على الأقل",
+      "description_max": "لا يمكن أن يتجاوز الوصف 120 حرفاً",
+      "amount_positive": "يجب أن يكون المبلغ أكبر من 0",
+      "amount_too_large": "المبلغ كبير جداً",
+      "date_required": "التاريخ مطلوب"
     }
   },
   "auth": {

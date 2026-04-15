@@ -26,6 +26,38 @@
       "title": "Nouvelle transaction",
       "coming_soon": "Formulaire à venir (session T4)",
       "back": "Retour"
+    },
+    "form": {
+      "title": "Nouvelle transaction",
+      "subtitle": "Enregistrez une dépense ou un revenu",
+      "type_label": "Type",
+      "type_expense": "Dépense",
+      "type_income": "Revenu",
+      "amount_label": "Montant",
+      "amount_placeholder": "0,00",
+      "description_label": "Description",
+      "description_placeholder": "Ex : Courses Marjane",
+      "category_label": "Catégorie",
+      "category_placeholder": "Choisir une catégorie",
+      "category_none": "Sans catégorie",
+      "account_label": "Compte",
+      "account_placeholder": "Choisir un compte",
+      "date_label": "Date",
+      "submit": "Enregistrer",
+      "submitting": "Enregistrement…",
+      "back": "Retour",
+      "success_toast": "Transaction enregistrée",
+      "error_validation": "Vérifiez les champs du formulaire",
+      "error_server": "Une erreur est survenue. Réessayez."
+    },
+    "validation": {
+      "type_required": "Le type est requis",
+      "account_required": "Le compte est requis",
+      "description_min": "La description doit contenir au moins 2 caractères",
+      "description_max": "La description ne peut pas dépasser 120 caractères",
+      "amount_positive": "Le montant doit être supérieur à 0",
+      "amount_too_large": "Montant trop élevé",
+      "date_required": "La date est requise"
     }
   },
   "auth": {

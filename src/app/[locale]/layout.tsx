@@ -5,9 +5,11 @@ import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { AuthSessionProvider } from "@/components/providers/session-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
+import { RadixDirectionProvider } from "@/components/providers/direction-provider";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -52,20 +54,25 @@ export default async function LocaleLayout({
   // to any client components in the subtree.
   const messages = await getMessages();
 
+  const direction = locale === "ar" ? "rtl" : "ltr";
+
   return (
     <html
       lang={locale}
-      dir={locale === "ar" ? "rtl" : "ltr"}
+      dir={direction}
       className={cn("font-sans", geistSans.variable)}
     >
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthSessionProvider>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </AuthSessionProvider>
+        <RadixDirectionProvider dir={direction}>
+          <AuthSessionProvider>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              {children}
+              <Toaster />
+            </NextIntlClientProvider>
+          </AuthSessionProvider>
+        </RadixDirectionProvider>
       </body>
     </html>
   );

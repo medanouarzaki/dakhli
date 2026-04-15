@@ -26,6 +26,38 @@
       "title": "New transaction",
       "coming_soon": "Form coming soon (session T4)",
       "back": "Back"
+    },
+    "form": {
+      "title": "New transaction",
+      "subtitle": "Record an expense or income",
+      "type_label": "Type",
+      "type_expense": "Expense",
+      "type_income": "Income",
+      "amount_label": "Amount",
+      "amount_placeholder": "0.00",
+      "description_label": "Description",
+      "description_placeholder": "e.g. Carrefour groceries",
+      "category_label": "Category",
+      "category_placeholder": "Choose a category",
+      "category_none": "No category",
+      "account_label": "Account",
+      "account_placeholder": "Choose an account",
+      "date_label": "Date",
+      "submit": "Save",
+      "submitting": "Saving…",
+      "back": "Back",
+      "success_toast": "Transaction saved",
+      "error_validation": "Please check the form fields",
+      "error_server": "Something went wrong. Please try again."
+    },
+    "validation": {
+      "type_required": "Type is required",
+      "account_required": "Account is required",
+      "description_min": "Description must be at least 2 characters",
+      "description_max": "Description cannot exceed 120 characters",
+      "amount_positive": "Amount must be greater than 0",
+      "amount_too_large": "Amount is too large",
+      "date_required": "Date is required"
     }
   },
   "auth": {
