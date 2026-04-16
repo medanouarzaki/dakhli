@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -64,6 +64,16 @@ type Props = {
   accounts: AccountProp[];
   categories: CategoryProp[];
   locale: string;
+  mode?: "create" | "edit";
+  transactionId?: string;
+  initialValues?: {
+    type: "INCOME" | "EXPENSE";
+    accountId: string;
+    categoryId: string | null;
+    description: string;
+    amount: number;
+    occurredAt: string; // YYYY-MM-DD
+  };
 };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -78,7 +88,20 @@ function getCategoryName(cat: CategoryProp, locale: string): string {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export function TransactionForm({ accounts, categories, locale }: Props) {
+export function TransactionForm({
+  accounts,
+  categories,
+  locale,
+  mode = "create",
+  transactionId,
+  initialValues,
+}: Props) {
+  if (mode === "edit" && (!transactionId || !initialValues)) {
+    throw new Error(
+      "TransactionForm: mode='edit' requires both transactionId and initialValues."
+    );
+  }
+
   const t = useTranslations("Transactions");
   const router = useRouter();
 
@@ -103,21 +126,37 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
 
   const form = useForm<CreateTransactionInput>({
     resolver: zodResolver(createTransactionSchema),
-    defaultValues: {
-      type: "EXPENSE",
-      accountId: defaultAccountId,
-      categoryId: undefined,
-      description: "",
-      occurredAt: today,
-    },
+    defaultValues:
+      mode === "edit" && initialValues
+        ? {
+            type: initialValues.type,
+            accountId: initialValues.accountId,
+            categoryId: initialValues.categoryId ?? undefined,
+            description: initialValues.description,
+            amount: initialValues.amount,
+            occurredAt: initialValues.occurredAt,
+          }
+        : {
+            type: "EXPENSE",
+            accountId: defaultAccountId,
+            categoryId: undefined,
+            description: "",
+            occurredAt: today,
+          },
   });
 
   const { setValue, watch } = form;
   const watchedType = watch("type");
   const isSubmitting = form.formState.isSubmitting;
 
-  // Reset category whenever the transaction type changes
+  // Skip the very first render so the pre-selected category in edit mode
+  // is not wiped immediately on mount.
+  const isFirstRender = useRef(true);
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     setValue("categoryId", undefined);
   }, [watchedType, setValue]);
 
@@ -134,15 +173,25 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
         ? null
         : values.categoryId;
 
+    const url =
+      mode === "edit"
+        ? `/api/transactions/${transactionId}`
+        : "/api/transactions";
+    const method = mode === "edit" ? "PATCH" : "POST";
+
     try {
-      const res = await fetch("/api/transactions", {
-        method: "POST",
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, categoryId }),
       });
 
       if (res.ok) {
-        toast.success(t("form.success_toast"));
+        toast.success(
+          mode === "edit"
+            ? t("form.success_toast_updated")
+            : t("form.success_toast")
+        );
         router.push(`/${locale}/transactions`);
         router.refresh();
         return;
@@ -166,8 +215,12 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
   return (
     <Card>
       <CardHeader className="space-y-1">
-        <CardTitle className="text-xl">{t("form.title")}</CardTitle>
-        <CardDescription>{t("form.subtitle")}</CardDescription>
+        <CardTitle className="text-xl">
+          {mode === "edit" ? t("form.title_edit") : t("form.title")}
+        </CardTitle>
+        <CardDescription>
+          {mode === "edit" ? t("form.subtitle_edit") : t("form.subtitle")}
+        </CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -402,8 +455,12 @@ export function TransactionForm({ accounts, categories, locale }: Props) {
               {isSubmitting ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />
-                  {t("form.submitting")}
+                  {mode === "edit"
+                    ? t("form.submitting_edit")
+                    : t("form.submitting")}
                 </>
+              ) : mode === "edit" ? (
+                t("form.submit_edit")
               ) : (
                 t("form.submit")
               )}

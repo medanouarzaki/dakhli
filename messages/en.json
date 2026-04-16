@@ -47,8 +47,26 @@
       "submitting": "Saving…",
       "back": "Back",
       "success_toast": "Transaction saved",
+      "success_toast_updated": "Transaction updated",
+      "title_edit": "Edit transaction",
+      "subtitle_edit": "Update the details of this transaction",
+      "submit_edit": "Update",
+      "submitting_edit": "Updating…",
       "error_validation": "Please check the form fields",
       "error_server": "Something went wrong. Please try again."
+    },
+    "row_actions": {
+      "delete": "Delete",
+      "edit_aria": "Edit transaction"
+    },
+    "delete_dialog": {
+      "title": "Delete this transaction?",
+      "description": "This action is permanent. The transaction will be removed from your list.",
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "deleting": "Deleting…",
+      "success_toast": "Transaction deleted",
+      "error_toast": "Deletion failed. Please try again."
     },
     "validation": {
       "type_required": "Type is required",

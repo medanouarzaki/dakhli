@@ -47,8 +47,26 @@
       "submitting": "Enregistrement…",
       "back": "Retour",
       "success_toast": "Transaction enregistrée",
+      "success_toast_updated": "Transaction mise à jour",
+      "title_edit": "Modifier la transaction",
+      "subtitle_edit": "Mettez à jour les informations de cette transaction",
+      "submit_edit": "Mettre à jour",
+      "submitting_edit": "Mise à jour…",
       "error_validation": "Vérifiez les champs du formulaire",
       "error_server": "Une erreur est survenue. Réessayez."
+    },
+    "row_actions": {
+      "delete": "Supprimer",
+      "edit_aria": "Modifier la transaction"
+    },
+    "delete_dialog": {
+      "title": "Supprimer cette transaction ?",
+      "description": "Cette action est définitive. La transaction sera retirée de votre liste.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "deleting": "Suppression…",
+      "success_toast": "Transaction supprimée",
+      "error_toast": "La suppression a échoué. Réessayez."
     },
     "validation": {
       "type_required": "Le type est requis",

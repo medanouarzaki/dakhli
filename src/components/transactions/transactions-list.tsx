@@ -4,12 +4,11 @@ import { getTranslations } from "next-intl/server";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { AmountDisplay } from "./amount-display";
+import { TransactionRow, type TransactionRowData } from "./transaction-row";
 
 type TransactionWithRelations = Prisma.TransactionGetPayload<{
   include: { category: true; account: true };
@@ -33,10 +32,13 @@ export async function TransactionsList({ transactions, locale }: Props) {
             <TableHead>{t("columns.category")}</TableHead>
             <TableHead>{t("columns.account")}</TableHead>
             <TableHead className="text-right">{t("columns.amount")}</TableHead>
+            {/* Empty header for the actions column */}
+            <TableHead className="w-10" />
           </TableRow>
         </TableHeader>
         <TableBody>
           {transactions.map((tx) => {
+            // Pre-compute locale-aware category name server-side
             const categoryName =
               tx.category === null
                 ? null
@@ -46,56 +48,28 @@ export async function TransactionsList({ transactions, locale }: Props) {
                     ? (tx.category.nameEn ?? tx.category.name)
                     : tx.category.name;
 
-            return (
-              <TableRow key={tx.id}>
-                {/* Date */}
-                <TableCell className="whitespace-nowrap text-sm text-muted-foreground">
-                  {new Intl.DateTimeFormat(locale, {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  }).format(new Date(tx.occurredAt))}
-                </TableCell>
+            // Pre-format date server-side so no Date object crosses the RSC boundary
+            const formattedDate = new Intl.DateTimeFormat(locale, {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            }).format(new Date(tx.occurredAt));
 
-                {/* Description */}
-                <TableCell className="font-medium">{tx.description}</TableCell>
+            // Serialize Prisma Decimal to plain number before passing to client
+            const rowData: TransactionRowData = {
+              id: tx.id,
+              type: tx.type,
+              description: tx.description,
+              formattedDate,
+              amount: Number(tx.amount),
+              currency: tx.currency,
+              amountMAD: Number(tx.amountMAD),
+              accountName: tx.account.name,
+              categoryName,
+              categoryColor: tx.category?.color ?? null,
+            };
 
-                {/* Category */}
-                <TableCell>
-                  {categoryName !== null ? (
-                    <span className="inline-flex items-center gap-2">
-                      <span
-                        className="h-2.5 w-2.5 shrink-0 rounded-full"
-                        style={{
-                          backgroundColor: tx.category?.color ?? "#94a3b8",
-                        }}
-                      />
-                      <span className="text-sm">{categoryName}</span>
-                    </span>
-                  ) : (
-                    <span className="text-sm text-muted-foreground">
-                      {t("category_none")}
-                    </span>
-                  )}
-                </TableCell>
-
-                {/* Account */}
-                <TableCell className="text-sm text-muted-foreground">
-                  {tx.account.name}
-                </TableCell>
-
-                {/* Amount */}
-                <TableCell className="text-right">
-                  <AmountDisplay
-                    amount={tx.amount}
-                    currency={tx.currency}
-                    amountMAD={tx.amountMAD}
-                    type={tx.type}
-                    locale={locale}
-                  />
-                </TableCell>
-              </TableRow>
-            );
+            return <TransactionRow key={tx.id} tx={rowData} locale={locale} />;
           })}
         </TableBody>
       </Table>

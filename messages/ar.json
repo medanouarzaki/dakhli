@@ -47,8 +47,26 @@
       "submitting": "جارٍ الحفظ…",
       "back": "رجوع",
       "success_toast": "تم تسجيل المعاملة",
+      "success_toast_updated": "تم تحديث المعاملة",
+      "title_edit": "تعديل المعاملة",
+      "subtitle_edit": "قم بتحديث تفاصيل هذه المعاملة",
+      "submit_edit": "تحديث",
+      "submitting_edit": "جارٍ التحديث…",
       "error_validation": "يرجى مراجعة حقول النموذج",
       "error_server": "حدث خطأ ما. يرجى المحاولة مجدداً."
+    },
+    "row_actions": {
+      "delete": "حذف",
+      "edit_aria": "تعديل المعاملة"
+    },
+    "delete_dialog": {
+      "title": "حذف هذه المعاملة؟",
+      "description": "هذا الإجراء نهائي. ستُزال المعاملة من قائمتك.",
+      "cancel": "إلغاء",
+      "confirm": "حذف",
+      "deleting": "جارٍ الحذف…",
+      "success_toast": "تم حذف المعاملة",
+      "error_toast": "فشل الحذف. يرجى المحاولة مجدداً."
     },
     "validation": {
       "type_required": "النوع مطلوب",

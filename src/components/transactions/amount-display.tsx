@@ -1,24 +1,24 @@
-// Server Component — no interactivity needed, purely presentational.
-import { Decimal } from "@prisma/client/runtime/library";
-import { getTranslations } from "next-intl/server";
-import { TransactionType } from "@prisma/client";
+"use client";
+
+import { useTranslations } from "next-intl";
+import type { TransactionType } from "@prisma/client";
 
 type Props = {
-  amount: Decimal;
+  amount: number;
   currency: string;
-  amountMAD: Decimal;
+  amountMAD: number;
   type: TransactionType;
   locale: string;
 };
 
-export async function AmountDisplay({
+export function AmountDisplay({
   amount,
   currency,
   amountMAD,
   type,
   locale,
 }: Props) {
-  const t = await getTranslations("Transactions");
+  const t = useTranslations("Transactions");
 
   const colorClass =
     type === "INCOME"
@@ -29,13 +29,10 @@ export async function AmountDisplay({
 
   const sign = type === "INCOME" ? "+" : type === "EXPENSE" ? "−" : "";
 
-  const amountNum = Number(amount);
-  const amountMADNum = Number(amountMAD);
-
   const formattedAmount = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
-  }).format(amountNum);
+  }).format(amount);
 
   // Only show MAD conversion when the original currency is not MAD
   const showConversion = currency !== "MAD";
@@ -44,7 +41,7 @@ export async function AmountDisplay({
         style: "currency",
         currency: "MAD",
         maximumFractionDigits: 2,
-      }).format(amountMADNum)
+      }).format(amountMAD)
     : null;
 
   return (
