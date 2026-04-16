@@ -78,6 +78,38 @@
       "date_required": "La date est requise"
     }
   },
+  "Dashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bonjour, {name}",
+    "period": {
+      "this_month": "Ce mois",
+      "last_month": "Mois dernier",
+      "last_3_months": "3 derniers mois",
+      "this_year": "Cette année",
+      "all": "Tout"
+    },
+    "kpi": {
+      "income": "Revenus",
+      "expense": "Dépenses",
+      "net": "Solde net",
+      "tx_count": "Transactions",
+      "vs_previous": "vs période précédente"
+    },
+    "sections": {
+      "breakdown": "Dépenses par catégorie",
+      "series": "Revenus vs dépenses",
+      "top_categories": "Top catégories",
+      "recent": "Transactions récentes",
+      "heatmap": "Dépenses par jour de semaine"
+    },
+    "empty": {
+      "title": "Pas encore de données",
+      "subtitle": "Créez votre première transaction pour voir vos statistiques",
+      "cta": "Créer une transaction",
+      "no_data_period": "Aucune donnée sur cette période",
+      "no_expense_period": "Aucune dépense sur cette période"
+    }
+  },
   "auth": {
     "validation": {
       "name_min": "Le nom doit contenir au moins 2 caractères",

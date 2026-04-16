@@ -78,6 +78,38 @@
       "date_required": "Date is required"
     }
   },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcome": "Hello, {name}",
+    "period": {
+      "this_month": "This month",
+      "last_month": "Last month",
+      "last_3_months": "Last 3 months",
+      "this_year": "This year",
+      "all": "All time"
+    },
+    "kpi": {
+      "income": "Income",
+      "expense": "Expenses",
+      "net": "Net balance",
+      "tx_count": "Transactions",
+      "vs_previous": "vs previous period"
+    },
+    "sections": {
+      "breakdown": "Expenses by category",
+      "series": "Income vs expenses",
+      "top_categories": "Top categories",
+      "recent": "Recent transactions",
+      "heatmap": "Expenses by day of week"
+    },
+    "empty": {
+      "title": "No data yet",
+      "subtitle": "Create your first transaction to see your statistics",
+      "cta": "Create a transaction",
+      "no_data_period": "No data for this period",
+      "no_expense_period": "No expenses for this period"
+    }
+  },
   "auth": {
     "validation": {
       "name_min": "Name must be at least 2 characters",
