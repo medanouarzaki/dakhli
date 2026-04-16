@@ -6,6 +6,7 @@ import Link from "next/link";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
+import { AppNav } from "@/components/nav/AppNav";
 import { TransactionForm } from "@/components/transactions/transaction-form";
 
 type Props = {
@@ -72,21 +73,28 @@ export default async function EditTransactionPage({
   };
 
   return (
-    <div className="min-h-screen bg-muted/40 px-4 py-8">
-      <div className="mx-auto max-w-lg space-y-6">
-        <Button variant="ghost" size="sm" asChild className="-ms-2">
-          <Link href={`/${locale}/transactions`}>← {t("form.back")}</Link>
-        </Button>
+    <>
+      <AppNav
+        locale={locale}
+        userName={session.user.name ?? null}
+        userEmail={session.user.email!}
+      />
+      <div className="min-h-[calc(100vh-3.5rem)] bg-muted/40 px-4 py-8">
+        <div className="mx-auto max-w-lg space-y-6">
+          <Button variant="ghost" size="sm" asChild className="-ms-2">
+            <Link href={`/${locale}/transactions`}>← {t("form.back")}</Link>
+          </Button>
 
-        <TransactionForm
-          accounts={accounts}
-          categories={categories}
-          locale={locale}
-          mode="edit"
-          transactionId={tx.id}
-          initialValues={initialValues}
-        />
+          <TransactionForm
+            accounts={accounts}
+            categories={categories}
+            locale={locale}
+            mode="edit"
+            transactionId={tx.id}
+            initialValues={initialValues}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

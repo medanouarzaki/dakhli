@@ -4,6 +4,11 @@
     "subtitle": "مساعدك المالي الشخصي",
     "welcome": "مرحبا بك في دخلي"
   },
+  "Nav": {
+    "dashboard": "لوحة التحكم",
+    "transactions": "المعاملات",
+    "budgets": "الميزانيات"
+  },
   "Transactions": {
     "page_title": "المعاملات",
     "cta_new": "+ معاملة جديدة",
@@ -76,6 +81,61 @@
       "amount_positive": "يجب أن يكون المبلغ أكبر من 0",
       "amount_too_large": "المبلغ كبير جداً",
       "date_required": "التاريخ مطلوب"
+    }
+  },
+  "Budgets": {
+    "page_title": "ميزانياتي",
+    "cta_new": "+ ميزانية جديدة",
+    "empty": {
+      "title": "لا توجد ميزانيات محددة",
+      "subtitle": "حدّد حدوداً شهرية لفئات مصاريفك",
+      "cta": "إنشاء ميزانية"
+    },
+    "form": {
+      "title": "ميزانية جديدة",
+      "subtitle": "حدّد سقفاً شهرياً لفئة معينة",
+      "title_edit": "تعديل الميزانية",
+      "subtitle_edit": "اضبط الحدّ الشهري",
+      "category_label": "الفئة",
+      "category_placeholder": "اختر فئة",
+      "amount_label": "الحدّ الشهري",
+      "amount_placeholder": "0",
+      "submit": "إنشاء الميزانية",
+      "submitting": "جارٍ الإنشاء…",
+      "submit_edit": "تحديث",
+      "submitting_edit": "جارٍ التحديث…",
+      "back": "رجوع",
+      "success_toast": "تم إنشاء الميزانية",
+      "success_toast_updated": "تم تحديث الميزانية",
+      "error_validation": "يرجى مراجعة الحقول",
+      "error_already_exists": "توجد ميزانية بالفعل لهذه الفئة",
+      "error_server": "حدث خطأ ما. يرجى المحاولة مجدداً.",
+      "no_categories_left": "جميع فئات مصاريفك لديها ميزانية بالفعل"
+    },
+    "card": {
+      "per_month": "/ شهر",
+      "consumed": "تم إنفاق {consumed} درهم",
+      "remaining": "متبقٍ {remaining} درهم",
+      "exceeded_by": "تجاوز بـ {amount} درهم"
+    },
+    "delete_dialog": {
+      "title": "حذف هذه الميزانية؟",
+      "description": "سيتم إزالة الحدّ الشهري لهذه الفئة.",
+      "cancel": "إلغاء",
+      "confirm": "حذف",
+      "deleting": "جارٍ الحذف…",
+      "success_toast": "تم حذف الميزانية",
+      "error_toast": "فشل الحذف. يرجى المحاولة مجدداً."
+    },
+    "validation": {
+      "category_required": "الفئة مطلوبة",
+      "amount_positive": "يجب أن يكون المبلغ أكبر من 0",
+      "amount_too_large": "المبلغ كبير جداً"
+    },
+    "dashboard_section": {
+      "title": "متابعة الميزانيات",
+      "no_budgets": "لا توجد ميزانيات محددة",
+      "cta_manage": "إدارة الميزانيات"
     }
   },
   "Dashboard": {

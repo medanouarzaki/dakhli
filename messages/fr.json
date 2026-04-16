@@ -4,6 +4,11 @@
     "subtitle": "Votre assistant financier personnel",
     "welcome": "Bienvenue sur Dakhli"
   },
+  "Nav": {
+    "dashboard": "Tableau de bord",
+    "transactions": "Transactions",
+    "budgets": "Budgets"
+  },
   "Transactions": {
     "page_title": "Transactions",
     "cta_new": "+ Nouvelle transaction",
@@ -76,6 +81,61 @@
       "amount_positive": "Le montant doit être supérieur à 0",
       "amount_too_large": "Montant trop élevé",
       "date_required": "La date est requise"
+    }
+  },
+  "Budgets": {
+    "page_title": "Mes budgets",
+    "cta_new": "+ Nouveau budget",
+    "empty": {
+      "title": "Aucun budget défini",
+      "subtitle": "Définissez des limites mensuelles pour vos catégories de dépenses",
+      "cta": "Créer un budget"
+    },
+    "form": {
+      "title": "Nouveau budget",
+      "subtitle": "Définissez une limite mensuelle pour une catégorie",
+      "title_edit": "Modifier le budget",
+      "subtitle_edit": "Ajustez la limite mensuelle",
+      "category_label": "Catégorie",
+      "category_placeholder": "Choisir une catégorie",
+      "amount_label": "Limite mensuelle",
+      "amount_placeholder": "0",
+      "submit": "Créer le budget",
+      "submitting": "Création…",
+      "submit_edit": "Mettre à jour",
+      "submitting_edit": "Mise à jour…",
+      "back": "Retour",
+      "success_toast": "Budget créé",
+      "success_toast_updated": "Budget mis à jour",
+      "error_validation": "Vérifiez les champs",
+      "error_already_exists": "Un budget existe déjà pour cette catégorie",
+      "error_server": "Une erreur est survenue. Réessayez.",
+      "no_categories_left": "Toutes vos catégories de dépenses ont déjà un budget"
+    },
+    "card": {
+      "per_month": "/ mois",
+      "consumed": "{consumed} MAD dépensés",
+      "remaining": "{remaining} MAD restants",
+      "exceeded_by": "Dépassé de {amount} MAD"
+    },
+    "delete_dialog": {
+      "title": "Supprimer ce budget ?",
+      "description": "La limite mensuelle pour cette catégorie sera retirée.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "deleting": "Suppression…",
+      "success_toast": "Budget supprimé",
+      "error_toast": "La suppression a échoué. Réessayez."
+    },
+    "validation": {
+      "category_required": "La catégorie est requise",
+      "amount_positive": "Le montant doit être supérieur à 0",
+      "amount_too_large": "Montant trop élevé"
+    },
+    "dashboard_section": {
+      "title": "Suivi des budgets",
+      "no_budgets": "Aucun budget défini",
+      "cta_manage": "Gérer les budgets"
     }
   },
   "Dashboard": {

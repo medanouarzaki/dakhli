@@ -6,6 +6,7 @@ import Link from "next/link";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
+import { AppNav } from "@/components/nav/AppNav";
 import { TransactionsList } from "@/components/transactions/transactions-list";
 import { EmptyState } from "@/components/transactions/empty-state";
 
@@ -35,21 +36,28 @@ export default async function TransactionsPage({ params: { locale } }: Props) {
   });
 
   return (
-    <div className="min-h-screen bg-muted/40 px-4 py-8">
-      <div className="mx-auto max-w-5xl space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">{t("page_title")}</h1>
-          <Button asChild>
-            <Link href={`/${locale}/transactions/new`}>{t("cta_new")}</Link>
-          </Button>
-        </div>
+    <>
+      <AppNav
+        locale={locale}
+        userName={session.user.name ?? null}
+        userEmail={session.user.email!}
+      />
+      <div className="min-h-[calc(100vh-3.5rem)] bg-muted/40 px-4 py-8">
+        <div className="mx-auto max-w-5xl space-y-6">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold">{t("page_title")}</h1>
+            <Button asChild>
+              <Link href={`/${locale}/transactions/new`}>{t("cta_new")}</Link>
+            </Button>
+          </div>
 
-        {transactions.length === 0 ? (
-          <EmptyState locale={locale} />
-        ) : (
-          <TransactionsList transactions={transactions} locale={locale} />
-        )}
+          {transactions.length === 0 ? (
+            <EmptyState locale={locale} />
+          ) : (
+            <TransactionsList transactions={transactions} locale={locale} />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

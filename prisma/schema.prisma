@@ -194,7 +194,7 @@ model Budget {
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   category Category @relation(fields: [categoryId], references: [id])
 
-  @@unique([userId, categoryId, period])
+  @@index([userId, categoryId, period])
 }
 
 model Goal {

@@ -4,6 +4,11 @@
     "subtitle": "Your personal finance assistant",
     "welcome": "Welcome to Dakhli"
   },
+  "Nav": {
+    "dashboard": "Dashboard",
+    "transactions": "Transactions",
+    "budgets": "Budgets"
+  },
   "Transactions": {
     "page_title": "Transactions",
     "cta_new": "+ New transaction",
@@ -76,6 +81,61 @@
       "amount_positive": "Amount must be greater than 0",
       "amount_too_large": "Amount is too large",
       "date_required": "Date is required"
+    }
+  },
+  "Budgets": {
+    "page_title": "My budgets",
+    "cta_new": "+ New budget",
+    "empty": {
+      "title": "No budgets set",
+      "subtitle": "Define monthly limits for your expense categories",
+      "cta": "Create a budget"
+    },
+    "form": {
+      "title": "New budget",
+      "subtitle": "Set a monthly limit for a category",
+      "title_edit": "Edit budget",
+      "subtitle_edit": "Adjust the monthly limit",
+      "category_label": "Category",
+      "category_placeholder": "Choose a category",
+      "amount_label": "Monthly limit",
+      "amount_placeholder": "0",
+      "submit": "Create budget",
+      "submitting": "Creating…",
+      "submit_edit": "Update",
+      "submitting_edit": "Updating…",
+      "back": "Back",
+      "success_toast": "Budget created",
+      "success_toast_updated": "Budget updated",
+      "error_validation": "Please check the fields",
+      "error_already_exists": "A budget already exists for this category",
+      "error_server": "Something went wrong. Please try again.",
+      "no_categories_left": "All your expense categories already have a budget"
+    },
+    "card": {
+      "per_month": "/ month",
+      "consumed": "{consumed} MAD spent",
+      "remaining": "{remaining} MAD remaining",
+      "exceeded_by": "Exceeded by {amount} MAD"
+    },
+    "delete_dialog": {
+      "title": "Delete this budget?",
+      "description": "The monthly limit for this category will be removed.",
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "deleting": "Deleting…",
+      "success_toast": "Budget deleted",
+      "error_toast": "Deletion failed. Please try again."
+    },
+    "validation": {
+      "category_required": "Category is required",
+      "amount_positive": "Amount must be greater than 0",
+      "amount_too_large": "Amount is too large"
+    },
+    "dashboard_section": {
+      "title": "Budget tracking",
+      "no_budgets": "No budgets set",
+      "cta_manage": "Manage budgets"
     }
   },
   "Dashboard": {
