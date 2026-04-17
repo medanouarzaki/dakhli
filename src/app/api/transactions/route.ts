@@ -69,6 +69,8 @@ export async function POST(request: Request) {
   }
 
   // 6. Create transaction — MAD only in T4
+  const rawBody = body as Record<string, unknown>;
+
   try {
     const occurredAt = new Date(input.occurredAt + "T00:00:00.000Z");
 
@@ -85,7 +87,8 @@ export async function POST(request: Request) {
         exchangeRate: 1,
         occurredAt,
         source: TransactionSource.MANUAL,
-        aiCategorized: false,
+        aiCategorized: typeof rawBody.aiCategorized === "boolean" ? rawBody.aiCategorized : false,
+        aiConfidence: typeof rawBody.aiConfidence === "number" ? rawBody.aiConfidence : null,
         isAnomaly: false,
       },
       select: { id: true },

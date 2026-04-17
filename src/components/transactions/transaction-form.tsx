@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, Sparkles } from "lucide-react";
 import type { FinancialAccountType, TransactionType } from "@prisma/client";
 
 import {
@@ -75,6 +75,15 @@ type Props = {
     occurredAt: string; // YYYY-MM-DD
   };
 };
+
+type AiSuggestion = {
+  categoryId: string;
+  categoryCode: string;
+  categoryName: string;
+  categoryNameEn: string | null;
+  categoryNameAr: string | null;
+  confidence: number;
+} | null;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -149,6 +158,95 @@ export function TransactionForm({
   const watchedType = watch("type");
   const isSubmitting = form.formState.isSubmitting;
 
+  // ─── AI suggestion state ─────────────────────────────────────────────────
+
+  const [aiSuggestion, setAiSuggestion] = useState<AiSuggestion>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastDescriptionRef = useRef<string>("");
+  const lastAiCategoryIdRef = useRef<string | null>(null);
+
+  const fetchAiSuggestion = useCallback(
+    async (description: string, type: string) => {
+      if (description.trim().length < 3 || mode === "edit") return;
+
+      // Don't re-fetch if description hasn't changed
+      if (description === lastDescriptionRef.current) return;
+      lastDescriptionRef.current = description;
+
+      setAiLoading(true);
+      try {
+        const res = await fetch("/api/ai/categorize", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ description: description.trim(), type }),
+        });
+
+        if (!res.ok) {
+          setAiSuggestion(null);
+          return;
+        }
+
+        const data = (await res.json()) as { suggestion: AiSuggestion };
+
+        if (data.suggestion && data.suggestion.confidence >= 0.5) {
+          setAiSuggestion(data.suggestion);
+
+          // Auto-select the category if user hasn't manually chosen a different one.
+          // If currentCat matches the previous AI suggestion, the user passively
+          // accepted it — so we update to the new suggestion.
+          const currentCat = form.getValues("categoryId");
+          const isUntouched =
+            !currentCat ||
+            currentCat === "" ||
+            currentCat === "__none__" ||
+            currentCat === lastAiCategoryIdRef.current;
+
+          if (isUntouched) {
+            form.setValue("categoryId", data.suggestion.categoryId);
+          }
+          lastAiCategoryIdRef.current = data.suggestion.categoryId;
+        } else {
+          setAiSuggestion(null);
+        }
+      } catch {
+        setAiSuggestion(null);
+      } finally {
+        setAiLoading(false);
+      }
+    },
+    [mode, form]
+  );
+
+  // ─── Debounce on description field ──────────────────────────────────────
+
+  const watchedDescription = watch("description");
+
+  useEffect(() => {
+    // Clear previous debounce
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    // Don't trigger AI in edit mode
+    if (mode === "edit") return;
+
+    // Don't trigger if description is too short
+    if (!watchedDescription || watchedDescription.trim().length < 3) {
+      setAiSuggestion(null);
+      return;
+    }
+
+    // Debounce 500ms
+    debounceRef.current = setTimeout(() => {
+      fetchAiSuggestion(watchedDescription, watchedType);
+    }, 500);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [watchedDescription, watchedType, mode, fetchAiSuggestion]);
+
+  // ─── Reset category + AI suggestion on type change ───────────────────────
+
   // Skip the very first render so the pre-selected category in edit mode
   // is not wiped immediately on mount.
   const isFirstRender = useRef(true);
@@ -158,6 +256,9 @@ export function TransactionForm({
       return;
     }
     setValue("categoryId", undefined);
+    setAiSuggestion(null);
+    lastDescriptionRef.current = "";
+    lastAiCategoryIdRef.current = null;
   }, [watchedType, setValue]);
 
   const filteredCategories = categories.filter(
@@ -179,11 +280,21 @@ export function TransactionForm({
         : "/api/transactions";
     const method = mode === "edit" ? "PATCH" : "POST";
 
+    const aiAccepted =
+      mode === "create" &&
+      aiSuggestion !== null &&
+      categoryId === aiSuggestion.categoryId;
+
     try {
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, categoryId }),
+        body: JSON.stringify({
+          ...values,
+          categoryId,
+          aiCategorized: aiAccepted,
+          aiConfidence: aiAccepted ? aiSuggestion.confidence : null,
+        }),
       });
 
       if (res.ok) {
@@ -336,6 +447,36 @@ export function TransactionForm({
                 </FormItem>
               )}
             />
+
+            {/* ── AI suggestion indicator ──────────────────────────── */}
+            {mode === "create" && (
+              <div className="flex items-center gap-2 text-xs min-h-[20px]">
+                {aiLoading && (
+                  <>
+                    <Sparkles className="size-3.5 animate-pulse text-amber-500" />
+                    <span className="text-muted-foreground">{t("form.ai_suggesting")}</span>
+                  </>
+                )}
+                {!aiLoading && aiSuggestion && (
+                  <>
+                    <Sparkles className="size-3.5 text-amber-500" />
+                    <span className="text-muted-foreground">
+                      {t("form.ai_suggestion")} :{" "}
+                      <span className="font-medium text-foreground">
+                        {locale === "ar"
+                          ? (aiSuggestion.categoryNameAr ?? aiSuggestion.categoryName)
+                          : locale === "en"
+                            ? (aiSuggestion.categoryNameEn ?? aiSuggestion.categoryName)
+                            : aiSuggestion.categoryName}
+                      </span>
+                      <span className="ml-1 text-muted-foreground">
+                        ({Math.round(aiSuggestion.confidence * 100)}%)
+                      </span>
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
 
             {/* ── Catégorie ──────────────────────────────────────────── */}
             <FormField

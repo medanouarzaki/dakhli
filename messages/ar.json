@@ -58,7 +58,9 @@
       "submit_edit": "تحديث",
       "submitting_edit": "جارٍ التحديث…",
       "error_validation": "يرجى مراجعة حقول النموذج",
-      "error_server": "حدث خطأ ما. يرجى المحاولة مجدداً."
+      "error_server": "حدث خطأ ما. يرجى المحاولة مجدداً.",
+      "ai_suggestion": "اقتراح الذكاء الاصطناعي",
+      "ai_suggesting": "جارٍ التحليل…"
     },
     "row_actions": {
       "delete": "حذف",

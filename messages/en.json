@@ -58,7 +58,9 @@
       "submit_edit": "Update",
       "submitting_edit": "Updating…",
       "error_validation": "Please check the form fields",
-      "error_server": "Something went wrong. Please try again."
+      "error_server": "Something went wrong. Please try again.",
+      "ai_suggestion": "AI suggestion",
+      "ai_suggesting": "Analyzing…"
     },
     "row_actions": {
       "delete": "Delete",

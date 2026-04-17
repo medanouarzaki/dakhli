@@ -58,7 +58,9 @@
       "submit_edit": "Mettre à jour",
       "submitting_edit": "Mise à jour…",
       "error_validation": "Vérifiez les champs du formulaire",
-      "error_server": "Une erreur est survenue. Réessayez."
+      "error_server": "Une erreur est survenue. Réessayez.",
+      "ai_suggestion": "Suggestion IA",
+      "ai_suggesting": "Analyse en cours…"
     },
     "row_actions": {
       "delete": "Supprimer",
