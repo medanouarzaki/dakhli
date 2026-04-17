@@ -7,7 +7,8 @@
   "Nav": {
     "dashboard": "Tableau de bord",
     "transactions": "Transactions",
-    "budgets": "Budgets"
+    "budgets": "Budgets",
+    "chat": "Chat IA"
   },
   "Transactions": {
     "page_title": "Transactions",
@@ -171,6 +172,20 @@
       "no_data_period": "Aucune donnée sur cette période",
       "no_expense_period": "Aucune dépense sur cette période"
     }
+  },
+  "Chat": {
+    "title": "Assistant IA",
+    "placeholder": "Posez une question sur vos finances…",
+    "send": "Envoyer",
+    "thinking": "Dakhli réfléchit…",
+    "empty": {
+      "title": "Discutez avec Dakhli",
+      "subtitle": "Posez des questions sur vos dépenses, budgets et habitudes financières",
+      "suggestion_1": "Où est-ce que je dépense le plus ce mois ?",
+      "suggestion_2": "Des conseils pour réduire mes dépenses ?",
+      "suggestion_3": "Résume ma situation financière"
+    },
+    "error": "Une erreur est survenue. Réessayez."
   },
   "auth": {
     "validation": {

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { LayoutDashboard, ListOrdered, Target } from "lucide-react";
+import { LayoutDashboard, ListOrdered, MessageCircle, Target } from "lucide-react";
 
 import { SignOutButton } from "@/components/sign-out-button";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ export function AppNav({ locale, userName, userEmail }: Props) {
     { href: `/${locale}/dashboard`, label: t("dashboard"), icon: LayoutDashboard },
     { href: `/${locale}/transactions`, label: t("transactions"), icon: ListOrdered },
     { href: `/${locale}/budgets`, label: t("budgets"), icon: Target },
+    { href: `/${locale}/chat`, label: t("chat"), icon: MessageCircle },
   ];
 
   return (

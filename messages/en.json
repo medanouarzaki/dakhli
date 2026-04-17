@@ -7,7 +7,8 @@
   "Nav": {
     "dashboard": "Dashboard",
     "transactions": "Transactions",
-    "budgets": "Budgets"
+    "budgets": "Budgets",
+    "chat": "AI Chat"
   },
   "Transactions": {
     "page_title": "Transactions",
@@ -171,6 +172,20 @@
       "no_data_period": "No data for this period",
       "no_expense_period": "No expenses for this period"
     }
+  },
+  "Chat": {
+    "title": "AI Assistant",
+    "placeholder": "Ask a question about your finances…",
+    "send": "Send",
+    "thinking": "Dakhli is thinking…",
+    "empty": {
+      "title": "Chat with Dakhli",
+      "subtitle": "Ask questions about your spending, budgets, and financial habits",
+      "suggestion_1": "Where do I spend the most this month?",
+      "suggestion_2": "Tips to reduce my expenses?",
+      "suggestion_3": "Summarise my financial situation"
+    },
+    "error": "Something went wrong. Please try again."
   },
   "auth": {
     "validation": {
