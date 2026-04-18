@@ -5,10 +5,11 @@ import Anthropic from "@anthropic-ai/sdk";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { buildChatContext, buildChatSystemPrompt } from "@/lib/ai/chat";
+import { buildChatContext, buildChatSystemPrompt, CHAT_MODEL } from "@/lib/ai/chat";
 
 const requestSchema = z.object({
   message: z.string().min(1).max(1000),
+  locale: z.enum(["fr", "en", "ar"]).default("fr"),
 });
 
 export async function POST(request: Request) {
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
   }
 
   const userId = session.user.id;
-  const userLocale = session.user.locale ?? "fr";
+  const userLocale = parsed.data.locale;
 
   try {
     // 3. Save user message to DB
@@ -75,7 +76,7 @@ export async function POST(request: Request) {
     const client = new Anthropic();
 
     const stream = client.messages.stream({
-      model: "claude-haiku-4-5-20251001",
+      model: CHAT_MODEL,
       max_tokens: 1024,
       system: [
         {
@@ -121,7 +122,7 @@ export async function POST(request: Request) {
               content: fullResponse,
               tokensIn: finalMessage.usage.input_tokens,
               tokensOut: finalMessage.usage.output_tokens,
-              model: "claude-haiku-4-5-20251001",
+              model: CHAT_MODEL,
             },
           });
 

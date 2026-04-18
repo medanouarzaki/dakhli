@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Send } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -25,7 +27,7 @@ type Props = {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export function ChatInterface({ initialMessages, suggestions }: Props) {
+export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
   const t = useTranslations("Chat");
 
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
@@ -83,7 +85,7 @@ export function ChatInterface({ initialMessages, suggestions }: Props) {
       const res = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmed }),
+        body: JSON.stringify({ message: trimmed, locale }),
       });
 
       if (!res.ok || !res.body) {
@@ -187,9 +189,9 @@ export function ChatInterface({ initialMessages, suggestions }: Props) {
             >
               <div
                 className={cn(
-                  "max-w-[80%] px-4 py-2.5 text-sm whitespace-pre-wrap break-words",
+                  "max-w-[80%] px-4 py-2.5 text-sm break-words",
                   msg.role === "USER"
-                    ? "bg-primary text-primary-foreground rounded-2xl rounded-br-sm"
+                    ? "bg-primary text-primary-foreground rounded-2xl rounded-br-sm whitespace-pre-wrap"
                     : "bg-muted rounded-2xl rounded-bl-sm"
                 )}
               >
@@ -197,6 +199,12 @@ export function ChatInterface({ initialMessages, suggestions }: Props) {
                   <span className="italic text-muted-foreground">
                     {t("thinking")}
                   </span>
+                ) : msg.role === "ASSISTANT" ? (
+                  <div className="prose prose-sm max-w-none">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {msg.content}
+                    </ReactMarkdown>
+                  </div>
                 ) : (
                   msg.content
                 )}

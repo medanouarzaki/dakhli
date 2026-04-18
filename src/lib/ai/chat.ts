@@ -1,5 +1,9 @@
 import type { PrismaClient } from "@prisma/client";
 
+// ─── Model ───────────────────────────────────────────────────────────────────
+
+export const CHAT_MODEL = "claude-sonnet-4-6";
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type ChatContext = {
@@ -161,7 +165,16 @@ export async function buildChatContext(
 export function buildChatSystemPrompt(context: ChatContext, locale: string): string {
   const lang = locale === "ar" ? "arabe" : locale === "en" ? "anglais" : "français";
 
-  return `Tu es Dakhli, un assistant financier personnel intelligent intégré dans une application de gestion de finances personnelles au Maroc. Tu parles en ${lang}.
+  const langInstruction =
+    locale === "en"
+      ? "You ALWAYS respond in English, regardless of the content of the data."
+      : locale === "ar"
+        ? "أنت تجيب دائمًا باللغة العربية، بغض النظر عن محتوى البيانات."
+        : "Tu réponds TOUJOURS en français, quel que soit le contenu des données.";
+
+  return `${langInstruction}
+
+Tu es Dakhli, un assistant financier personnel intelligent intégré dans une application de gestion de finances personnelles au Maroc. Tu parles en ${lang}.
 
 Voici le résumé financier de l'utilisateur pour le mois en cours :
 
