@@ -44,13 +44,14 @@ export async function POST(request: Request) {
       data: {
         userId,
         role: "USER",
+        locale: userLocale,
         content: parsed.data.message,
       },
     });
 
-    // 4. Load chat history (last 20 messages)
+    // 4. Load chat history for this locale only (last 20 messages)
     const history = await prisma.chatMessage.findMany({
-      where: { userId },
+      where: { userId, locale: userLocale },
       orderBy: { createdAt: "asc" },
       take: 20,
       select: { role: true, content: true },
@@ -119,6 +120,7 @@ export async function POST(request: Request) {
             data: {
               userId,
               role: "ASSISTANT",
+              locale: userLocale,
               content: fullResponse,
               tokensIn: finalMessage.usage.input_tokens,
               tokensOut: finalMessage.usage.output_tokens,

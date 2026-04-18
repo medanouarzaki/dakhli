@@ -21,7 +21,7 @@ export default async function ChatPage({ params: { locale } }: Props) {
   const t = await getTranslations({ locale, namespace: "Chat" });
 
   const rawMessages = await prisma.chatMessage.findMany({
-    where: { userId: session.user.id },
+    where: { userId: session.user.id, locale },
     orderBy: { createdAt: "asc" },
     select: {
       id: true,
@@ -53,6 +53,7 @@ export default async function ChatPage({ params: { locale } }: Props) {
       />
       <div className="mx-auto flex max-w-3xl flex-col min-h-[calc(100vh-3.5rem)] px-4 sm:px-6 lg:px-8 py-4">
         <ChatInterface
+          key={locale}
           initialMessages={messages}
           locale={locale}
           suggestions={suggestions}

@@ -243,6 +243,7 @@ model ChatMessage {
   userId    String
   role      ChatRole
   content   String   @db.Text
+  locale    String   @default("fr") // "fr" | "en" | "ar" — written explicitly by the app on every insert
   tokensIn  Int?
   tokensOut Int?
   model     String?  // "claude-haiku-4-5" | "claude-sonnet-4-6"
@@ -250,7 +251,7 @@ model ChatMessage {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId, createdAt])
+  @@index([userId, locale, createdAt])
 }
 
 enum InsightType {
