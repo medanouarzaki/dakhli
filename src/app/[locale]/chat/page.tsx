@@ -38,9 +38,10 @@ export default async function ChatPage({ params: { locale } }: Props) {
   }));
 
   const suggestions = [
-    t("empty.suggestion_1"),
-    t("empty.suggestion_2"),
-    t("empty.suggestion_3"),
+    t("suggestions.summary"),
+    t("suggestions.biggestExpense"),
+    t("suggestions.affordability"),
+    t("suggestions.familyTransfers"),
   ];
 
   return (

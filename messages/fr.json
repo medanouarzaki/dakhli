@@ -178,6 +178,14 @@
     "placeholder": "Posez une question sur vos finances…",
     "send": "Envoyer",
     "thinking": "Dakhli réfléchit…",
+    "emptyTitle": "Parle avec ton assistant financier",
+    "emptySubtitle": "Pose une question ou choisis une suggestion ci-dessous",
+    "suggestions": {
+      "summary": "Résume ma situation financière du mois",
+      "biggestExpense": "Quelle est ma plus grosse dépense ce mois ?",
+      "affordability": "Est-ce que je peux me permettre un achat de 2000 DH ?",
+      "familyTransfers": "Combien j'ai envoyé à ma famille ce mois ?"
+    },
     "empty": {
       "title": "Discutez avec Dakhli",
       "subtitle": "Posez des questions sur vos dépenses, budgets et habitudes financières",

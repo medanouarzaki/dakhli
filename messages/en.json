@@ -178,6 +178,14 @@
     "placeholder": "Ask a question about your finances…",
     "send": "Send",
     "thinking": "Dakhli is thinking…",
+    "emptyTitle": "Chat with your financial assistant",
+    "emptySubtitle": "Ask a question or pick a suggestion below",
+    "suggestions": {
+      "summary": "Summarize my financial situation this month",
+      "biggestExpense": "What's my biggest expense this month?",
+      "affordability": "Can I afford a 2000 MAD purchase?",
+      "familyTransfers": "How much did I send to family this month?"
+    },
     "empty": {
       "title": "Chat with Dakhli",
       "subtitle": "Ask questions about your spending, budgets, and financial habits",

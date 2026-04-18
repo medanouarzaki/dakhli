@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { Send } from "lucide-react";
+import { Send, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -33,6 +33,8 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  // True from submit until the first streaming token arrives — drives the typing indicator
+  const [isWaitingForFirstToken, setIsWaitingForFirstToken] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -80,6 +82,7 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
     };
 
     setMessages((prev) => [...prev, userMsg, assistantPlaceholder]);
+    setIsWaitingForFirstToken(true);
 
     try {
       const res = await fetch("/api/ai/chat", {
@@ -91,6 +94,7 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
       if (!res.ok || !res.body) {
         toast.error(t("error"));
         setIsStreaming(false);
+        setIsWaitingForFirstToken(false);
         setMessages((prev) => prev.filter((m) => m.id !== assistantId));
         return;
       }
@@ -98,6 +102,8 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
+      // Local flag — avoids stale closure on the state variable
+      let firstTokenReceived = false;
 
       while (true) {
         const { done, value } = await reader.read();
@@ -120,6 +126,10 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
             };
 
             if (parsed.text) {
+              if (!firstTokenReceived) {
+                firstTokenReceived = true;
+                setIsWaitingForFirstToken(false);
+              }
               setMessages((prev) =>
                 prev.map((m) =>
                   m.id === assistantId
@@ -131,11 +141,13 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
 
             if (parsed.done) {
               setIsStreaming(false);
+              setIsWaitingForFirstToken(false);
             }
 
             if (parsed.error) {
               toast.error(t("error"));
               setIsStreaming(false);
+              setIsWaitingForFirstToken(false);
             }
           } catch {
             // Ignore malformed SSE lines
@@ -145,6 +157,7 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
     } catch {
       toast.error(t("error"));
       setIsStreaming(false);
+      setIsWaitingForFirstToken(false);
       setMessages((prev) => prev.filter((m) => m.id !== assistantId));
     }
   };
@@ -161,21 +174,12 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
       {/* ── Messages ─────────────────────────────────────────────── */}
       <div className="flex-1 overflow-y-auto space-y-4 p-4">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full gap-6 text-center py-12">
+          // Empty state — shown before any message is sent
+          <div className="flex flex-col items-center justify-center h-full gap-4 text-center py-12">
+            <Sparkles className="size-10 text-muted-foreground" />
             <div>
-              <h2 className="text-xl font-semibold">{t("empty.title")}</h2>
-              <p className="mt-1 text-muted-foreground">{t("empty.subtitle")}</p>
-            </div>
-            <div className="flex flex-col gap-2 w-full max-w-sm">
-              {suggestions.map((s, i) => (
-                <button
-                  key={i}
-                  onClick={() => sendMessage(s)}
-                  className="rounded-lg border px-4 py-2 text-sm text-left hover:bg-accent transition-colors"
-                >
-                  {s}
-                </button>
-              ))}
+              <h2 className="text-xl font-semibold">{t("emptyTitle")}</h2>
+              <p className="mt-1 text-muted-foreground">{t("emptySubtitle")}</p>
             </div>
           </div>
         ) : (
@@ -195,10 +199,28 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
                     : "bg-muted rounded-2xl rounded-bl-sm"
                 )}
               >
-                {msg.content === "" && msg.role === "ASSISTANT" ? (
-                  <span className="italic text-muted-foreground">
-                    {t("thinking")}
-                  </span>
+                {msg.role === "ASSISTANT" && msg.content === "" ? (
+                  isWaitingForFirstToken ? (
+                    // Typing indicator — 3 staggered pulsing dots
+                    <div className="flex gap-1 items-center py-1">
+                      <span
+                        className="w-2 h-2 rounded-full bg-muted-foreground animate-pulse"
+                        style={{ animationDelay: "0ms" }}
+                      />
+                      <span
+                        className="w-2 h-2 rounded-full bg-muted-foreground animate-pulse"
+                        style={{ animationDelay: "200ms" }}
+                      />
+                      <span
+                        className="w-2 h-2 rounded-full bg-muted-foreground animate-pulse"
+                        style={{ animationDelay: "400ms" }}
+                      />
+                    </div>
+                  ) : (
+                    <span className="italic text-muted-foreground">
+                      {t("thinking")}
+                    </span>
+                  )
                 ) : msg.role === "ASSISTANT" ? (
                   <div className="prose prose-sm max-w-none">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -213,6 +235,21 @@ export function ChatInterface({ initialMessages, locale, suggestions }: Props) {
           ))
         )}
         <div ref={messagesEndRef} />
+      </div>
+
+      {/* ── Suggestion chips (always visible above the input) ─────── */}
+      <div className="px-4 pb-2 flex flex-wrap gap-2">
+        {suggestions.map((s, i) => (
+          <Button
+            key={i}
+            variant="outline"
+            size="sm"
+            onClick={() => sendMessage(s)}
+            disabled={isStreaming}
+          >
+            {s}
+          </Button>
+        ))}
       </div>
 
       {/* ── Input ────────────────────────────────────────────────── */}
