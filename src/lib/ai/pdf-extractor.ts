@@ -71,6 +71,38 @@ Tu réponds UNIQUEMENT avec un objet JSON valide de la forme exacte :
 
 AUCUN texte avant ou après le JSON. PAS de triple backticks. PAS de commentaire. Juste le JSON brut, directement.
 
+EXEMPLES
+
+Exemple 1 — Virement salaire (INCOME) :
+Ligne PDF : "01/03/2026 01/03/2026 VIR CIH SALAIRES MARS 2026 / EMETTEUR ORANGE BUSINESS SERVICES MAROC   8 000,00   9 240,50"
+Output : { "date": "2026-03-01", "description": "VIR CIH SALAIRES MARS 2026 / EMETTEUR ORANGE BUSINESS SERVICES MAROC", "amount": 8000.00, "currency": "MAD", "type": "INCOME" }
+
+Exemple 2 — Retrait DAB (EXPENSE, attention : argent qui sort, même si intuitivement "retirer du cash" peut prêter à confusion) :
+Ligne PDF : "04/03/2026 04/03/2026 RETRAIT DAB CIH BURGUNDY CASABLANCA   500,00   8 053,90"
+Output : { "date": "2026-03-04", "description": "RETRAIT DAB CIH BURGUNDY CASABLANCA", "amount": 500.00, "currency": "MAD", "type": "EXPENSE" }
+
+Exemple 3 — Prélèvement automatique (EXPENSE) :
+Ligne PDF : "07/03/2026 07/03/2026 PRELEVT LYDEC FACTURE ELECTRICITE FEV 2026   145,30   6 830,60"
+Output : { "date": "2026-03-07", "description": "PRELEVT LYDEC FACTURE ELECTRICITE FEV 2026", "amount": 145.30, "currency": "MAD", "type": "EXPENSE" }
+
+Exemple 4 — Virement reçu d'un particulier (INCOME, pas "EXPENSE" même si le bénéficiaire est un particulier) :
+Ligne PDF : "30/03/2026 30/03/2026 VIR RECU DE EL ALAMI AMINE / MOTIF REMBOURSEMENT COURSES COLOC   180,00   2 343,71"
+Output : { "date": "2026-03-30", "description": "VIR RECU DE EL ALAMI AMINE / MOTIF REMBOURSEMENT COURSES COLOC", "amount": 180.00, "currency": "MAD", "type": "INCOME" }
+
+Exemple 5 — Paiement CB en devise étrangère (EUR, currency ≠ MAD) :
+Ligne PDF : "15/03/2026 15/03/2026 PAIEMENT CB AMAZON.FR EUR 45,20   450,20   3 188,71"
+Output : { "date": "2026-03-15", "description": "PAIEMENT CB AMAZON.FR EUR 45,20", "amount": 45.20, "currency": "EUR", "type": "EXPENSE" }
+Note : amount = 45.20 (le montant EUR original), PAS 450.20 (qui est le montant MAD converti affiché). Tu renvoies TOUJOURS le montant dans sa devise d'origine.
+
+Exemple 6 — Frais bancaires (EXPENSE, ce sont de vraies dépenses, pas des métadonnées) :
+Ligne PDF : "26/03/2026 26/03/2026 FRAIS TENUE DE COMPTE MARS 2026   20,00   2 682,21"
+Output : { "date": "2026-03-26", "description": "FRAIS TENUE DE COMPTE MARS 2026", "amount": 20.00, "currency": "MAD", "type": "EXPENSE" }
+
+Exemple 7 — Variante Attijariwafa (format différent de CIH, parfois "DH" au lieu de "MAD") :
+Ligne PDF : "12/03  PAIEMENT CARTE BIM FOODMARKET CASA  322.00 DH  2 198.50 DH"
+Note : Le jour/mois sans année → utiliser l'année de periodStart. "DH" = dirham = MAD.
+Output : { "date": "2026-03-12", "description": "PAIEMENT CARTE BIM FOODMARKET CASA", "amount": 322.00, "currency": "MAD", "type": "EXPENSE" }
+
 Si le PDF ne contient aucune transaction reconnaissable (document corrompu, vide, non-relevé bancaire), tu réponds :
 { "transactions": [], "metadata": { "bank": null, "accountHolder": null, "periodStart": null, "periodEnd": null, "currency": "MAD", "openingBalance": null, "closingBalance": null } }`;
 
