@@ -6,9 +6,14 @@
  * Example:
  *   npx tsx scripts/test-pdf-extraction.ts docs/test-fixtures/releve_cih_yassine_mars_2026.pdf
  */
+import { config as loadDotenv } from "dotenv";
 import fs from "fs";
 import path from "path";
 import { extractTransactionsFromPdf } from "../src/lib/ai/pdf-extractor";
+
+// Load .env.local BEFORE any function that reads process.env.
+// Next.js loads it automatically at runtime; standalone tsx scripts do not.
+loadDotenv({ path: path.resolve(process.cwd(), ".env.local") });
 
 async function main() {
   const pdfPath = process.argv[2];
