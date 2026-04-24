@@ -276,8 +276,20 @@
         "type_income": "Income"
       },
       "import_button": "Import {count} selected transactions",
+      "import_pending": "Importing…",
       "import_disabled_tooltip": "Feature available in the next deployment",
       "cancel_button": "Cancel and start over"
+    },
+    "import": {
+      "success": "{count} transactions imported ({categorized} auto-categorized)",
+      "error": "Import failed. Please try again."
+    },
+    "duplicates": {
+      "title": "Duplicates detected",
+      "description": "{dupCount} transactions already exist in your history. You can skip them or import them anyway. {uniqueCount} other transactions will be imported regardless.",
+      "cancel": "Cancel",
+      "skip_duplicates": "Skip duplicates",
+      "import_anyway": "Import anyway"
     },
     "errors": {
       "invalid_file_type": "Only PDF files are accepted.",

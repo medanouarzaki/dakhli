@@ -1,7 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -23,12 +33,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 type RawTransaction = {
   date: string;
@@ -55,21 +59,83 @@ type Props = {
   metadata: Metadata;
   accounts: Array<{ id: string; name: string; currency: string }>;
   onReset: () => void;
+  locale: "fr" | "en" | "ar";
 };
 
 function fmt(n: number) {
   return n.toLocaleString("fr-MA", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-export function TransactionReviewTable({ transactions, metadata, accounts, onReset }: Props) {
+export function TransactionReviewTable({ transactions, metadata, accounts, onReset, locale }: Props) {
   const t = useTranslations("ImportPdf");
+  const router = useRouter();
 
   const [rows, setRows] = useState<Row[]>(() =>
     transactions.map((tx) => ({ ...tx, checked: true, editing: null }))
   );
   const [selectedAccountId, setSelectedAccountId] = useState<string>(accounts[0]?.id ?? "");
-  // Track edited cell value while editing
   const [editValue, setEditValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [duplicatesDialog, setDuplicatesDialog] = useState<{
+    open: boolean;
+    duplicates: Array<{ candidate: RawTransaction; existingOccurredAt: string }>;
+    uniqueCount: number;
+  }>({ open: false, duplicates: [], uniqueCount: 0 });
+
+  async function handleImport(confirmDuplicates: boolean) {
+    const selected = rows.filter((r) => r.checked);
+    if (selected.length === 0) return;
+
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/transactions/import", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          accountId: selectedAccountId,
+          filename: "bank_statement.pdf",
+          confirmDuplicates,
+          transactions: selected.map((r) => ({
+            date: r.date,
+            description: r.description,
+            amount: r.amount,
+            currency: r.currency,
+            type: r.type,
+          })),
+        }),
+        credentials: "include",
+      });
+
+      if (res.status === 409) {
+        const data = await res.json();
+        setDuplicatesDialog({
+          open: true,
+          duplicates: (data.duplicates as Array<{ candidate: RawTransaction; existingOccurredAt: string }>).map((d) => ({
+            candidate: d.candidate,
+            existingOccurredAt: d.existingOccurredAt,
+          })),
+          uniqueCount: data.uniqueCount as number,
+        });
+        return;
+      }
+
+      if (!res.ok) {
+        toast.error(t("import.error"));
+        return;
+      }
+
+      const data = await res.json();
+      toast.success(
+        t("import.success", {
+          count: data.createdCount as number,
+          categorized: data.categorizedCount as number,
+        })
+      );
+      router.push(`/${locale}/transactions`);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   const checked = rows.filter((r) => r.checked);
   const totalExpenses = checked
@@ -322,21 +388,71 @@ export function TransactionReviewTable({ transactions, metadata, accounts, onRes
           {t("review.cancel_button")}
         </Button>
 
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <span>
-                <Button disabled={!someChecked} className="pointer-events-none">
-                  {t("review.import_button", { count: checked.length })}
-                </Button>
-              </span>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{t("review.import_disabled_tooltip")}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Button
+          disabled={!someChecked || isLoading}
+          onClick={() => handleImport(false)}
+        >
+          {isLoading
+            ? t("review.import_pending")
+            : t("review.import_button", { count: checked.length })}
+        </Button>
       </div>
+
+      <Dialog
+        open={duplicatesDialog.open}
+        onOpenChange={(open) => setDuplicatesDialog((prev) => ({ ...prev, open }))}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("duplicates.title")}</DialogTitle>
+            <DialogDescription>
+              {t("duplicates.description", {
+                dupCount: duplicatesDialog.duplicates.length,
+                uniqueCount: duplicatesDialog.uniqueCount,
+              })}
+            </DialogDescription>
+          </DialogHeader>
+
+          <ul className="max-h-60 overflow-y-auto space-y-1 text-sm border rounded-md p-3 bg-muted/30">
+            {duplicatesDialog.duplicates.map((d, i) => (
+              <li key={i} className="flex justify-between gap-3">
+                <span className="truncate">
+                  {d.candidate.date} · {d.candidate.description}
+                </span>
+                <span className="text-muted-foreground shrink-0">
+                  {d.candidate.amount.toFixed(2)} {d.candidate.currency}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setDuplicatesDialog((prev) => ({ ...prev, open: false }))}
+            >
+              {t("duplicates.cancel")}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setDuplicatesDialog((prev) => ({ ...prev, open: false }));
+                handleImport(false);
+              }}
+            >
+              {t("duplicates.skip_duplicates")}
+            </Button>
+            <Button
+              onClick={() => {
+                setDuplicatesDialog((prev) => ({ ...prev, open: false }));
+                handleImport(true);
+              }}
+            >
+              {t("duplicates.import_anyway")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

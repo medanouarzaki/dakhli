@@ -118,6 +118,7 @@ export function PdfImportClient({ accounts, locale }: Props) {
           metadata={metadata}
           accounts={accounts}
           onReset={reset}
+          locale={locale}
         />
       )}
 

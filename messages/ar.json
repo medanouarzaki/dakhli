@@ -276,8 +276,20 @@
         "type_income": "إيراد"
       },
       "import_button": "استيراد {count} معاملة محددة",
+      "import_pending": "جارٍ الاستيراد…",
       "import_disabled_tooltip": "الميزة متاحة في النشر القادم",
       "cancel_button": "إلغاء والبدء من جديد"
+    },
+    "import": {
+      "success": "تم استيراد {count} معاملة ({categorized} مصنّفة تلقائيًا)",
+      "error": "فشل الاستيراد. يرجى المحاولة مجدداً."
+    },
+    "duplicates": {
+      "title": "تم اكتشاف تكرارات",
+      "description": "{dupCount} معاملة موجودة بالفعل في سجلاتك. يمكنك تجاهلها أو استيرادها على أي حال. سيتم استيراد {uniqueCount} معاملة أخرى في جميع الأحوال.",
+      "cancel": "إلغاء",
+      "skip_duplicates": "تجاهل التكرارات",
+      "import_anyway": "استيراد على أي حال"
     },
     "errors": {
       "invalid_file_type": "يُقبل ملفات PDF فقط.",

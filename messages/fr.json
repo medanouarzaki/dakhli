@@ -276,8 +276,20 @@
         "type_income": "Revenu"
       },
       "import_button": "Importer {count} transactions sélectionnées",
+      "import_pending": "Import en cours…",
       "import_disabled_tooltip": "Fonctionnalité disponible au prochain déploiement",
       "cancel_button": "Annuler et recommencer"
+    },
+    "import": {
+      "success": "{count} transactions importées ({categorized} catégorisées automatiquement)",
+      "error": "L'import a échoué. Veuillez réessayer."
+    },
+    "duplicates": {
+      "title": "Doublons détectés",
+      "description": "{dupCount} transactions existent déjà dans votre historique. Vous pouvez les ignorer, ou les importer quand même. {uniqueCount} autres transactions seront importées dans tous les cas.",
+      "cancel": "Annuler",
+      "skip_duplicates": "Ignorer les doublons",
+      "import_anyway": "Importer quand même"
     },
     "errors": {
       "invalid_file_type": "Seuls les fichiers PDF sont acceptés.",
