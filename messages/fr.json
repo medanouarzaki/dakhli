@@ -13,6 +13,7 @@
   "Transactions": {
     "page_title": "Transactions",
     "cta_new": "+ Nouvelle transaction",
+    "import_pdf_button": "Importer un PDF",
     "dashboard_link": "Voir mes transactions",
     "columns": {
       "date": "Date",
@@ -239,6 +240,52 @@
       "greeting": "Bonjour, {name} !",
       "email_label": "Email",
       "sign_out": "Se déconnecter"
+    }
+  },
+  "ImportPdf": {
+    "page_title": "Importer un relevé bancaire",
+    "page_description": "Importez vos relevés bancaires PDF (CIH, Attijari, BMCE, etc.). Notre IA extrait automatiquement toutes les transactions. Maximum 4 MB par fichier.",
+    "upload_prompt": "Déposez votre relevé ici ou cliquez pour parcourir",
+    "upload_hint": "PDF uniquement — 4 MB max",
+    "file_selected": "Fichier sélectionné",
+    "extract_button": "Extraire les transactions",
+    "loading": {
+      "title": "Analyse de votre relevé…",
+      "reassurance": "Cela peut prendre jusqu'à 30 secondes selon la taille du document.",
+      "step1": "Analyse du document PDF",
+      "step2": "Identification des transactions",
+      "step3": "Nettoyage des libellés",
+      "step4": "Finalisation de l'extraction"
+    },
+    "review": {
+      "metadata_title": "Informations du relevé",
+      "bank": "Banque",
+      "account_holder": "Titulaire",
+      "period": "Période",
+      "target_account": "Compte de destination",
+      "selected_count": "{count} transactions sélectionnées",
+      "total_expenses": "Total dépenses",
+      "total_income": "Total revenus",
+      "table": {
+        "date": "Date",
+        "description": "Libellé",
+        "amount": "Montant",
+        "type": "Type",
+        "currency": "Devise",
+        "type_expense": "Dépense",
+        "type_income": "Revenu"
+      },
+      "import_button": "Importer {count} transactions sélectionnées",
+      "import_disabled_tooltip": "Fonctionnalité disponible au prochain déploiement",
+      "cancel_button": "Annuler et recommencer"
+    },
+    "errors": {
+      "invalid_file_type": "Seuls les fichiers PDF sont acceptés.",
+      "file_too_large": "Le fichier dépasse la taille maximale de 4 MB.",
+      "extraction_failed": "L'extraction a échoué. Veuillez réessayer.",
+      "network_error": "Erreur réseau. Vérifiez votre connexion.",
+      "retry_button": "Réessayer",
+      "back_button": "Retour aux transactions"
     }
   }
 }

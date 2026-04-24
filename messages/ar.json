@@ -13,6 +13,7 @@
   "Transactions": {
     "page_title": "المعاملات",
     "cta_new": "+ معاملة جديدة",
+    "import_pdf_button": "استيراد PDF",
     "dashboard_link": "عرض معاملاتي",
     "columns": {
       "date": "التاريخ",
@@ -239,6 +240,52 @@
       "greeting": "مرحباً، {name}!",
       "email_label": "البريد الإلكتروني",
       "sign_out": "تسجيل الخروج"
+    }
+  },
+  "ImportPdf": {
+    "page_title": "استيراد كشف حساب بنكي",
+    "page_description": "استورد كشوف حسابك البنكية بصيغة PDF (CIH، التجاري وفا، BMCE، إلخ). يستخرج الذكاء الاصطناعي جميع المعاملات تلقائيًا. الحد الأقصى 4 ميغابايت لكل ملف.",
+    "upload_prompt": "أسقط كشف حسابك هنا أو انقر للاستعراض",
+    "upload_hint": "PDF فقط — 4 ميغابايت كحد أقصى",
+    "file_selected": "الملف المحدد",
+    "extract_button": "استخراج المعاملات",
+    "loading": {
+      "title": "جارٍ تحليل كشف حسابك…",
+      "reassurance": "قد يستغرق هذا ما يصل إلى 30 ثانية حسب حجم المستند.",
+      "step1": "تحليل مستند PDF",
+      "step2": "تحديد المعاملات",
+      "step3": "تنظيف التسميات",
+      "step4": "إنهاء الاستخراج"
+    },
+    "review": {
+      "metadata_title": "معلومات الكشف",
+      "bank": "البنك",
+      "account_holder": "صاحب الحساب",
+      "period": "الفترة",
+      "target_account": "الحساب المستهدف",
+      "selected_count": "{count} معاملة محددة",
+      "total_expenses": "إجمالي المصروفات",
+      "total_income": "إجمالي الإيرادات",
+      "table": {
+        "date": "التاريخ",
+        "description": "البيان",
+        "amount": "المبلغ",
+        "type": "النوع",
+        "currency": "العملة",
+        "type_expense": "مصروف",
+        "type_income": "إيراد"
+      },
+      "import_button": "استيراد {count} معاملة محددة",
+      "import_disabled_tooltip": "الميزة متاحة في النشر القادم",
+      "cancel_button": "إلغاء والبدء من جديد"
+    },
+    "errors": {
+      "invalid_file_type": "يُقبل ملفات PDF فقط.",
+      "file_too_large": "يتجاوز الملف الحد الأقصى للحجم البالغ 4 ميغابايت.",
+      "extraction_failed": "فشل الاستخراج. يرجى المحاولة مجددًا.",
+      "network_error": "خطأ في الشبكة. تحقق من اتصالك.",
+      "retry_button": "المحاولة مجددًا",
+      "back_button": "العودة إلى المعاملات"
     }
   }
 }

@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { FileUp } from "lucide-react";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -46,9 +47,17 @@ export default async function TransactionsPage({ params: { locale } }: Props) {
         <div className="mx-auto max-w-5xl space-y-6">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">{t("page_title")}</h1>
-            <Button asChild>
-              <Link href={`/${locale}/transactions/new`}>{t("cta_new")}</Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" asChild>
+                <Link href={`/${locale}/import/pdf`}>
+                  <FileUp className="me-2 h-4 w-4" />
+                  {t("import_pdf_button")}
+                </Link>
+              </Button>
+              <Button asChild>
+                <Link href={`/${locale}/transactions/new`}>{t("cta_new")}</Link>
+              </Button>
+            </div>
           </div>
 
           {transactions.length === 0 ? (

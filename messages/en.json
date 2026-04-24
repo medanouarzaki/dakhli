@@ -13,6 +13,7 @@
   "Transactions": {
     "page_title": "Transactions",
     "cta_new": "+ New transaction",
+    "import_pdf_button": "Import PDF",
     "dashboard_link": "View my transactions",
     "columns": {
       "date": "Date",
@@ -239,6 +240,52 @@
       "greeting": "Hello, {name}!",
       "email_label": "Email",
       "sign_out": "Sign out"
+    }
+  },
+  "ImportPdf": {
+    "page_title": "Import bank statement",
+    "page_description": "Import your PDF bank statements (CIH, Attijari, BMCE, etc.). Our AI automatically extracts all transactions. Maximum 4 MB per file.",
+    "upload_prompt": "Drop your statement here or click to browse",
+    "upload_hint": "PDF only — 4 MB max",
+    "file_selected": "File selected",
+    "extract_button": "Extract transactions",
+    "loading": {
+      "title": "Analysing your statement…",
+      "reassurance": "This may take up to 30 seconds depending on the document size.",
+      "step1": "Parsing the PDF document",
+      "step2": "Identifying transactions",
+      "step3": "Cleaning up labels",
+      "step4": "Finalising extraction"
+    },
+    "review": {
+      "metadata_title": "Statement details",
+      "bank": "Bank",
+      "account_holder": "Account holder",
+      "period": "Period",
+      "target_account": "Destination account",
+      "selected_count": "{count} transactions selected",
+      "total_expenses": "Total expenses",
+      "total_income": "Total income",
+      "table": {
+        "date": "Date",
+        "description": "Label",
+        "amount": "Amount",
+        "type": "Type",
+        "currency": "Currency",
+        "type_expense": "Expense",
+        "type_income": "Income"
+      },
+      "import_button": "Import {count} selected transactions",
+      "import_disabled_tooltip": "Feature available in the next deployment",
+      "cancel_button": "Cancel and start over"
+    },
+    "errors": {
+      "invalid_file_type": "Only PDF files are accepted.",
+      "file_too_large": "The file exceeds the 4 MB size limit.",
+      "extraction_failed": "Extraction failed. Please try again.",
+      "network_error": "Network error. Check your connection.",
+      "retry_button": "Try again",
+      "back_button": "Back to transactions"
     }
   }
 }
