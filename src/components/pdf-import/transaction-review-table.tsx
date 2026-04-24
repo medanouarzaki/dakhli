@@ -82,9 +82,13 @@ export function TransactionReviewTable({ transactions, metadata, accounts, onRes
     uniqueCount: number;
   }>({ open: false, duplicates: [], uniqueCount: 0 });
 
-  async function handleImport(confirmDuplicates: boolean) {
-    const selected = rows.filter((r) => r.checked);
-    if (selected.length === 0) return;
+  type ImportPayload = {
+    transactions: RawTransaction[];
+    confirmDuplicates: boolean;
+  };
+
+  async function handleImport(payload: ImportPayload) {
+    if (payload.transactions.length === 0) return;
 
     setIsLoading(true);
     try {
@@ -94,8 +98,8 @@ export function TransactionReviewTable({ transactions, metadata, accounts, onRes
         body: JSON.stringify({
           accountId: selectedAccountId,
           filename: "bank_statement.pdf",
-          confirmDuplicates,
-          transactions: selected.map((r) => ({
+          confirmDuplicates: payload.confirmDuplicates,
+          transactions: payload.transactions.map((r) => ({
             date: r.date,
             description: r.description,
             amount: r.amount,
@@ -135,6 +139,17 @@ export function TransactionReviewTable({ transactions, metadata, accounts, onRes
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function getUniquesFromDialog(): RawTransaction[] {
+    const dupKeys = new Set(
+      duplicatesDialog.duplicates.map(
+        (d) => `${d.candidate.date}|${d.candidate.description.trim().toLowerCase()}|${d.candidate.amount.toFixed(2)}`
+      )
+    );
+    return rows
+      .filter((r) => r.checked)
+      .filter((r) => !dupKeys.has(`${r.date}|${r.description.trim().toLowerCase()}|${r.amount.toFixed(2)}`));
   }
 
   const checked = rows.filter((r) => r.checked);
@@ -390,7 +405,7 @@ export function TransactionReviewTable({ transactions, metadata, accounts, onRes
 
         <Button
           disabled={!someChecked || isLoading}
-          onClick={() => handleImport(false)}
+          onClick={() => handleImport({ transactions: rows.filter((r) => r.checked), confirmDuplicates: false })}
         >
           {isLoading
             ? t("review.import_pending")
@@ -436,16 +451,22 @@ export function TransactionReviewTable({ transactions, metadata, accounts, onRes
             <Button
               variant="outline"
               onClick={() => {
+                const uniques = getUniquesFromDialog();
                 setDuplicatesDialog((prev) => ({ ...prev, open: false }));
-                handleImport(false);
+                if (uniques.length === 0) {
+                  toast.info(t("import.no_new_transactions"));
+                  return;
+                }
+                handleImport({ transactions: uniques, confirmDuplicates: true });
               }}
             >
               {t("duplicates.skip_duplicates")}
             </Button>
             <Button
               onClick={() => {
+                const selected = rows.filter((r) => r.checked);
                 setDuplicatesDialog((prev) => ({ ...prev, open: false }));
-                handleImport(true);
+                handleImport({ transactions: selected, confirmDuplicates: true });
               }}
             >
               {t("duplicates.import_anyway")}

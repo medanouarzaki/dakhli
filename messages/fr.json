@@ -282,7 +282,8 @@
     },
     "import": {
       "success": "{count} transactions importées ({categorized} catégorisées automatiquement)",
-      "error": "L'import a échoué. Veuillez réessayer."
+      "error": "L'import a échoué. Veuillez réessayer.",
+      "no_new_transactions": "Aucune nouvelle transaction à importer."
     },
     "duplicates": {
       "title": "Doublons détectés",

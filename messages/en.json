@@ -282,7 +282,8 @@
     },
     "import": {
       "success": "{count} transactions imported ({categorized} auto-categorized)",
-      "error": "Import failed. Please try again."
+      "error": "Import failed. Please try again.",
+      "no_new_transactions": "No new transactions to import."
     },
     "duplicates": {
       "title": "Duplicates detected",
