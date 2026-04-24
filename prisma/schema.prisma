@@ -259,6 +259,9 @@ enum InsightType {
   FORECAST
   ADVICE
   SAVINGS_PLAN
+  CATEGORIZATION    // F8.1 — Haiku auto-categorization audit log
+  CHAT_MESSAGE      // F8.4 — chatbot turn audit log
+  PDF_EXTRACTION    // F8.6 — bank statement PDF extraction audit log
 }
 
 model AiInsight {
