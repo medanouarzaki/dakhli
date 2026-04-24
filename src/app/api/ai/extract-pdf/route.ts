@@ -5,17 +5,13 @@ import { prisma } from "@/lib/prisma";
 import { extractTransactionsFromPdf } from "@/lib/ai/pdf-extractor";
 import { PdfExtractionError } from "@/lib/ai/types/extraction";
 
-// ─── Schema field mapping (pre-check divergences) ────────────────────────────
+// ─── AiInsight logging ───────────────────────────────────────────────────────
 //
-// AiInsight fields vs. what the prompt assumed:
-//   Assumed "kind"     → actual field is "type" (InsightType enum: ANOMALY | FORECAST | ADVICE | SAVINGS_PLAN)
-//                        PDF_EXTRACTION is not a valid enum value, so we use "ADVICE" as a proxy.
-//   Assumed "tokensIn" → does NOT exist on AiInsight (only on ChatMessage).
-//   Assumed "tokensOut"→ does NOT exist on AiInsight (only on ChatMessage).
-//   "title"            → required String (not assumed, must be provided).
-//   "content"          → required String @db.Text (not assumed, must be provided).
-//   "model"            → exists as String? — used as intended.
-//   "payload"          → exists as Json? — token counts folded in here.
+// Each successful extraction is logged to AiInsight for cost auditing.
+// Token counts are stored in the payload JSON since AiInsight does not have
+// dedicated tokensIn/tokensOut columns (those live on ChatMessage).
+// Logging is best-effort: failure to persist the audit row never breaks the
+// extraction response returned to the user.
 
 // ─── Route config ─────────────────────────────────────────────────────────────
 
@@ -129,16 +125,13 @@ export async function POST(request: Request) {
     const result = await extractTransactionsFromPdf(pdfBuffer);
 
     // 8. Log usage for audit / cost tracking (best-effort, non-blocking if it fails).
-    // AiInsight.type must be a valid InsightType enum value; "ADVICE" is used as a
-    // proxy since the schema predates the PDF extraction feature.
-    // Token counts are stored in payload because AiInsight has no tokensIn/tokensOut fields.
     try {
       await prisma.aiInsight.create({
         data: {
           userId,
-          type: "ADVICE",
-          title: "PDF_EXTRACTION",
-          content: `Extracted ${result.transactions.length} transactions from ${file.name}`,
+          type: "PDF_EXTRACTION",
+          title: `PDF extraction: ${file.name}`,
+          content: `Extracted ${result.transactions.length} transactions (bank: ${result.metadata.bank ?? "unknown"}, period: ${result.metadata.periodStart ?? "?"} → ${result.metadata.periodEnd ?? "?"})`,
           model: result.usage.model,
           payload: {
             filename: file.name,
