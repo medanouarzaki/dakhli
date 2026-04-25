@@ -30,6 +30,7 @@ import { RecentTransactionsList } from "@/components/dashboard/RecentTransaction
 import { WeekdayHeatmap } from "@/components/dashboard/WeekdayHeatmap";
 import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState";
 import { BudgetUsageMini } from "@/components/dashboard/BudgetUsageMini";
+import { WeeklyAdviceSection } from "@/components/dashboard/WeeklyAdviceSection";
 
 import {
   Card,
@@ -147,6 +148,9 @@ export default async function DashboardPage({
               variant="count"
             />
           </div>
+
+          {/* Weekly AI advice */}
+          <WeeklyAdviceSection userId={userId} locale={locale as "fr" | "en" | "ar"} />
 
           {/* Breakdown + Top categories */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

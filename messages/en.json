@@ -300,5 +300,34 @@
       "retry_button": "Try again",
       "back_button": "Back to transactions"
     }
+  },
+  "Advice": {
+    "section_title": "Weekly Tips",
+    "section_subtitle": "Personalized analysis of your finances by our AI",
+    "generate_button": "✨ Generate my tips",
+    "regenerate_button": "Regenerate",
+    "force_regenerate": "Force regeneration",
+    "cooldown_label": "Next generation available on",
+    "empty": {
+      "title": "Discover your personalized tips",
+      "subtitle": "Our AI analyzes your financial habits over the last 4 weeks and generates recommendations tailored to the Moroccan context."
+    },
+    "loading": {
+      "title": "Analyzing your finances…",
+      "reassurance": "This usually takes 10 to 15 seconds.",
+      "step1": "Collecting your recent transactions",
+      "step2": "Analyzing spending patterns",
+      "step3": "Generating personalized tips"
+    },
+    "errors": {
+      "generic": "An error occurred. Please try again.",
+      "insufficient_data": "Not enough transactions to generate tips. Import at least 5 transactions.",
+      "cooldown": "You have already generated tips recently. Wait until the next available period."
+    },
+    "priority": {
+      "high": "Urgent",
+      "medium": "Optimization",
+      "low": "Suggestion"
+    }
   }
 }

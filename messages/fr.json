@@ -300,5 +300,34 @@
       "retry_button": "Réessayer",
       "back_button": "Retour aux transactions"
     }
+  },
+  "Advice": {
+    "section_title": "Conseils de la semaine",
+    "section_subtitle": "Analyse personnalisée de vos finances par notre IA",
+    "generate_button": "✨ Générer mes conseils",
+    "regenerate_button": "Régénérer",
+    "force_regenerate": "Forcer la régénération",
+    "cooldown_label": "Prochaine génération possible le",
+    "empty": {
+      "title": "Découvrez vos conseils personnalisés",
+      "subtitle": "Notre IA analyse vos habitudes financières des 4 dernières semaines et génère des recommandations adaptées au contexte marocain."
+    },
+    "loading": {
+      "title": "Analyse de vos finances en cours…",
+      "reassurance": "Cela prend généralement 10 à 15 secondes.",
+      "step1": "Collecte de vos transactions récentes",
+      "step2": "Analyse des patterns de dépenses",
+      "step3": "Génération des conseils personnalisés"
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Veuillez réessayer.",
+      "insufficient_data": "Pas assez de transactions pour générer des conseils. Importez au moins 5 transactions.",
+      "cooldown": "Vous avez déjà généré des conseils récemment. Attendez la prochaine période disponible."
+    },
+    "priority": {
+      "high": "Urgent",
+      "medium": "Optimisation",
+      "low": "Suggestion"
+    }
   }
 }
