@@ -245,6 +245,30 @@ export async function buildAdviceContext(
   };
 }
 
+function normalizeItems(parsed: unknown): unknown[] | null {
+  if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+    const obj = parsed as Record<string, unknown>;
+    if ("items" in obj) {
+      const inner = obj.items;
+      if (Array.isArray(inner)) return inner;
+      if (inner && typeof inner === "object") {
+        return objectToOrderedArray(inner as Record<string, unknown>);
+      }
+      return null;
+    }
+    return objectToOrderedArray(obj);
+  }
+  if (Array.isArray(parsed)) return parsed;
+  return null;
+}
+
+function objectToOrderedArray(obj: Record<string, unknown>): unknown[] {
+  const entries = Object.entries(obj).filter(([k]) => /^\d+$/.test(k));
+  if (entries.length === 0) return [];
+  entries.sort(([a], [b]) => Number(a) - Number(b));
+  return entries.map(([, v]) => v);
+}
+
 function startOfWeek(d: Date): Date {
   const diff = (d.getDay() + 6) % 7;
   const r = new Date(d);
@@ -332,10 +356,18 @@ export async function generateWeeklyAdvice(
         );
       }
 
+      const normalizedItems = normalizeItems(parsed);
+      if (!normalizedItems) {
+        throw new AdviceError(
+          "PARSE_ERROR",
+          `Could not extract items array from response. First 500 chars: ${cleaned.slice(0, 500)}`
+        );
+      }
+
       const wrapped = {
         generatedAt: new Date().toISOString(),
         locale,
-        items: (parsed as { items?: unknown[] }).items ?? parsed,
+        items: normalizedItems,
       };
 
       const validation = AdviceResponseSchema.safeParse(wrapped);
