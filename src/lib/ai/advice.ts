@@ -357,6 +357,23 @@ export async function generateWeeklyAdvice(
       }
 
       const normalizedItems = normalizeItems(parsed);
+
+      // ─── DIAGNOSTIC LOG (temporary, to be removed after one successful AR debug) ───
+      if (!normalizedItems || normalizedItems.length === 0) {
+        const topLevelKeys =
+          parsed && typeof parsed === "object" && !Array.isArray(parsed)
+            ? Object.keys(parsed as Record<string, unknown>)
+            : Array.isArray(parsed)
+            ? "(top-level array)"
+            : "(not an object)";
+        console.error("[advice][DIAGNOSTIC] normalization yielded empty/null", {
+          locale,
+          topLevelKeys,
+          normalizedLength: normalizedItems?.length ?? null,
+          rawCleanedFirst1500: cleaned.slice(0, 1500),
+        });
+      }
+
       if (!normalizedItems) {
         throw new AdviceError(
           "PARSE_ERROR",
