@@ -245,20 +245,41 @@ export async function buildAdviceContext(
   };
 }
 
+/**
+ * Normalizes the array of advice items that Sonnet 4.6 returns.
+ *
+ * Sonnet sometimes uses different wrapper keys depending on the output language:
+ *   - "items"          (FR / EN — what we ask for in the prompt)
+ *   - "insights"       (AR — observed empirically; "items" doesn't translate naturally)
+ *   - "advice", "recommendations", "tips" (defensive, possible drift)
+ *
+ * It also sometimes returns the array as a numeric-keyed object instead of a
+ * proper array (observed on Arabic outputs).
+ */
 function normalizeItems(parsed: unknown): unknown[] | null {
+  // Case A: parsed is a non-array object that may wrap the array under one of several keys
   if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
     const obj = parsed as Record<string, unknown>;
-    if ("items" in obj) {
-      const inner = obj.items;
-      if (Array.isArray(inner)) return inner;
-      if (inner && typeof inner === "object") {
-        return objectToOrderedArray(inner as Record<string, unknown>);
+
+    const WRAPPER_KEYS = ["items", "insights", "advice", "recommendations", "tips"] as const;
+    for (const key of WRAPPER_KEYS) {
+      if (key in obj) {
+        const inner = obj[key];
+        if (Array.isArray(inner)) return inner;
+        if (inner && typeof inner === "object") {
+          return objectToOrderedArray(inner as Record<string, unknown>);
+        }
+        return null;
       }
-      return null;
     }
+
+    // No known wrapper key — maybe parsed itself is a numeric-keyed object
     return objectToOrderedArray(obj);
   }
+
+  // Case B: parsed is already an array at the top level
   if (Array.isArray(parsed)) return parsed;
+
   return null;
 }
 
@@ -357,22 +378,6 @@ export async function generateWeeklyAdvice(
       }
 
       const normalizedItems = normalizeItems(parsed);
-
-      // ─── DIAGNOSTIC LOG (temporary, to be removed after one successful AR debug) ───
-      if (!normalizedItems || normalizedItems.length === 0) {
-        const topLevelKeys =
-          parsed && typeof parsed === "object" && !Array.isArray(parsed)
-            ? Object.keys(parsed as Record<string, unknown>)
-            : Array.isArray(parsed)
-            ? "(top-level array)"
-            : "(not an object)";
-        console.error("[advice][DIAGNOSTIC] normalization yielded empty/null", {
-          locale,
-          topLevelKeys,
-          normalizedLength: normalizedItems?.length ?? null,
-          rawCleanedFirst1500: cleaned.slice(0, 1500),
-        });
-      }
 
       if (!normalizedItems) {
         throw new AdviceError(
