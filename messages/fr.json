@@ -329,5 +329,25 @@
       "medium": "Optimisation",
       "low": "Suggestion"
     }
+  },
+  "Anomalies": {
+    "section_title": "Anomalies détectées",
+    "section_subtitle": "Transactions inhabituelles repérées dans vos 30 derniers jours",
+    "analyze_button": "Analyser maintenant",
+    "analyzing": "Analyse en cours…",
+    "view_all_link": "Voir toutes mes transactions",
+    "last_scan": "Dernier scan le",
+    "success_fmt": "Analyse terminée : {count} anomalie(s) sur {total} transactions",
+    "empty": {
+      "title": "Aucune anomalie détectée",
+      "subtitle": "Vos dépenses récentes correspondent à vos habitudes. Continuez comme ça !"
+    },
+    "errors": {
+      "generic": "L'analyse a échoué. Veuillez réessayer.",
+      "insufficient": "Pas assez de transactions récentes pour analyser. Ajoutez ou importez quelques dépenses et réessayez."
+    },
+    "badge": {
+      "label": "Anomalie"
+    }
   }
 }

@@ -329,5 +329,25 @@
       "medium": "Optimization",
       "low": "Suggestion"
     }
+  },
+  "Anomalies": {
+    "section_title": "Detected anomalies",
+    "section_subtitle": "Unusual transactions spotted in your last 30 days",
+    "analyze_button": "Analyze now",
+    "analyzing": "Analyzing…",
+    "view_all_link": "View all my transactions",
+    "last_scan": "Last scan on",
+    "success_fmt": "Analysis complete: {count} anomaly(ies) out of {total} transactions",
+    "empty": {
+      "title": "No anomalies detected",
+      "subtitle": "Your recent spending matches your usual habits. Keep it up!"
+    },
+    "errors": {
+      "generic": "Analysis failed. Please try again.",
+      "insufficient": "Not enough recent transactions to analyze. Add or import a few expenses and try again."
+    },
+    "badge": {
+      "label": "Anomaly"
+    }
   }
 }

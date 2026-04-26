@@ -19,6 +19,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { AmountDisplay } from "./amount-display";
+import { AnomalyBadge } from "./AnomalyBadge";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -33,6 +34,8 @@ export type TransactionRowData = {
   accountName: string;
   categoryName: string | null;
   categoryColor: string | null;
+  isAnomaly: boolean;
+  anomalyReason: string | null;
 };
 
 type Props = {
@@ -122,13 +125,16 @@ export function TransactionRow({ tx, locale }: Props) {
 
       {/* Amount */}
       <TableCell className="text-right">
-        <AmountDisplay
-          amount={tx.amount}
-          currency={tx.currency}
-          amountMAD={tx.amountMAD}
-          type={tx.type}
-          locale={locale}
-        />
+        <div className="flex items-center justify-end gap-2">
+          {tx.isAnomaly && <AnomalyBadge reason={tx.anomalyReason} />}
+          <AmountDisplay
+            amount={tx.amount}
+            currency={tx.currency}
+            amountMAD={tx.amountMAD}
+            type={tx.type}
+            locale={locale}
+          />
+        </div>
       </TableCell>
 
       {/* Actions — stopPropagation so row click doesn't fire when opening dialog */}

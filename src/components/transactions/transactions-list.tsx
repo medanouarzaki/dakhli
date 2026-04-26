@@ -67,6 +67,8 @@ export async function TransactionsList({ transactions, locale }: Props) {
               accountName: tx.account.name,
               categoryName,
               categoryColor: tx.category?.color ?? null,
+              isAnomaly: tx.isAnomaly,
+              anomalyReason: tx.anomalyReason,
             };
 
             return <TransactionRow key={tx.id} tx={rowData} locale={locale} />;
