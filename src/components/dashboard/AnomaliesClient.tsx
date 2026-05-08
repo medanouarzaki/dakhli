@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { AlertTriangle, Search } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import type { Locale } from "@/lib/ai/types/anomaly";
 
 import { AnomalyCard } from "./AnomalyCard";
 import { AnomaliesEmptyState } from "./AnomaliesEmptyState";
@@ -22,6 +24,19 @@ type AnomalyDTO = {
   categoryIcon: string | null;
 };
 
+type GetResponseAnomaly = {
+  id: string;
+  description: string;
+  amountMAD: number;
+  occurredAt: string;
+  reasonByLocale: { fr: string | null; en: string | null; ar: string | null };
+  categoryName: string | null;
+  categoryNameEn: string | null;
+  categoryNameAr: string | null;
+  categoryColor: string | null;
+  categoryIcon: string | null;
+};
+
 type Labels = {
   sectionTitle: string;
   sectionSubtitle: string;
@@ -33,11 +48,10 @@ type Labels = {
   lastScanLabel: string;
   errorGeneric: string;
   errorInsufficient: string;
-  successFmt: string;
 };
 
 type Props = {
-  locale: "fr" | "en" | "ar";
+  locale: Locale;
   initialAnomalies: AnomalyDTO[];
   initialLastScanAt: string | null;
   labels: Labels;
@@ -49,6 +63,7 @@ export function AnomaliesClient({
   initialLastScanAt,
   labels,
 }: Props) {
+  const t = useTranslations("Anomalies");
   const [anomalies, setAnomalies] = useState<AnomalyDTO[]>(initialAnomalies);
   const [lastScanAt, setLastScanAt] = useState<string | null>(initialLastScanAt);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,24 +88,33 @@ export function AnomaliesClient({
       }
 
       const data = await res.json();
-      const detected = data.usage?.anomaliesDetected ?? 0;
-      const total = data.usage?.totalTransactionsAnalyzed ?? 0;
+      const detected: number = data.usage?.anomaliesDetected ?? 0;
+      const total: number = data.usage?.totalTransactionsAnalyzed ?? 0;
 
+      // Re-fetch the rendered top 5
       const getRes = await fetch("/api/ai/detect-anomalies", {
         method: "GET",
         credentials: "include",
       });
       if (getRes.ok) {
         const refreshed = await getRes.json();
-        setAnomalies(refreshed.anomalies ?? []);
+        const items: GetResponseAnomaly[] = refreshed.anomalies ?? [];
+        setAnomalies(
+          items.map((a) => ({
+            id: a.id,
+            description: a.description,
+            amountMAD: a.amountMAD,
+            occurredAt: a.occurredAt,
+            reason: a.reasonByLocale?.[locale] ?? null,
+            categoryName: pickCategoryName(a, locale),
+            categoryColor: a.categoryColor,
+            categoryIcon: a.categoryIcon,
+          }))
+        );
         setLastScanAt(refreshed.lastScanAt ?? new Date().toISOString());
       }
 
-      toast.success(
-        labels.successFmt
-          .replace("{count}", String(detected))
-          .replace("{total}", String(total))
-      );
+      toast.success(t("success_fmt", { count: detected, total }));
     } catch {
       toast.error(labels.errorGeneric);
     } finally {
@@ -161,4 +185,10 @@ export function AnomaliesClient({
       </CardContent>
     </Card>
   );
+}
+
+function pickCategoryName(a: GetResponseAnomaly, locale: Locale): string {
+  if (locale === "ar") return a.categoryNameAr ?? a.categoryName ?? "—";
+  if (locale === "en") return a.categoryNameEn ?? a.categoryName ?? "—";
+  return a.categoryName ?? "—";
 }

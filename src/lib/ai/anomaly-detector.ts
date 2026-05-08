@@ -3,9 +3,11 @@ import type { PrismaClient } from "@prisma/client";
 import {
   AiAnomalyJudgmentBatchSchema,
   AnomalyError,
+  serializeLocalizedReason,
   type AnomalyResult,
   type DetectionResult,
   type DetectionUsage,
+  type LocalizedReason,
 } from "./types/anomaly";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -74,32 +76,43 @@ const SYSTEM_PROMPT = `You are an expert financial anomaly detector for a Morocc
 YOUR TASK
 For each transaction in the input, decide whether it is an anomaly given:
 - the user's typical spending pattern in the same category (mean, std, sample size)
-- the transaction's z-score (already computed)
+- the transaction's z-score (already computed, always positive in your input)
 - the transaction's date, day-of-week, description
 
-A z-score between 1.5 and 2.5 is the AMBIGUOUS zone. Above 2.5 the system already flags as anomaly without you. So for every input you receive, the |z-score| is between 1.5 and 2.5 — you must judge.
+A z-score between 1.5 and 2.5 is the AMBIGUOUS upward zone. Above 2.5 the system already flags as anomaly without you. Negative z-scores (spend lower than usual) are NEVER sent to you — they are not anomalies by design.
 
 OUTPUT for each transaction:
 - isAnomaly (boolean): true if the transaction is unusual enough to warrant a user alert
-- reason (string, max 280 chars): a CONCISE, FACTUAL, MAD-FIGURED explanation in the same language as locale provided. Example: "Dépense Glovo de 280 MAD, environ 2× la moyenne habituelle en Alimentation."
-- priority ("HIGH" | "MEDIUM" | "LOW"): HIGH if the amount is genuinely worrying for a young Moroccan (e.g., > 1000 MAD over baseline in food), MEDIUM if notable, LOW if isAnomaly=false (you still output it for completeness)
+- reason (object with three keys: "fr", "en", "ar"): a CONCISE, FACTUAL, MAD-FIGURED explanation, generated FRESH in each of the three languages (NOT machine-translated). Each must be under 280 characters. Examples:
+    "fr": "Dépense Glovo de 280 MAD, environ 2× la moyenne habituelle en Alimentation."
+    "en": "Glovo expense of 280 MAD, about 2× the usual average in Food & Dining."
+    "ar": "مصروف Glovo بقيمة 280 درهم، حوالي 2× المتوسط المعتاد في الطعام."
+- priority ("HIGH" | "MEDIUM" | "LOW"): HIGH if the amount is genuinely worrying for a young Moroccan (e.g., > 1000 MAD over baseline in food), MEDIUM if notable, LOW if isAnomaly=false (you still output it for completeness — use generic placeholder text in all three languages)
 
 CULTURAL CONTEXT (Morocco)
 - Salaries 5,000-15,000 MAD/month
-- Family transfers 500-2,000 MAD/month are NORMAL, not anomalies (cultural norm)
-- Travel spikes during Ramadan/holidays are seasonal, not anomalies (note them as POSITIVE_REINFORCEMENT-like reasoning)
+- Family transfers 500-2,000 MAD/month are NORMAL, not anomalies
+- Travel spikes during Ramadan/holidays are seasonal, not anomalies
 - Telecom recharges of 500 MAD in one shot CAN be anomalies (vs typical 99-200 MAD postpaid)
 
 OUTPUT FORMAT
 Strict JSON, no preamble, no markdown fences:
 {
   "judgments": [
-    { "isAnomaly": true, "reason": "...", "priority": "HIGH" },
-    { "isAnomaly": false, "reason": "...", "priority": "LOW" }
+    {
+      "isAnomaly": true,
+      "reason": { "fr": "...", "en": "...", "ar": "..." },
+      "priority": "HIGH"
+    },
+    {
+      "isAnomaly": false,
+      "reason": { "fr": "Transaction normale.", "en": "Normal transaction.", "ar": "معاملة عادية." },
+      "priority": "LOW"
+    }
   ]
 }
 
-The order of judgments MUST match the input transaction order. ONE judgment per input transaction. No nesting.`;
+The order of judgments MUST match the input transaction order. ONE judgment per input transaction. No nesting. ALL THREE LANGUAGES are required for every judgment.`;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -130,8 +143,7 @@ type AmbiguousCase = {
 
 export async function detectAnomalies(
   prisma: PrismaClient,
-  userId: string,
-  locale: "fr" | "en" | "ar"
+  userId: string
 ): Promise<DetectionResult> {
   const startedAt = Date.now();
 
@@ -229,19 +241,19 @@ export async function detectAnomalies(
     }
 
     const zScore = (txAnalysis.amountMAD - stats.mean) / stats.std;
-    const absZ = Math.abs(zScore);
 
-    if (absZ > ZSCORE_HIGH) {
+    // Upward-only detection: a spend smaller than usual is not an anomaly worth alerting.
+    if (zScore > ZSCORE_HIGH) {
       const ratio = txAnalysis.amountMAD / stats.mean;
       directAnomalies.push({
         transactionId: tx.id,
         isAnomaly: true,
-        reason: buildAutoReason(locale, txAnalysis, stats, ratio),
+        reason: buildAutoReason(txAnalysis, stats, ratio),
         priority: ratio > 3 ? "HIGH" : "MEDIUM",
         method: "ZSCORE",
         zScore,
       });
-    } else if (absZ > ZSCORE_LOW) {
+    } else if (zScore > ZSCORE_LOW) {
       ambiguousCases.push({ tx: txAnalysis, zScore, stats });
     } else {
       normalTxIds.push(tx.id);
@@ -258,7 +270,7 @@ export async function detectAnomalies(
   };
 
   if (ambiguousCases.length > 0) {
-    const aiOutcome = await callSonnetForAmbiguous(ambiguousCases, locale);
+    const aiOutcome = await callSonnetForAmbiguous(ambiguousCases);
     aiResults.push(...aiOutcome.results);
     aiUsage = aiOutcome.usage;
   }
@@ -272,12 +284,12 @@ export async function detectAnomalies(
   });
 
   for (const result of allResults) {
-    if (!result.isAnomaly) continue;
+    if (!result.isAnomaly || !result.reason) continue;
     await prisma.transaction.update({
       where: { id: result.transactionId },
       data: {
         isAnomaly: true,
-        anomalyReason: result.reason,
+        anomalyReason: serializeLocalizedReason(result.reason),
       },
     });
   }
@@ -287,7 +299,7 @@ export async function detectAnomalies(
       data: {
         userId,
         type: "ANOMALY",
-        title: `ANOMALY_SCAN:${locale}`,
+        title: `ANOMALY_SCAN`,
         content: `${allResults.filter((r) => r.isAnomaly).length} anomalies detected on ${recentTxs.length} expenses analyzed.`,
         model: ambiguousCases.length > 0 ? MODEL : null,
         payload: {
@@ -320,25 +332,22 @@ export async function detectAnomalies(
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function buildAutoReason(
-  locale: "fr" | "en" | "ar",
   tx: TransactionForAnalysis,
   stats: CategoryStats,
   ratio: number
-): string {
+): LocalizedReason {
   const ratioStr = ratio.toFixed(1);
   const meanStr = Math.round(stats.mean).toString();
-  if (locale === "fr") {
-    return `Dépense de ${tx.amountMAD.toFixed(0)} MAD, environ ${ratioStr}× la moyenne (${meanStr} MAD) en ${stats.categoryName}.`;
-  }
-  if (locale === "en") {
-    return `Expense of ${tx.amountMAD.toFixed(0)} MAD, about ${ratioStr}× the average (${meanStr} MAD) in ${stats.categoryName}.`;
-  }
-  return `مصروف بقيمة ${tx.amountMAD.toFixed(0)} درهم، حوالي ${ratioStr}× المتوسط (${meanStr} درهم) في ${stats.categoryName}.`;
+  const amountStr = tx.amountMAD.toFixed(0);
+  return {
+    fr: `Dépense de ${amountStr} MAD, environ ${ratioStr}× la moyenne (${meanStr} MAD) en ${stats.categoryName}.`,
+    en: `Expense of ${amountStr} MAD, about ${ratioStr}× the average (${meanStr} MAD) in ${stats.categoryName}.`,
+    ar: `مصروف بقيمة ${amountStr} درهم، حوالي ${ratioStr}× المتوسط (${meanStr} درهم) في ${stats.categoryName}.`,
+  };
 }
 
 async function callSonnetForAmbiguous(
-  cases: AmbiguousCase[],
-  locale: "fr" | "en" | "ar"
+  cases: AmbiguousCase[]
 ): Promise<{
   results: AnomalyResult[];
   usage: { inputTokens: number; outputTokens: number; cacheReadTokens: number; cacheCreationTokens: number };
@@ -346,7 +355,6 @@ async function callSonnetForAmbiguous(
   const client = getClient();
 
   const userPayload = {
-    locale,
     cases: cases.map((c) => ({
       transactionId: c.tx.id,
       amountMAD: c.tx.amountMAD,
@@ -362,17 +370,9 @@ async function callSonnetForAmbiguous(
   };
 
   const userMessage =
-    locale === "fr"
-      ? `Voici ${cases.length} transactions ambiguës (z-score entre 1.5 et 2.5) à juger :\n\n` +
-        JSON.stringify(userPayload, null, 2) +
-        `\n\nRends UN jugement par transaction, dans le même ordre, en français pour les "reason".`
-      : locale === "en"
-      ? `Here are ${cases.length} ambiguous transactions (z-score between 1.5 and 2.5) to judge:\n\n` +
-        JSON.stringify(userPayload, null, 2) +
-        `\n\nReturn ONE judgment per transaction, in the same order, with "reason" in English.`
-      : `إليك ${cases.length} معاملة غامضة (z-score بين 1.5 و2.5) للحكم عليها:\n\n` +
-        JSON.stringify(userPayload, null, 2) +
-        `\n\nأعط حكماً واحداً لكل معاملة، بنفس الترتيب، مع "reason" باللغة العربية.`;
+    `Here are ${cases.length} ambiguous transactions (z-score between 1.5 and 2.5, upward only) to judge:\n\n` +
+    JSON.stringify(userPayload, null, 2) +
+    `\n\nReturn ONE judgment per transaction, in the same order. Each "reason" MUST be an object with all three keys "fr", "en", "ar" — write each language fresh, do not machine-translate.`;
 
   const response = await client.messages.create({
     model: MODEL,

@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { AmountDisplay } from "./amount-display";
 import { AnomalyBadge } from "./AnomalyBadge";
+import { pickLocalizedReason, type Locale } from "@/lib/ai/types/anomaly";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -126,7 +127,7 @@ export function TransactionRow({ tx, locale }: Props) {
       {/* Amount */}
       <TableCell className="text-right">
         <div className="flex items-center justify-end gap-2">
-          {tx.isAnomaly && <AnomalyBadge reason={tx.anomalyReason} />}
+          {tx.isAnomaly && <AnomalyBadge reason={pickLocalizedReason(tx.anomalyReason, locale as Locale)} />}
           <AmountDisplay
             amount={tx.amount}
             currency={tx.currency}

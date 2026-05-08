@@ -4,13 +4,16 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { detectAnomalies } from "@/lib/ai/anomaly-detector";
-import { AnomalyError } from "@/lib/ai/types/anomaly";
+import { AnomalyError, pickLocalizedReason } from "@/lib/ai/types/anomaly";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
 
+// `locale` is accepted for backward compatibility with the existing client
+// payload but is no longer used: detection now generates all three languages
+// in a single pass and stores them as a JSON object on the transaction.
 const BODY_SCHEMA = z.object({
-  locale: z.enum(["fr", "en", "ar"]),
+  locale: z.enum(["fr", "en", "ar"]).optional(),
 });
 
 type ApiErrorCode =
@@ -63,7 +66,11 @@ export async function GET() {
       description: a.description,
       amountMAD: Number(a.amountMAD),
       occurredAt: a.occurredAt.toISOString(),
-      reason: a.anomalyReason,
+      reasonByLocale: {
+        fr: pickLocalizedReason(a.anomalyReason, "fr"),
+        en: pickLocalizedReason(a.anomalyReason, "en"),
+        ar: pickLocalizedReason(a.anomalyReason, "ar"),
+      },
       categoryName: a.category?.name ?? null,
       categoryNameEn: a.category?.nameEn ?? null,
       categoryNameAr: a.category?.nameAr ?? null,
@@ -89,10 +96,11 @@ export async function POST(request: Request) {
   }
   const parsed = BODY_SCHEMA.safeParse(body);
   if (!parsed.success) return err("INVALID_BODY", 400, { issues: parsed.error.issues });
-  const { locale } = parsed.data;
+  // `locale` from body is intentionally ignored — see BODY_SCHEMA comment above.
+  void parsed.data;
 
   try {
-    const result = await detectAnomalies(prisma, userId, locale);
+    const result = await detectAnomalies(prisma, userId);
     return NextResponse.json({ ok: true, ...result });
   } catch (error) {
     console.error("[detect-anomalies] failed:", error);

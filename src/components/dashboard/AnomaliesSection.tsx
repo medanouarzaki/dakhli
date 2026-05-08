@@ -1,10 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
+import { pickLocalizedReason, type Locale } from "@/lib/ai/types/anomaly";
 import { AnomaliesClient } from "./AnomaliesClient";
 
 type Props = {
   userId: string;
-  locale: "fr" | "en" | "ar";
+  locale: Locale;
 };
 
 export async function AnomaliesSection({ userId, locale }: Props) {
@@ -35,7 +36,7 @@ export async function AnomaliesSection({ userId, locale }: Props) {
     description: a.description,
     amountMAD: Number(a.amountMAD),
     occurredAt: a.occurredAt.toISOString(),
-    reason: a.anomalyReason,
+    reason: pickLocalizedReason(a.anomalyReason, locale),
     categoryName: pickCategoryName(a.category, locale),
     categoryColor: a.category?.color ?? null,
     categoryIcon: a.category?.icon ?? null,
@@ -57,7 +58,6 @@ export async function AnomaliesSection({ userId, locale }: Props) {
         lastScanLabel: t("last_scan"),
         errorGeneric: t("errors.generic"),
         errorInsufficient: t("errors.insufficient"),
-        successFmt: t("success_fmt"),
       }}
     />
   );
@@ -65,7 +65,7 @@ export async function AnomaliesSection({ userId, locale }: Props) {
 
 function pickCategoryName(
   category: { name: string; nameEn: string | null; nameAr: string | null } | null,
-  locale: "fr" | "en" | "ar"
+  locale: Locale
 ): string {
   if (!category) return "—";
   if (locale === "ar") return category.nameAr ?? category.name;
