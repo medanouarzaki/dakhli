@@ -126,7 +126,7 @@ export function TransactionRow({ tx, locale }: Props) {
 
       {/* Amount */}
       <TableCell className="text-right">
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end gap-2 whitespace-nowrap">
           {tx.isAnomaly && <AnomalyBadge reason={pickLocalizedReason(tx.anomalyReason, locale as Locale)} />}
           <AmountDisplay
             amount={tx.amount}
