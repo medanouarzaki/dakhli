@@ -362,7 +362,8 @@
       "achieved": "Achieved 🎉",
       "add_progress": "+ Add",
       "edit": "Edit",
-      "delete": "Delete"
+      "delete": "Delete",
+      "ai_plan": "AI Plan"
     },
     "form": {
       "title_label": "Title",
@@ -414,6 +415,48 @@
       "updated": "Goal updated",
       "deleted": "Goal deleted",
       "progress_added_fmt": "+{amount} MAD added"
+    },
+    "ai_plan": {
+      "title": "✨ AI savings plan",
+      "close": "Close",
+      "success_generated": "Savings plan generated",
+      "empty": {
+        "title": "No plan generated for this goal yet",
+        "subtitle": "AI will analyze your income, your spending over the last 3 months, and propose a realistic monthly plan with concrete saving levers tailored to the Moroccan context.",
+        "cta": "Generate my plan"
+      },
+      "generating": {
+        "title": "Generating your plan…",
+        "reassurance": "This usually takes 10-20 seconds.",
+        "step1": "Analyzing income and expenses over the last 90 days",
+        "step2": "Computing the required monthly target",
+        "step3": "Identifying saving levers"
+      },
+      "plan": {
+        "monthly_target": "Monthly target",
+        "months_remaining": "Months left",
+        "feasibility": "Feasibility",
+        "summary_title": "Recap",
+        "levers_title": "Saving levers",
+        "current_spend": "Current",
+        "suggested_spend": "Target",
+        "potential_savings": "Potential savings",
+        "generated_on": "Generated on",
+        "regenerate": "Regenerate"
+      },
+      "feasibility_labels": {
+        "easy": "Easy",
+        "realistic": "Realistic",
+        "stretch": "Stretch",
+        "unrealistic": "Too ambitious"
+      },
+      "errors": {
+        "generic": "Generation failed. Try again in a moment.",
+        "goal_achieved": "This goal is already achieved — no plan needed.",
+        "goal_overdue": "Target date is in the past. Update your goal and try again.",
+        "goal_not_found": "Goal not found.",
+        "retry": "Retry"
+      }
     }
   }
 }

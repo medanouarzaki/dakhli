@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Pencil, Trash2, PlusCircle } from "lucide-react";
+import { Pencil, Trash2, PlusCircle, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -14,6 +14,7 @@ type Props = {
   onAddProgress: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  onPlanClick: () => void;
 };
 
 function formatAmount(value: number, locale: string): string {
@@ -41,7 +42,7 @@ function getDaysRemaining(isoDate: string | null): number | null {
   return Math.round((target.getTime() - today.getTime()) / 86_400_000);
 }
 
-export function GoalCard({ goal, locale, onAddProgress, onEdit, onDelete }: Props) {
+export function GoalCard({ goal, locale, onAddProgress, onEdit, onDelete, onPlanClick }: Props) {
   const t = useTranslations("Goals");
 
   const percent = goal.targetMAD > 0
@@ -119,6 +120,17 @@ export function GoalCard({ goal, locale, onAddProgress, onEdit, onDelete }: Prop
             </span>
           ) : null}
         </div>
+
+        {/* AI Plan action */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onPlanClick}
+          className="w-full text-amber-700 dark:text-amber-400 border-amber-200 hover:bg-amber-50 dark:border-amber-800 dark:hover:bg-amber-950/30"
+        >
+          <Sparkles className="me-1.5 h-3.5 w-3.5" />
+          {t("card.ai_plan")}
+        </Button>
       </CardContent>
     </Card>
   );

@@ -362,7 +362,8 @@
       "achieved": "Atteint 🎉",
       "add_progress": "+ Ajouter",
       "edit": "Modifier",
-      "delete": "Supprimer"
+      "delete": "Supprimer",
+      "ai_plan": "Plan IA"
     },
     "form": {
       "title_label": "Intitulé",
@@ -414,6 +415,48 @@
       "updated": "Objectif mis à jour",
       "deleted": "Objectif supprimé",
       "progress_added_fmt": "+{amount} MAD ajoutés"
+    },
+    "ai_plan": {
+      "title": "✨ Plan d'épargne IA",
+      "close": "Fermer",
+      "success_generated": "Plan d'épargne généré",
+      "empty": {
+        "title": "Aucun plan généré pour cet objectif",
+        "subtitle": "L'IA va analyser tes revenus, tes dépenses des 3 derniers mois, et te proposer un plan mensuel réaliste avec des leviers d'économies concrets adaptés au contexte marocain.",
+        "cta": "Générer mon plan"
+      },
+      "generating": {
+        "title": "Génération de ton plan en cours…",
+        "reassurance": "Cela prend généralement 10 à 20 secondes.",
+        "step1": "Analyse des revenus et dépenses des 90 derniers jours",
+        "step2": "Calcul de la cible mensuelle nécessaire",
+        "step3": "Identification des leviers d'économies"
+      },
+      "plan": {
+        "monthly_target": "Cible mensuelle",
+        "months_remaining": "Mois restants",
+        "feasibility": "Faisabilité",
+        "summary_title": "Récap",
+        "levers_title": "Leviers d'économies",
+        "current_spend": "Actuel",
+        "suggested_spend": "Cible",
+        "potential_savings": "Économie potentielle",
+        "generated_on": "Généré le",
+        "regenerate": "Régénérer"
+      },
+      "feasibility_labels": {
+        "easy": "Facile",
+        "realistic": "Réaliste",
+        "stretch": "Tendu",
+        "unrealistic": "Trop ambitieux"
+      },
+      "errors": {
+        "generic": "La génération a échoué. Réessaie dans un instant.",
+        "goal_achieved": "Cet objectif est déjà atteint, pas besoin de plan.",
+        "goal_overdue": "La date cible est dépassée. Mets à jour ton objectif et relance.",
+        "goal_not_found": "Objectif introuvable.",
+        "retry": "Réessayer"
+      }
     }
   }
 }

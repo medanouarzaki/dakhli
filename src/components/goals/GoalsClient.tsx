@@ -18,8 +18,8 @@ import { GoalForm } from "./GoalForm";
 import { GoalsEmptyState } from "./GoalsEmptyState";
 import { AddProgressDialog } from "./AddProgressDialog";
 import { DeleteGoalDialog } from "./DeleteGoalDialog";
-
-type Locale = "fr" | "en" | "ar";
+import { SavingsPlanDialog } from "./SavingsPlanDialog";
+import type { Locale } from "@/lib/ai/types/savings-plan";
 
 export type GoalDTO = {
   id: string;
@@ -42,6 +42,7 @@ export function GoalsClient({ locale, initialGoals }: Props) {
   const [editingGoal, setEditingGoal] = useState<GoalDTO | null>(null);
   const [deletingGoal, setDeletingGoal] = useState<GoalDTO | null>(null);
   const [addingProgressGoal, setAddingProgressGoal] = useState<GoalDTO | null>(null);
+  const [planGoal, setPlanGoal] = useState<GoalDTO | null>(null);
 
   async function refetchGoals() {
     try {
@@ -147,6 +148,7 @@ export function GoalsClient({ locale, initialGoals }: Props) {
                 onAddProgress={() => setAddingProgressGoal(goal)}
                 onEdit={() => setEditingGoal(goal)}
                 onDelete={() => setDeletingGoal(goal)}
+                onPlanClick={() => setPlanGoal(goal)}
               />
             ))}
           </div>
@@ -208,6 +210,14 @@ export function GoalsClient({ locale, initialGoals }: Props) {
           onClose={() => setDeletingGoal(null)}
         />
       )}
+
+      {/* AI Savings Plan dialog */}
+      <SavingsPlanDialog
+        goal={planGoal}
+        locale={locale as Locale}
+        open={planGoal !== null}
+        onOpenChange={(open) => { if (!open) setPlanGoal(null); }}
+      />
     </div>
   );
 }
