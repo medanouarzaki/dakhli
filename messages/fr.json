@@ -8,7 +8,8 @@
     "dashboard": "Tableau de bord",
     "transactions": "Transactions",
     "budgets": "Budgets",
-    "chat": "Chat IA"
+    "chat": "Chat IA",
+    "goals": "Objectifs"
   },
   "Transactions": {
     "page_title": "Transactions",
@@ -348,6 +349,71 @@
     },
     "badge": {
       "label": "Anomalie"
+    }
+  },
+  "Goals": {
+    "page_title": "Mes objectifs d'épargne",
+    "page_subtitle": "Fixez vos cibles, suivez votre progression, l'IA vous aide à y arriver",
+    "create_button": "+ Nouvel objectif",
+    "card": {
+      "of_target": "sur",
+      "remaining_days": "{count, plural, =0 {Échéance aujourd'hui} =1 {1 jour restant} other {# jours restants}}",
+      "overdue": "Échu",
+      "achieved": "Atteint 🎉",
+      "add_progress": "+ Ajouter",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "form": {
+      "title_label": "Intitulé",
+      "title_placeholder": "Ex : Voyage Asie",
+      "target_amount_label": "Montant cible (MAD)",
+      "target_amount_placeholder": "15000",
+      "target_date_label": "Date cible",
+      "submit_create": "Créer l'objectif",
+      "submit_edit": "Enregistrer",
+      "cancel": "Annuler",
+      "sheet_title_create": "Nouvel objectif d'épargne",
+      "sheet_title_edit": "Modifier l'objectif"
+    },
+    "progress_dialog": {
+      "title": "Ajouter à mon épargne",
+      "subtitle_fmt": "{title} — {current}/{target} MAD",
+      "amount_label": "Montant à ajouter (MAD)",
+      "submit": "Ajouter",
+      "cancel": "Annuler"
+    },
+    "delete_dialog": {
+      "title": "Supprimer cet objectif ?",
+      "description": "L'objectif sera retiré de votre liste. Vos transactions ne sont pas affectées.",
+      "confirm": "Supprimer",
+      "cancel": "Annuler"
+    },
+    "empty": {
+      "title": "Pas encore d'objectif d'épargne",
+      "subtitle": "Définissez votre première cible : un voyage, un achat, une réserve de précaution. L'IA vous proposera ensuite un plan adapté à vos revenus.",
+      "cta": "Créer mon premier objectif"
+    },
+    "validation": {
+      "title_min": "L'intitulé fait au moins 2 caractères",
+      "title_max": "L'intitulé fait au plus 80 caractères",
+      "amount_number": "Entrez un nombre valide",
+      "amount_positive": "Le montant doit être positif",
+      "amount_max": "Le montant est trop élevé",
+      "date_format": "Format de date invalide",
+      "date_invalid": "Date invalide"
+    },
+    "errors": {
+      "create_failed": "La création a échoué. Réessayez.",
+      "update_failed": "La mise à jour a échoué.",
+      "delete_failed": "La suppression a échoué.",
+      "progress_failed": "L'ajout a échoué."
+    },
+    "success": {
+      "created": "Objectif créé",
+      "updated": "Objectif mis à jour",
+      "deleted": "Objectif supprimé",
+      "progress_added_fmt": "+{amount} MAD ajoutés"
     }
   }
 }

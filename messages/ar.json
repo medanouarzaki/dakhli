@@ -8,7 +8,8 @@
     "dashboard": "لوحة التحكم",
     "transactions": "المعاملات",
     "budgets": "الميزانيات",
-    "chat": "الدردشة الذكية"
+    "chat": "الدردشة الذكية",
+    "goals": "الأهداف"
   },
   "Transactions": {
     "page_title": "المعاملات",
@@ -348,6 +349,71 @@
     },
     "badge": {
       "label": "حالة شاذة"
+    }
+  },
+  "Goals": {
+    "page_title": "أهداف ادخاري",
+    "page_subtitle": "حدد أهدافك، تابع تقدمك، الذكاء الاصطناعي يساعدك على الوصول",
+    "create_button": "+ هدف جديد",
+    "card": {
+      "of_target": "من",
+      "remaining_days": "{count, plural, =0 {ينتهي اليوم} =1 {يوم واحد متبقي} other {# أيام متبقية}}",
+      "overdue": "منتهي",
+      "achieved": "تم تحقيقه 🎉",
+      "add_progress": "+ أضف",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "form": {
+      "title_label": "العنوان",
+      "title_placeholder": "مثال: سفر إلى آسيا",
+      "target_amount_label": "المبلغ المستهدف (درهم)",
+      "target_amount_placeholder": "15000",
+      "target_date_label": "التاريخ المستهدف",
+      "submit_create": "أنشئ الهدف",
+      "submit_edit": "حفظ",
+      "cancel": "إلغاء",
+      "sheet_title_create": "هدف ادخار جديد",
+      "sheet_title_edit": "تعديل الهدف"
+    },
+    "progress_dialog": {
+      "title": "أضف إلى ادخاري",
+      "subtitle_fmt": "{title} — {current}/{target} درهم",
+      "amount_label": "المبلغ المضاف (درهم)",
+      "submit": "أضف",
+      "cancel": "إلغاء"
+    },
+    "delete_dialog": {
+      "title": "حذف هذا الهدف؟",
+      "description": "سيُحذف الهدف من قائمتك. لن تتأثر معاملاتك.",
+      "confirm": "حذف",
+      "cancel": "إلغاء"
+    },
+    "empty": {
+      "title": "لا توجد أهداف ادخار بعد",
+      "subtitle": "حدد هدفك الأول — رحلة، شراء، صندوق احتياطي. سيقترح الذكاء الاصطناعي خطة مناسبة لدخلك.",
+      "cta": "أنشئ هدفي الأول"
+    },
+    "validation": {
+      "title_min": "يجب أن يكون العنوان من حرفين على الأقل",
+      "title_max": "يجب أن يكون العنوان من 80 حرفاً على الأكثر",
+      "amount_number": "أدخل رقماً صالحاً",
+      "amount_positive": "يجب أن يكون المبلغ موجباً",
+      "amount_max": "المبلغ كبير جداً",
+      "date_format": "صيغة تاريخ غير صالحة",
+      "date_invalid": "تاريخ غير صالح"
+    },
+    "errors": {
+      "create_failed": "فشل الإنشاء. أعد المحاولة.",
+      "update_failed": "فشل التحديث.",
+      "delete_failed": "فشل الحذف.",
+      "progress_failed": "فشلت الإضافة."
+    },
+    "success": {
+      "created": "تم إنشاء الهدف",
+      "updated": "تم تحديث الهدف",
+      "deleted": "تم حذف الهدف",
+      "progress_added_fmt": "+{amount} درهم أضيف"
     }
   }
 }
