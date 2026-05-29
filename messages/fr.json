@@ -458,5 +458,38 @@
         "retry": "Réessayer"
       }
     }
+  },
+  "Forecast": {
+    "section_title": "Prévision du mois prochain",
+    "section_subtitle": "L'IA prédit tes dépenses en se basant sur 6 mois d'historique et les événements à venir",
+    "generate_button": "✨ Générer ma prévision",
+    "regenerate_button": "Régénérer",
+    "analyzing": "Analyse en cours…",
+    "total_forecast": "Total prévu",
+    "total_last_month": "Mois précédent",
+    "by_category": "Par catégorie",
+    "recurring_commitments": "Engagements récurrents identifiés",
+    "seasonal_context": "Contexte saisonnier",
+    "summary": "Récap",
+    "generated_on": "Généré le",
+    "chart_predicted": "Prévision",
+    "chart_last_month": "Mois précédent",
+    "chart_mad": "MAD",
+    "trend": {
+      "STABLE": "Stable",
+      "UP": "En hausse",
+      "DOWN": "En baisse",
+      "SEASONAL_UP": "Pic saisonnier",
+      "SEASONAL_DOWN": "Creux saisonnier"
+    },
+    "empty": {
+      "title": "Pas encore de prévision",
+      "subtitle": "Génère ta première prévision pour anticiper le mois prochain. L'IA analyse tes 6 derniers mois et tient compte des événements à venir."
+    },
+    "errors": {
+      "generic": "La génération a échoué. Réessaie dans un instant.",
+      "insufficient": "Pas assez de transactions sur 6 mois pour une prévision fiable. Importe ou saisis plus de dépenses."
+    },
+    "success_generated": "Prévision générée"
   }
 }

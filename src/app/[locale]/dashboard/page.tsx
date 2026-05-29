@@ -32,6 +32,7 @@ import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState"
 import { BudgetUsageMini } from "@/components/dashboard/BudgetUsageMini";
 import { WeeklyAdviceSection } from "@/components/dashboard/WeeklyAdviceSection";
 import { AnomaliesSection } from "@/components/dashboard/AnomaliesSection";
+import { ForecastSection } from "@/components/dashboard/ForecastSection";
 
 import {
   Card,
@@ -155,6 +156,9 @@ export default async function DashboardPage({
 
           {/* Anomaly detection */}
           <AnomaliesSection userId={userId} locale={locale as "fr" | "en" | "ar"} />
+
+          {/* Expense forecasting */}
+          <ForecastSection userId={userId} locale={locale as "fr" | "en" | "ar"} />
 
           {/* Breakdown + Top categories */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

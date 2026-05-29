@@ -458,5 +458,38 @@
         "retry": "Retry"
       }
     }
+  },
+  "Forecast": {
+    "section_title": "Next month's forecast",
+    "section_subtitle": "AI predicts your spending based on 6 months of history and upcoming events",
+    "generate_button": "✨ Generate my forecast",
+    "regenerate_button": "Regenerate",
+    "analyzing": "Analyzing…",
+    "total_forecast": "Total forecast",
+    "total_last_month": "Last month",
+    "by_category": "By category",
+    "recurring_commitments": "Identified recurring commitments",
+    "seasonal_context": "Seasonal context",
+    "summary": "Recap",
+    "generated_on": "Generated on",
+    "chart_predicted": "Forecast",
+    "chart_last_month": "Last month",
+    "chart_mad": "MAD",
+    "trend": {
+      "STABLE": "Stable",
+      "UP": "Trending up",
+      "DOWN": "Trending down",
+      "SEASONAL_UP": "Seasonal peak",
+      "SEASONAL_DOWN": "Seasonal dip"
+    },
+    "empty": {
+      "title": "No forecast yet",
+      "subtitle": "Generate your first forecast to anticipate next month. AI analyzes your last 6 months and factors in upcoming events."
+    },
+    "errors": {
+      "generic": "Generation failed. Try again in a moment.",
+      "insufficient": "Not enough transactions over 6 months for a reliable forecast. Import or add more expenses."
+    },
+    "success_generated": "Forecast generated"
   }
 }
