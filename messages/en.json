@@ -491,5 +491,89 @@
       "insufficient": "Not enough transactions over 6 months for a reliable forecast. Import or add more expenses."
     },
     "success_generated": "Forecast generated"
+  },
+  "Landing": {
+    "nav": {
+      "signIn": "Sign in",
+      "getStarted": "Get started"
+    },
+    "hero": {
+      "eyebrow": "Personal Finance · Morocco",
+      "title": "Your finances, finally clear.",
+      "subtitle": "Track your spending, understand your habits, and let AI guide you — in Darija, French, or English.",
+      "ctaPrimary": "Get started for free",
+      "ctaSecondary": "I already have an account",
+      "trust": "100% free · FR / EN / العربية · built for Morocco"
+    },
+    "preview": {
+      "balanceLabel": "Net balance · this month",
+      "delta": "+8%",
+      "adviceTitle": "Tip of the week",
+      "adviceBody": "You have 1,500 MAD of breathing room this month — now's the time to fund your travel goal."
+    },
+    "features": {
+      "title": "AI that works for your money",
+      "subtitle": "Seven smart features, built for your reality.",
+      "categorize": {
+        "title": "Automatic categorization",
+        "desc": "Every transaction sorted by AI, effortlessly."
+      },
+      "anomalies": {
+        "title": "Anomaly detection",
+        "desc": "Spot unusual expenses before they add up."
+      },
+      "forecast": {
+        "title": "Expense forecasting",
+        "desc": "Anticipate your spending for the month ahead."
+      },
+      "chat": {
+        "title": "Conversational assistant",
+        "desc": "Ask your money questions in Darija, French, or English."
+      },
+      "advice": {
+        "title": "Personalized tips",
+        "desc": "Recommendations tailored to your reality, every week."
+      },
+      "pdf": {
+        "title": "PDF statement import",
+        "desc": "Upload your bank statement, AI extracts everything."
+      },
+      "savings": {
+        "title": "Smart savings plans",
+        "desc": "Reach your goals with a plan calculated for you."
+      }
+    },
+    "how": {
+      "title": "How it works",
+      "step1": {
+        "title": "Create your account",
+        "desc": "In one minute, in French, English, or Arabic."
+      },
+      "step2": {
+        "title": "Add your transactions",
+        "desc": "Enter them manually or import your PDF — AI handles the sorting."
+      },
+      "step3": {
+        "title": "Let AI enlighten you",
+        "desc": "Tips, anomalies, forecasts: your money, finally readable."
+      }
+    },
+    "morocco": {
+      "title": "Built for Morocco",
+      "subtitle": "Dakhli speaks your language and knows your daily life.",
+      "point1": "Dirham and multi-currency for your transfers.",
+      "point2": "Local categories: family transfers, top-ups, transport…",
+      "point3": "Darija, French, English — with real Arabic support.",
+      "point4": "Tips calibrated to the Moroccan cost of living."
+    },
+    "cta": {
+      "title": "Ready to take back control of your money?",
+      "button": "Get started for free"
+    },
+    "footer": {
+      "tagline": "Your finances, finally clear.",
+      "project": "Academic project — INSEA",
+      "rights": "© 2026 Dakhli"
+    }
   }
 }

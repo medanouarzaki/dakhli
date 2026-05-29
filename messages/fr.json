@@ -491,5 +491,89 @@
       "insufficient": "Pas assez de transactions sur 6 mois pour une prévision fiable. Importe ou saisis plus de dépenses."
     },
     "success_generated": "Prévision générée"
+  },
+  "Landing": {
+    "nav": {
+      "signIn": "Se connecter",
+      "getStarted": "Commencer"
+    },
+    "hero": {
+      "eyebrow": "Finances personnelles · Maroc",
+      "title": "Tes finances, enfin claires.",
+      "subtitle": "Suis tes dépenses, comprends tes habitudes, et laisse l'IA te conseiller — en darija, français ou anglais.",
+      "ctaPrimary": "Commencer gratuitement",
+      "ctaSecondary": "J'ai déjà un compte",
+      "trust": "100% gratuit · FR / EN / العربية · pensé pour le Maroc"
+    },
+    "preview": {
+      "balanceLabel": "Solde net · ce mois",
+      "delta": "+8%",
+      "adviceTitle": "Conseil de la semaine",
+      "adviceBody": "Tu as 1 500 MAD de marge ce mois — c'est le moment d'alimenter ton objectif voyage."
+    },
+    "features": {
+      "title": "Une IA qui travaille pour ton argent",
+      "subtitle": "Sept fonctionnalités intelligentes, pensées pour ta réalité.",
+      "categorize": {
+        "title": "Catégorisation automatique",
+        "desc": "Chaque transaction classée par l'IA, sans effort."
+      },
+      "anomalies": {
+        "title": "Détection d'anomalies",
+        "desc": "Repère les dépenses inhabituelles avant qu'elles pèsent."
+      },
+      "forecast": {
+        "title": "Prévision des dépenses",
+        "desc": "Anticipe tes dépenses du mois à venir."
+      },
+      "chat": {
+        "title": "Assistant conversationnel",
+        "desc": "Pose tes questions d'argent en darija, français ou anglais."
+      },
+      "advice": {
+        "title": "Conseils personnalisés",
+        "desc": "Des recommandations adaptées à ta réalité, chaque semaine."
+      },
+      "pdf": {
+        "title": "Import de relevés PDF",
+        "desc": "Dépose ton relevé bancaire, l'IA en extrait tout."
+      },
+      "savings": {
+        "title": "Plans d'épargne intelligents",
+        "desc": "Atteins tes objectifs avec un plan calculé pour toi."
+      }
+    },
+    "how": {
+      "title": "Comment ça marche",
+      "step1": {
+        "title": "Crée ton compte",
+        "desc": "En une minute, en français, anglais ou arabe."
+      },
+      "step2": {
+        "title": "Ajoute tes transactions",
+        "desc": "Saisis-les ou importe ton relevé PDF — l'IA s'occupe du tri."
+      },
+      "step3": {
+        "title": "Laisse l'IA t'éclairer",
+        "desc": "Conseils, anomalies, prévisions : ton argent enfin lisible."
+      }
+    },
+    "morocco": {
+      "title": "Pensé pour le Maroc",
+      "subtitle": "Dakhli parle ta langue et connaît ton quotidien.",
+      "point1": "Dirham et multidevise pour tes transferts.",
+      "point2": "Catégories locales : transferts famille, recharges, transport…",
+      "point3": "Darija, français, anglais — avec un vrai support de l'arabe.",
+      "point4": "Des conseils calibrés sur le coût de la vie au Maroc."
+    },
+    "cta": {
+      "title": "Prêt à reprendre le contrôle de ton argent ?",
+      "button": "Commencer gratuitement"
+    },
+    "footer": {
+      "tagline": "Tes finances, enfin claires.",
+      "project": "Projet académique — INSEA",
+      "rights": "© 2026 Dakhli"
+    }
   }
 }
