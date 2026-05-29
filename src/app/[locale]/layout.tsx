@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Bricolage_Grotesque } from "next/font/google";
+import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { AuthSessionProvider } from "@/components/providers/session-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
@@ -21,6 +24,19 @@ const geistMono = localFont({
   src: "../fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
+});
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "700"],
+  variable: "--font-arabic",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -60,19 +76,31 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={direction}
-      className={cn("font-sans", geistSans.variable)}
+      suppressHydrationWarning
+      className={cn(
+        "font-sans",
+        geistSans.variable,
+        geistMono.variable,
+        bricolage.variable,
+        plexArabic.variable
+      )}
     >
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <RadixDirectionProvider dir={direction}>
-          <AuthSessionProvider>
-            <NextIntlClientProvider locale={locale} messages={messages}>
-              {children}
-              <Toaster />
-            </NextIntlClientProvider>
-          </AuthSessionProvider>
-        </RadixDirectionProvider>
+      <body className="antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <RadixDirectionProvider dir={direction}>
+            <AuthSessionProvider>
+              <NextIntlClientProvider locale={locale} messages={messages}>
+                {children}
+                <Toaster />
+              </NextIntlClientProvider>
+            </AuthSessionProvider>
+          </RadixDirectionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

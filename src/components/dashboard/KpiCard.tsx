@@ -66,7 +66,7 @@ export function KpiCard({ label, valueMAD, deltaPct, positiveIsGood, locale, var
           <div className={`mt-1.5 flex items-center gap-1 ${colorClass}`}>
             <DeltaIcon size={14} />
             <span className="text-sm font-medium">{deltaText}</span>
-            <span className="ml-1 text-xs text-muted-foreground">
+            <span className="ms-1 text-xs text-muted-foreground">
               {t("kpi.vs_previous")}
             </span>
           </div>
