@@ -7,6 +7,8 @@ import { LayoutDashboard, ListOrdered, MessageCircle, Target, Wallet } from "luc
 
 import { SignOutButton } from "@/components/sign-out-button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Logo } from "@/components/logo";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -31,8 +33,8 @@ export function AppNav({ locale, userName, userEmail }: Props) {
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <nav className="flex items-center gap-1">
-          <Link href={`/${locale}/dashboard`} className="me-4 text-lg font-bold">
-            Dakhli
+          <Link href={`/${locale}/dashboard`} className="me-4">
+            <Logo />
           </Link>
           {links.map((link) => {
             const isActive = pathname.startsWith(link.href);
@@ -55,6 +57,7 @@ export function AppNav({ locale, userName, userEmail }: Props) {
           })}
         </nav>
         <div className="flex items-center gap-1">
+          <LanguageSwitcher />
           <ThemeToggle />
           <SignOutButton
             locale={locale}
