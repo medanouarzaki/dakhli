@@ -9,7 +9,7 @@ import {
 } from "./types/forecast";
 
 const MODEL = "claude-sonnet-4-6";
-const MAX_TOKENS = 3500;
+const MAX_TOKENS = 6000;
 const REQUEST_TIMEOUT_MS = 60_000;
 const HISTORY_WINDOW_DAYS = 180;
 
@@ -91,7 +91,8 @@ OUTPUT (strict JSON, no preamble, no markdown fences)
 }
 
 RULES
-- byCategoryForecasts: 5-10 top categories by spending. Skip categories with < 50 MAD/month average.
+- byCategoryForecasts: 5-7 top categories by spending. Hard cap at 7. Skip categories with < 50 MAD/month average.
+- BREVITY: each explanation field max 200 chars, label fields max 60 chars, summary fields max 200 chars. Count carefully — shorter is better.
 - predictedMAD must be a sensible blend of historical average, recent trend, and seasonality. Round to nearest 10 MAD.
 - trend values:
     STABLE          — variation < 15% vs 3-month average
@@ -198,7 +199,7 @@ export async function generateForecast(
   const topCategories = categoryHistory
     .filter((c) => c.averageMAD > 50)
     .sort((a, b) => b.averageMAD - a.averageMAD)
-    .slice(0, 10);
+    .slice(0, 7);
 
   if (topCategories.length === 0) {
     throw new ForecasterError(
@@ -298,7 +299,7 @@ export async function generateForecast(
   } catch (e) {
     throw new ForecasterError(
       "PARSE_ERROR",
-      `Invalid JSON. First 500 chars: ${cleaned.slice(0, 500)}`,
+      `Invalid JSON (total ${cleaned.length} chars). First 300: ${cleaned.slice(0, 300)} … Last 200: ${cleaned.slice(-200)}`,
       e
     );
   }

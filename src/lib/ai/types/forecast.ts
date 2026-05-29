@@ -4,9 +4,9 @@ export const SUPPORTED_LOCALES = ["fr", "en", "ar"] as const;
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 export const LocalizedTextSchema = z.object({
-  fr: z.string().min(2).max(400),
-  en: z.string().min(2).max(400),
-  ar: z.string().min(2).max(400),
+  fr: z.string().min(2).max(240),
+  en: z.string().min(2).max(240),
+  ar: z.string().min(2).max(240),
 });
 
 export type LocalizedText = z.infer<typeof LocalizedTextSchema>;
@@ -33,7 +33,7 @@ export const ForecastSchema = z.object({
   forecastMonth: z.string().regex(/^\d{4}-\d{2}$/, "YYYY-MM format"),
   totalForecastMAD: z.number().nonnegative(),
   totalLastMonthMAD: z.number().nonnegative(),
-  byCategoryForecasts: z.array(CategoryForecastSchema).min(1).max(10),
+  byCategoryForecasts: z.array(CategoryForecastSchema).min(1).max(7),
   recurringCommitments: z.array(RecurringCommitmentSchema).max(8),
   seasonalContext: LocalizedTextSchema.nullable(),
   summary: LocalizedTextSchema,
