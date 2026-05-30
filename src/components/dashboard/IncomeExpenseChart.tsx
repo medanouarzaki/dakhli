@@ -11,6 +11,7 @@ import {
 import { useTranslations } from "next-intl";
 
 import type { TimeBucket } from "@/lib/dashboard/stats";
+import { formatMAD } from "@/lib/format/money";
 
 type Granularity = "daily" | "monthly" | "yearly";
 
@@ -76,14 +77,6 @@ export function IncomeExpenseChart({ buckets, locale }: Props) {
 
   const gran = detectGranularity(buckets[0].label);
 
-  const formatMAD = (value: number) =>
-    new Intl.NumberFormat(locale, {
-      style: "currency",
-      currency: "MAD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
-
   const formatCompact = (value: number) =>
     new Intl.NumberFormat(locale, {
       notation: "compact",
@@ -138,13 +131,13 @@ export function IncomeExpenseChart({ buckets, locale }: Props) {
                       {t("kpi.income")}
                     </span>
                     <span className="font-medium tabular-nums">
-                      {formatMAD(income)}
+                      {formatMAD(income, locale)}
                     </span>
                   </div>
                   <div className="flex justify-between gap-6">
                     <span className="text-destructive">{t("kpi.expense")}</span>
                     <span className="font-medium tabular-nums">
-                      {formatMAD(expense)}
+                      {formatMAD(expense, locale)}
                     </span>
                   </div>
                   <div className="flex justify-between gap-6 border-t pt-1">
@@ -156,7 +149,7 @@ export function IncomeExpenseChart({ buckets, locale }: Props) {
                         net >= 0 ? "text-success" : "text-destructive"
                       }`}
                     >
-                      {formatMAD(net)}
+                      {formatMAD(net, locale)}
                     </span>
                   </div>
                 </div>

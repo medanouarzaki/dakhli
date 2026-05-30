@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import type { Prisma } from "@prisma/client";
 
 import { Button } from "@/components/ui/button";
+import { formatMAD } from "@/lib/format/money";
 
 type TxWithRelations = Prisma.TransactionGetPayload<{
   include: { category: true; account: true };
@@ -39,12 +40,7 @@ export async function RecentTransactionsList({ transactions, locale }: Props) {
           timeZone: "UTC",
         }).format(new Date(tx.occurredAt));
 
-        const amountFormatted = new Intl.NumberFormat(locale, {
-          style: "currency",
-          currency: "MAD",
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        }).format(Number(tx.amountMAD));
+        const amountFormatted = formatMAD(Number(tx.amountMAD), locale);
 
         const categoryName =
           tx.category === null

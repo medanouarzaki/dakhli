@@ -5,6 +5,7 @@ import type { LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { formatMAD } from "@/lib/format/money";
 
 type Props = {
   label: string;
@@ -22,12 +23,7 @@ export function KpiCard({ label, valueMAD, deltaPct, positiveIsGood, locale, var
   const formattedValue =
     variant === "count"
       ? new Intl.NumberFormat(locale).format(valueMAD)
-      : new Intl.NumberFormat(locale, {
-          style: "currency",
-          currency: "MAD",
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        }).format(valueMAD);
+      : formatMAD(valueMAD, locale);
 
   let deltaText = "";
   let DeltaIcon: LucideIcon = Minus;

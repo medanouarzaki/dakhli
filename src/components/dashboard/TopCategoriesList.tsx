@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import type { CategoryBreakdownRow } from "@/lib/dashboard/stats";
 import { CategoryIcon } from "@/lib/categories/icon-map";
 import { chartColor } from "@/lib/dashboard/chart-colors";
+import { formatMAD } from "@/lib/format/money";
 
 type Props = {
   rows: CategoryBreakdownRow[];
@@ -11,14 +12,6 @@ type Props = {
 
 export async function TopCategoriesList({ rows, locale }: Props) {
   const t = await getTranslations("Dashboard");
-
-  const formatMAD = (value: number) =>
-    new Intl.NumberFormat(locale, {
-      style: "currency",
-      currency: "MAD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
 
   if (rows.length === 0) {
     return (
@@ -41,7 +34,7 @@ export async function TopCategoriesList({ rows, locale }: Props) {
             </span>
             <span className="flex-1 truncate text-sm">{row.name}</span>
             <span className="shrink-0 text-sm font-medium tabular-nums">
-              {formatMAD(row.totalMAD)}
+              {formatMAD(row.totalMAD, locale)}
             </span>
             <span className="w-12 shrink-0 text-right text-xs text-muted-foreground">
               ({row.percentOfTotal}%)

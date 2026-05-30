@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import type { HeatmapCell } from "@/lib/dashboard/stats";
+import { formatMAD } from "@/lib/format/money";
 
 type Props = {
   cells: HeatmapCell[];
@@ -33,14 +34,6 @@ export async function WeekdayHeatmap({ cells, locale }: Props) {
 
   const maxTotal = Math.max(...cells.map((c) => c.totalMAD));
 
-  const formatMAD = (value: number) =>
-    new Intl.NumberFormat(locale, {
-      style: "currency",
-      currency: "MAD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
-
   return (
     <div className="max-w-full space-y-2">
       {cells.map((cell) => {
@@ -67,7 +60,7 @@ export async function WeekdayHeatmap({ cells, locale }: Props) {
             {/* Values */}
             <div className="flex items-baseline gap-1 text-right">
               <span className="text-sm font-medium tabular-nums">
-                {formatMAD(cell.totalMAD)}
+                {formatMAD(cell.totalMAD, locale)}
               </span>
               <span className="text-xs text-muted-foreground">
                 ({cell.txCount})

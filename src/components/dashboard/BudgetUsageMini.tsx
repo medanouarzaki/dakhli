@@ -1,17 +1,10 @@
 import { CategoryIcon } from "@/lib/categories/icon-map";
 import type { BudgetUsageRow } from "@/lib/budgets/usage";
+import { formatMAD } from "@/lib/format/money";
 
 type Props = { row: BudgetUsageRow; locale: string };
 
 export function BudgetUsageMini({ row, locale }: Props) {
-  const formatMAD = (v: number) =>
-    new Intl.NumberFormat(locale, {
-      style: "currency",
-      currency: "MAD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(v);
-
   const barColor =
     row.status === "exceeded"
       ? "bg-destructive"
@@ -33,7 +26,7 @@ export function BudgetUsageMini({ row, locale }: Props) {
           <span className="font-medium">{row.categoryName}</span>
         </span>
         <span className="tabular-nums text-muted-foreground">
-          {formatMAD(row.consumedMAD)} / {formatMAD(row.amountMAD)}
+          {formatMAD(row.consumedMAD, locale)} / {formatMAD(row.amountMAD, locale)}
         </span>
       </div>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">

@@ -13,6 +13,7 @@ import { useTranslations } from "next-intl";
 import type { CategoryBreakdownRow } from "@/lib/dashboard/stats";
 import { CategoryIcon } from "@/lib/categories/icon-map";
 import { chartColor } from "@/lib/dashboard/chart-colors";
+import { formatMAD } from "@/lib/format/money";
 
 type Props = {
   rows: CategoryBreakdownRow[];
@@ -22,14 +23,6 @@ type Props = {
 export function CategoryBreakdownChart({ rows, locale }: Props) {
   const t = useTranslations("Dashboard");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const formatMAD = (value: number) =>
-    new Intl.NumberFormat(locale, {
-      style: "currency",
-      currency: "MAD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
 
   if (rows.length === 0) {
     return (
@@ -72,7 +65,7 @@ export function CategoryBreakdownChart({ rows, locale }: Props) {
                 <div className="min-w-[160px] rounded-md border bg-card px-3 py-2 text-sm shadow-md">
                   <p className="mb-1 font-medium">{row.name}</p>
                   <p className="tabular-nums text-muted-foreground">
-                    {formatMAD(row.totalMAD)}
+                    {formatMAD(row.totalMAD, locale)}
                   </p>
                   <p className="text-muted-foreground">{row.percentOfTotal}%</p>
                 </div>
@@ -99,7 +92,7 @@ export function CategoryBreakdownChart({ rows, locale }: Props) {
             </span>
             <span className="flex-1 truncate text-sm">{row.name}</span>
             <span className="shrink-0 text-sm font-medium tabular-nums">
-              {formatMAD(row.totalMAD)}
+              {formatMAD(row.totalMAD, locale)}
             </span>
             <span className="w-10 shrink-0 text-right text-xs text-muted-foreground">
               {row.percentOfTotal}%
