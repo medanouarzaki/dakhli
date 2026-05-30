@@ -57,10 +57,10 @@ function formatMAD(amount: number, locale: Locale): string {
 
 function TrendIcon({ trend }: { trend: Trend }) {
   if (trend === "STABLE") return <Minus className="h-4 w-4 text-muted-foreground" />;
-  if (trend === "UP") return <TrendingUp className="h-4 w-4 text-red-500" />;
-  if (trend === "DOWN") return <TrendingDown className="h-4 w-4 text-emerald-500" />;
-  if (trend === "SEASONAL_UP") return <TrendingUp className="h-4 w-4 text-amber-500" />;
-  return <TrendingDown className="h-4 w-4 text-amber-500" />;
+  if (trend === "UP") return <TrendingUp className="h-4 w-4 text-destructive" />;
+  if (trend === "DOWN") return <TrendingDown className="h-4 w-4 text-success" />;
+  if (trend === "SEASONAL_UP") return <TrendingUp className="h-4 w-4 text-warning" />;
+  return <TrendingDown className="h-4 w-4 text-warning" />;
 }
 
 export function ForecastClient({
@@ -118,7 +118,7 @@ export function ForecastClient({
         <div className="flex items-start justify-between gap-4">
           <div>
             <CardTitle className="flex items-center gap-2">
-              <CalendarDays className="h-5 w-5 text-indigo-500" />
+              <CalendarDays className="h-5 w-5 text-info" />
               {labels.sectionTitle}
             </CardTitle>
             <p className="text-sm text-muted-foreground mt-1">{labels.sectionSubtitle}</p>
@@ -146,8 +146,8 @@ export function ForecastClient({
         {/* Empty state */}
         {!forecast && !isLoading && (
           <div className="flex flex-col items-center gap-4 py-10 text-center">
-            <div className="rounded-full bg-indigo-500/10 p-3">
-              <Sparkles className="h-6 w-6 text-indigo-500" />
+            <div className="rounded-full bg-info/10 p-3">
+              <Sparkles className="h-6 w-6 text-info" />
             </div>
             <div>
               <h3 className="font-semibold">{labels.emptyTitle}</h3>
@@ -163,7 +163,7 @@ export function ForecastClient({
         {/* Loading overlay */}
         {isLoading && (
           <div className="flex flex-col items-center gap-4 py-10 text-center">
-            <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+            <Loader2 className="h-8 w-8 animate-spin text-info" />
             <p className="text-sm text-muted-foreground">{labels.analyzingLabel}</p>
           </div>
         )}
@@ -181,7 +181,7 @@ export function ForecastClient({
                 {totalDelta !== 0 && (
                   <p
                     className={`text-xs mt-1 flex items-center gap-1 ${
-                      totalDelta > 0 ? "text-red-500" : "text-emerald-500"
+                      totalDelta > 0 ? "text-destructive" : "text-success"
                     }`}
                   >
                     {totalDelta > 0 ? (
@@ -261,7 +261,7 @@ export function ForecastClient({
 
             {/* Seasonal context */}
             {forecast.seasonalContext && (
-              <div className="rounded-lg border-s-4 border-s-amber-500 bg-amber-500/5 p-4">
+              <div className="rounded-lg border-s-4 border-s-warning bg-warning/5 p-4">
                 <h4 className="text-sm font-semibold mb-1">{labels.seasonalContext}</h4>
                 <p className="text-sm leading-relaxed">
                   {pickLocalizedText(forecast.seasonalContext, locale)}
@@ -270,7 +270,7 @@ export function ForecastClient({
             )}
 
             {/* Summary */}
-            <div className="rounded-lg border-s-4 border-s-indigo-500 bg-indigo-500/5 p-4">
+            <div className="rounded-lg border-s-4 border-s-info bg-info/5 p-4">
               <h4 className="text-sm font-semibold mb-1">{labels.summary}</h4>
               <p className="text-sm leading-relaxed">
                 {pickLocalizedText(forecast.summary, locale)}

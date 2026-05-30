@@ -30,7 +30,7 @@ export function ForecastBreakdownChart({ forecasts, locale, labels }: Props) {
           type="category"
           dataKey="name"
           width={110}
-          tick={{ fontSize: 11 }}
+          tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
         />
         <Tooltip
           formatter={(value) =>
@@ -38,17 +38,17 @@ export function ForecastBreakdownChart({ forecasts, locale, labels }: Props) {
               ? `${value.toLocaleString(locale)} ${madLabel}`
               : String(value)
           }
-          contentStyle={{ borderRadius: 6, fontSize: 12 }}
+          contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12, color: "var(--foreground)" }}
         />
-        <Legend wrapperStyle={{ fontSize: 12 }} />
+        <Legend wrapperStyle={{ fontSize: 12, color: "var(--muted-foreground)" }} />
         <Bar
           dataKey={labels.lastMonth}
-          fill="#94a3b8"
+          fill="var(--muted-foreground)"
           radius={[0, 4, 4, 0]}
         />
         <Bar
           dataKey={labels.predicted}
-          fill="#6366f1"
+          fill="var(--info)"
           radius={[0, 4, 4, 0]}
         />
       </BarChart>

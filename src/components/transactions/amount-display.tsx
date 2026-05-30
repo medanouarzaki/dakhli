@@ -28,9 +28,9 @@ export function AmountDisplay({
 
   const colorClass =
     type === "INCOME"
-      ? "text-green-600"
+      ? "text-success"
       : type === "EXPENSE"
-        ? "text-red-600"
+        ? "text-destructive"
         : "text-muted-foreground";
 
   const sign = type === "INCOME" ? "+" : type === "EXPENSE" ? "−" : "";

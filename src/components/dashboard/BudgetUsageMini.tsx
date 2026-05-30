@@ -14,10 +14,10 @@ export function BudgetUsageMini({ row, locale }: Props) {
 
   const barColor =
     row.status === "exceeded"
-      ? "bg-red-500"
+      ? "bg-destructive"
       : row.status === "warning"
-        ? "bg-amber-500"
-        : "bg-emerald-500";
+        ? "bg-warning"
+        : "bg-success";
 
   const barWidth = Math.min(row.percent, 100);
 

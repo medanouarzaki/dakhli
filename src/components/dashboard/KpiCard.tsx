@@ -45,10 +45,10 @@ export function KpiCard({ label, valueMAD, deltaPct, positiveIsGood, locale, var
 
     if (deltaPct > 0) {
       DeltaIcon = ArrowUpRight;
-      colorClass = positiveIsGood ? "text-emerald-600" : "text-red-600";
+      colorClass = positiveIsGood ? "text-success" : "text-destructive";
     } else if (deltaPct < 0) {
       DeltaIcon = ArrowDownRight;
-      colorClass = positiveIsGood ? "text-red-600" : "text-emerald-600";
+      colorClass = positiveIsGood ? "text-destructive" : "text-success";
     }
     // deltaPct === 0 keeps Minus icon + muted color
   }
@@ -61,7 +61,7 @@ export function KpiCard({ label, valueMAD, deltaPct, positiveIsGood, locale, var
         </p>
       </CardHeader>
       <CardContent>
-        <p className="text-2xl font-bold tabular-nums">{formattedValue}</p>
+        <p className="text-2xl font-bold font-mono tabular-nums">{formattedValue}</p>
         {deltaPct !== null && (
           <div className={`mt-1.5 flex items-center gap-1 ${colorClass}`}>
             <DeltaIcon size={14} />

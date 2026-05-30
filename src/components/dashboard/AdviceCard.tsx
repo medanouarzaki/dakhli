@@ -10,14 +10,14 @@ type Props = {
 
 const PRIORITY_BAR: Record<AdviceItem["priority"], string> = {
   HIGH: "bg-destructive",
-  MEDIUM: "bg-amber-500",
-  LOW: "bg-blue-500",
+  MEDIUM: "bg-warning",
+  LOW: "bg-info",
 };
 
 const PRIORITY_BADGE: Record<AdviceItem["priority"], string> = {
   HIGH: "bg-destructive/10 text-destructive",
-  MEDIUM: "bg-amber-500/10 text-amber-700 dark:text-amber-400",
-  LOW: "bg-blue-500/10 text-blue-700 dark:text-blue-400",
+  MEDIUM: "bg-warning/10 text-warning",
+  LOW: "bg-info/10 text-info",
 };
 
 export function AdviceCard({ item, priorityLabel }: Props) {

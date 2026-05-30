@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 
 import type { CategoryBreakdownRow } from "@/lib/dashboard/stats";
 import { CategoryIcon } from "@/lib/categories/icon-map";
+import { chartColor } from "@/lib/dashboard/chart-colors";
 
 type Props = {
   rows: CategoryBreakdownRow[];
@@ -34,7 +35,7 @@ export async function TopCategoriesList({ rows, locale }: Props) {
           <div className="mb-1 flex items-center gap-2">
             <span
               className="shrink-0"
-              style={{ color: row.color ?? "#94a3b8" }}
+              style={{ color: chartColor(index) }}
             >
               <CategoryIcon name={row.icon} className="h-4 w-4" />
             </span>
@@ -51,7 +52,7 @@ export async function TopCategoriesList({ rows, locale }: Props) {
               className="h-full rounded-full"
               style={{
                 width: `${row.percentOfTotal}%`,
-                backgroundColor: row.color ?? "#94a3b8",
+                backgroundColor: chartColor(index),
               }}
             />
           </div>

@@ -39,7 +39,7 @@ export function AnomalyCard({ anomaly, locale }: Props) {
 
   return (
     <div className="relative overflow-hidden rounded-lg border bg-card p-4 shadow-sm">
-      <div className="absolute start-0 top-0 h-full w-1 bg-amber-500" aria-hidden="true" />
+      <div className="absolute start-0 top-0 h-full w-1 bg-warning" aria-hidden="true" />
       <div className="ps-2 space-y-2">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-2.5 min-w-0">

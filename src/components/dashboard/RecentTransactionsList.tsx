@@ -59,9 +59,9 @@ export async function RecentTransactionsList({ transactions, locale }: Props) {
           tx.type === "INCOME" ? "+" : tx.type === "EXPENSE" ? "−" : "";
         const amountColor =
           tx.type === "INCOME"
-            ? "text-emerald-600"
+            ? "text-success"
             : tx.type === "EXPENSE"
-              ? "text-red-600"
+              ? "text-destructive"
               : "text-muted-foreground";
 
         return (

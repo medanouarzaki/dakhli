@@ -53,14 +53,14 @@ export function AdviceLoading({ title, reassurance, step1, step2, step3 }: Props
               key={i}
               className={`flex items-center gap-2 text-sm ${
                 isDone
-                  ? "text-green-600"
+                  ? "text-success"
                   : isActive
                   ? "font-medium text-primary"
                   : "text-muted-foreground"
               }`}
             >
               {isDone ? (
-                <CheckCircle className="h-3.5 w-3.5 text-green-600" />
+                <CheckCircle className="h-3.5 w-3.5 text-success" />
               ) : (
                 <span
                   className={`h-3.5 w-3.5 rounded-full border-2 ${

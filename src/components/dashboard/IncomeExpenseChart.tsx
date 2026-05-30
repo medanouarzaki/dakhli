@@ -101,19 +101,19 @@ export function IncomeExpenseChart({ buckets, locale }: Props) {
           dataKey="label"
           tickFormatter={(v: string) => formatTick(v, gran, locale)}
           interval={buckets.length > 15 ? Math.ceil(buckets.length / 10) : 0}
-          tick={{ fontSize: 11 }}
+          tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
           tickLine={false}
           axisLine={false}
         />
         <YAxis
           tickFormatter={(v: number) => formatCompact(v)}
-          tick={{ fontSize: 11 }}
+          tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
           tickLine={false}
           axisLine={false}
           width={44}
         />
         <Tooltip
-          cursor={{ fill: "hsl(var(--muted))", opacity: 0.6 }}
+          cursor={{ fill: "var(--muted)", opacity: 0.6 }}
           content={({
             active,
             payload: tp,
@@ -134,7 +134,7 @@ export function IncomeExpenseChart({ buckets, locale }: Props) {
                 </p>
                 <div className="space-y-1">
                   <div className="flex justify-between gap-6">
-                    <span className="text-emerald-600">
+                    <span className="text-success">
                       {t("kpi.income")}
                     </span>
                     <span className="font-medium tabular-nums">
@@ -142,7 +142,7 @@ export function IncomeExpenseChart({ buckets, locale }: Props) {
                     </span>
                   </div>
                   <div className="flex justify-between gap-6">
-                    <span className="text-red-600">{t("kpi.expense")}</span>
+                    <span className="text-destructive">{t("kpi.expense")}</span>
                     <span className="font-medium tabular-nums">
                       {formatMAD(expense)}
                     </span>
@@ -153,7 +153,7 @@ export function IncomeExpenseChart({ buckets, locale }: Props) {
                     </span>
                     <span
                       className={`font-medium tabular-nums ${
-                        net >= 0 ? "text-emerald-600" : "text-red-600"
+                        net >= 0 ? "text-success" : "text-destructive"
                       }`}
                     >
                       {formatMAD(net)}
@@ -167,14 +167,14 @@ export function IncomeExpenseChart({ buckets, locale }: Props) {
         <Bar
           dataKey="incomeMAD"
           stackId="stack"
-          fill="#16A34A"
+          fill="var(--success)"
           radius={[0, 0, 0, 0]}
           isAnimationActive={false}
         />
         <Bar
           dataKey="expenseMAD"
           stackId="stack"
-          fill="#EF4444"
+          fill="var(--destructive)"
           radius={[3, 3, 0, 0]}
           isAnimationActive={false}
         />

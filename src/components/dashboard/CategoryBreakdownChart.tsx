@@ -12,18 +12,12 @@ import { useTranslations } from "next-intl";
 
 import type { CategoryBreakdownRow } from "@/lib/dashboard/stats";
 import { CategoryIcon } from "@/lib/categories/icon-map";
-
-const FALLBACK_COLOR = "#94a3b8";
+import { chartColor } from "@/lib/dashboard/chart-colors";
 
 type Props = {
   rows: CategoryBreakdownRow[];
   locale: string;
 };
-
-function cellColor(row: CategoryBreakdownRow): string {
-  if (row.categoryId === null) return FALLBACK_COLOR;
-  return row.color ?? FALLBACK_COLOR;
-}
 
 export function CategoryBreakdownChart({ rows, locale }: Props) {
   const t = useTranslations("Dashboard");
@@ -61,11 +55,11 @@ export function CategoryBreakdownChart({ rows, locale }: Props) {
             {rows.map((row, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={cellColor(row)}
+                fill={chartColor(index)}
                 opacity={
                   hoveredIndex === null || hoveredIndex === index ? 1 : 0.45
                 }
-                stroke={hoveredIndex === index ? "#fff" : "transparent"}
+                stroke={hoveredIndex === index ? "var(--background)" : "transparent"}
                 strokeWidth={hoveredIndex === index ? 2 : 0}
               />
             ))}
@@ -99,7 +93,7 @@ export function CategoryBreakdownChart({ rows, locale }: Props) {
           >
             <span
               className="flex h-6 w-6 shrink-0 items-center justify-center rounded"
-              style={{ color: cellColor(row) }}
+              style={{ color: chartColor(index) }}
             >
               <CategoryIcon name={row.icon} className="h-4 w-4" />
             </span>
