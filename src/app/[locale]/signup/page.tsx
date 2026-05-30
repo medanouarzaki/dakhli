@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
+import { Logo } from "@/components/logo";
 
 import { signupSchema, type SignupFormValues } from "@/lib/validations/auth";
 import { Button } from "@/components/ui/button";
@@ -99,7 +100,7 @@ export default function SignupPage({ params: { locale } }: Props) {
       <div className="w-full max-w-[400px] space-y-6">
         {/* Logo */}
         <div className="text-center">
-          <span className="text-2xl font-bold tracking-tight">Dakhli</span>
+          <Logo />
         </div>
 
         <Card>

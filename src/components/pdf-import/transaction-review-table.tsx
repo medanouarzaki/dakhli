@@ -260,7 +260,7 @@ export function TransactionReviewTable({ transactions, metadata, accounts, onRes
             </div>
             <div className="rounded-md border bg-muted/40 px-4 py-3 text-sm">
               <p className="text-muted-foreground">{t("review.total_income")}</p>
-              <p className="font-semibold text-green-600">{fmt(totalIncome)} MAD</p>
+              <p className="font-semibold text-success">{fmt(totalIncome)} MAD</p>
             </div>
           </div>
         </CardContent>
@@ -363,7 +363,7 @@ export function TransactionReviewTable({ transactions, metadata, accounts, onRes
                       <span
                         className={[
                           "cursor-pointer hover:underline text-sm font-medium",
-                          row.type === "EXPENSE" ? "text-destructive" : "text-green-600",
+                          row.type === "EXPENSE" ? "text-destructive" : "text-success",
                         ].join(" ")}
                         onClick={() => startEdit(i, "amount")}
                       >
@@ -378,7 +378,7 @@ export function TransactionReviewTable({ transactions, metadata, accounts, onRes
                       "inline-flex rounded-full px-2 py-0.5 text-xs font-medium",
                       row.type === "EXPENSE"
                         ? "bg-destructive/10 text-destructive"
-                        : "bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400",
+                        : "bg-success/10 text-success",
                     ].join(" ")}>
                       {row.type === "EXPENSE"
                         ? t("review.table.type_expense")

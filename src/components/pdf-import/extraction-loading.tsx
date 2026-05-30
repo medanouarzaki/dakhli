@@ -71,11 +71,11 @@ export function ExtractionLoading() {
                   key={i}
                   className={[
                     "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-                    isDone ? "text-green-600" : isActive ? "font-semibold text-primary" : "text-muted-foreground",
+                    isDone ? "text-success" : isActive ? "font-semibold text-primary" : "text-muted-foreground",
                   ].join(" ")}
                 >
                   {isDone ? (
-                    <CheckCircle className="h-4 w-4 shrink-0 text-green-600" />
+                    <CheckCircle className="h-4 w-4 shrink-0 text-success" />
                   ) : (
                     <span className={[
                       "h-4 w-4 shrink-0 rounded-full border-2",

@@ -369,7 +369,7 @@ export function TransactionForm({
                       className={cn(
                         "rounded-lg border py-2 text-sm font-medium transition-colors",
                         field.value === "INCOME"
-                          ? "border-emerald-600 bg-emerald-600 text-white"
+                          ? "border-success bg-success text-success-foreground"
                           : "border-input bg-transparent text-muted-foreground hover:bg-muted"
                       )}
                     >
@@ -400,7 +400,7 @@ export function TransactionForm({
                         min="0.01"
                         inputMode="decimal"
                         placeholder={t("form.amount_placeholder")}
-                        className="pr-14"
+                        className="pe-14"
                         disabled={isSubmitting}
                         name={field.name}
                         ref={field.ref}
@@ -410,7 +410,7 @@ export function TransactionForm({
                         }
                         onChange={(e) => field.onChange(e.target.value)}
                       />
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 select-none text-sm text-muted-foreground">
+                      <span className="absolute end-3 top-1/2 -translate-y-1/2 select-none text-sm text-muted-foreground">
                         MAD
                       </span>
                     </div>
@@ -453,13 +453,13 @@ export function TransactionForm({
               <div className="flex items-center gap-2 text-xs min-h-[20px]">
                 {aiLoading && (
                   <>
-                    <Sparkles className="size-3.5 animate-pulse text-amber-500" />
+                    <Sparkles className="size-3.5 animate-pulse text-warning" />
                     <span className="text-muted-foreground">{t("form.ai_suggesting")}</span>
                   </>
                 )}
                 {!aiLoading && aiSuggestion && (
                   <>
-                    <Sparkles className="size-3.5 text-amber-500" />
+                    <Sparkles className="size-3.5 text-warning" />
                     <span className="text-muted-foreground">
                       {t("form.ai_suggestion")} :{" "}
                       <span className="font-medium text-foreground">
@@ -469,7 +469,7 @@ export function TransactionForm({
                             ? (aiSuggestion.categoryNameEn ?? aiSuggestion.categoryName)
                             : aiSuggestion.categoryName}
                       </span>
-                      <span className="ml-1 text-muted-foreground">
+                      <span className="ms-1 text-muted-foreground">
                         ({Math.round(aiSuggestion.confidence * 100)}%)
                       </span>
                     </span>
