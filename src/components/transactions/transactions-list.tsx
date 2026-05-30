@@ -23,7 +23,7 @@ export async function TransactionsList({ transactions, locale }: Props) {
   const t = await getTranslations("Transactions");
 
   return (
-    <div className="rounded-lg border bg-background">
+    <div className="rounded-xl border bg-card shadow-sm">
       <Table>
         <TableHeader>
           <TableRow>

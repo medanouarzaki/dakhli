@@ -93,7 +93,7 @@ export function BudgetRow({ budget, locale }: Props) {
 
           {/* Limit + actions */}
           <div className="flex items-center gap-1 shrink-0">
-            <span className="text-sm text-muted-foreground tabular-nums mr-2">
+            <span className="text-sm text-muted-foreground tabular-nums me-2">
               {formatNum(budget.amountMAD)}&nbsp;MAD&nbsp;
               <span className="text-xs">{t("card.per_month")}</span>
             </span>

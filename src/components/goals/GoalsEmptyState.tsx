@@ -12,7 +12,7 @@ type Props = {
 
 export function GoalsEmptyState({ title, subtitle, cta, onCreateClick }: Props) {
   return (
-    <div className="flex flex-col items-center gap-4 rounded-lg border bg-card p-12 text-center">
+    <div className="flex flex-col items-center gap-4 rounded-xl border bg-card shadow-sm p-12 text-center">
       <div className="rounded-full bg-primary/10 p-3">
         <Target className="h-6 w-6 text-primary" />
       </div>

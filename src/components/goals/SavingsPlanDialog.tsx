@@ -274,15 +274,15 @@ function PlanView({
     <div className="space-y-5">
       {/* Top stats */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-lg border bg-card p-3 text-center">
+        <div className="rounded-xl border bg-card shadow-sm p-3 text-center">
           <p className="text-xs text-muted-foreground">{labels.monthlyTarget}</p>
           <p className="text-xl font-semibold mt-1">{formatMAD(plan.monthlyTargetMAD, locale)}</p>
         </div>
-        <div className="rounded-lg border bg-card p-3 text-center">
+        <div className="rounded-xl border bg-card shadow-sm p-3 text-center">
           <p className="text-xs text-muted-foreground">{labels.monthsRemaining}</p>
           <p className="text-xl font-semibold mt-1">{plan.monthsRemaining}</p>
         </div>
-        <div className="rounded-lg border bg-card p-3 text-center">
+        <div className="rounded-xl border bg-card shadow-sm p-3 text-center">
           <p className="text-xs text-muted-foreground">{labels.feasibility}</p>
           <div className="mt-1 flex justify-center">
             <PlanFeasibilityBadge feasibility={plan.feasibility} />
@@ -302,7 +302,7 @@ function PlanView({
           <h4 className="text-sm font-semibold mb-2">{labels.leversTitle}</h4>
           <div className="space-y-2">
             {plan.leversByCategory.map((lever, i) => (
-              <div key={i} className="rounded-lg border bg-card p-3 space-y-2">
+              <div key={i} className="rounded-xl border bg-card shadow-sm p-3 space-y-2">
                 <div className="flex items-baseline justify-between gap-3">
                   <span className="font-medium">{lever.categoryName}</span>
                   <span className="text-sm font-semibold text-success">

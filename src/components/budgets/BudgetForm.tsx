@@ -247,7 +247,7 @@ export function BudgetForm({
                         min="1"
                         inputMode="numeric"
                         placeholder={t("form.amount_placeholder")}
-                        className="pr-14"
+                        className="pe-14"
                         disabled={isSubmitting}
                         name={field.name}
                         ref={field.ref}
@@ -257,7 +257,7 @@ export function BudgetForm({
                         }
                         onChange={(e) => field.onChange(e.target.value)}
                       />
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 select-none text-sm text-muted-foreground">
+                      <span className="absolute end-3 top-1/2 -translate-y-1/2 select-none text-sm text-muted-foreground">
                         MAD
                       </span>
                     </div>

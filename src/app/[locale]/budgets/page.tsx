@@ -42,7 +42,7 @@ export default async function BudgetsPage({ params: { locale } }: Props) {
 
           {rows.length === 0 ? (
             /* Empty state */
-            <div className="rounded-lg border bg-card p-12 text-center space-y-4">
+            <div className="rounded-xl border bg-card shadow-sm p-12 text-center space-y-4">
               <p className="font-medium">{t("empty.title")}</p>
               <p className="text-sm text-muted-foreground">{t("empty.subtitle")}</p>
               <Button asChild>
