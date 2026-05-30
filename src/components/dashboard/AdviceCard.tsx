@@ -27,7 +27,7 @@ export function AdviceCard({ item, priorityLabel }: Props) {
     ] ?? Lucide.Sparkles;
 
   return (
-    <div className="relative overflow-hidden rounded-lg border bg-card p-4 shadow-sm">
+    <div className="relative overflow-hidden rounded-xl border bg-card p-4 shadow-sm">
       <div
         className={`absolute start-0 top-0 h-full w-1 ${PRIORITY_BAR[item.priority]}`}
         aria-hidden="true"
