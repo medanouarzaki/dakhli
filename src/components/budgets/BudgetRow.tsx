@@ -45,10 +45,10 @@ export function BudgetRow({ budget, locale }: Props) {
 
   const barColor =
     budget.status === "exceeded"
-      ? "bg-red-500"
+      ? "bg-destructive"
       : budget.status === "warning"
-        ? "bg-amber-500"
-        : "bg-emerald-500";
+        ? "bg-warning"
+        : "bg-success";
 
   const barWidth = Math.min(budget.percent, 100);
 
@@ -167,7 +167,7 @@ export function BudgetRow({ budget, locale }: Props) {
             {t("card.consumed", { consumed: formatNum(budget.consumedMAD) })}
           </span>
           {budget.status === "exceeded" ? (
-            <span className="font-medium text-red-500">
+            <span className="font-medium text-destructive">
               {t("card.exceeded_by", { amount: formatNum(exceededBy) })}
             </span>
           ) : (

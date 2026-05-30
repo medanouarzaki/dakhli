@@ -9,10 +9,10 @@ type Props = {
 };
 
 const STYLES: Record<Feasibility, string> = {
-  EASY: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
-  REALISTIC: "bg-blue-500/10 text-blue-700 dark:text-blue-400",
-  STRETCH: "bg-amber-500/10 text-amber-700 dark:text-amber-400",
-  UNREALISTIC: "bg-red-500/10 text-red-700 dark:text-red-400",
+  EASY: "bg-success/10 text-success",
+  REALISTIC: "bg-info/10 text-info",
+  STRETCH: "bg-warning/10 text-warning",
+  UNREALISTIC: "bg-destructive/10 text-destructive",
 };
 
 export function PlanFeasibilityBadge({ feasibility }: Props) {

@@ -110,7 +110,7 @@ export function SavingsPlanDialog({ goal, locale, open, onOpenChange }: Props) {
       <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-amber-500" />
+            <Sparkles className="h-5 w-5 text-warning" />
             {t("title")}
           </DialogTitle>
           {goal && (
@@ -198,8 +198,8 @@ function NoPlanView({
 }) {
   return (
     <div className="py-8 text-center space-y-4">
-      <div className="mx-auto rounded-full bg-amber-500/10 p-3 w-fit">
-        <Sparkles className="h-6 w-6 text-amber-500" />
+      <div className="mx-auto rounded-full bg-warning/10 p-3 w-fit">
+        <Sparkles className="h-6 w-6 text-warning" />
       </div>
       <div>
         <h3 className="font-semibold">{labels.title}</h3>
@@ -220,7 +220,7 @@ function GeneratingView({
 }) {
   return (
     <div className="py-8 text-center space-y-4">
-      <Loader2 className="h-8 w-8 animate-spin text-amber-500 mx-auto" />
+      <Loader2 className="h-8 w-8 animate-spin text-warning mx-auto" />
       <h3 className="font-semibold">{labels.title}</h3>
       <p className="text-xs text-muted-foreground">{labels.reassurance}</p>
       <ul className="text-sm text-muted-foreground space-y-1">
@@ -291,7 +291,7 @@ function PlanView({
       </div>
 
       {/* Summary */}
-      <div className="rounded-lg border-s-4 border-s-amber-500 bg-amber-500/5 p-4">
+      <div className="rounded-lg border-s-4 border-s-warning bg-warning/5 p-4">
         <h4 className="text-sm font-semibold mb-1">{labels.summaryTitle}</h4>
         <p className="text-sm leading-relaxed">{pickLocalizedText(plan.summary, locale)}</p>
       </div>
@@ -305,7 +305,7 @@ function PlanView({
               <div key={i} className="rounded-lg border bg-card p-3 space-y-2">
                 <div className="flex items-baseline justify-between gap-3">
                   <span className="font-medium">{lever.categoryName}</span>
-                  <span className="text-sm font-semibold text-emerald-600">
+                  <span className="text-sm font-semibold text-success">
                     −{formatMAD(lever.potentialSavingsMAD, locale)}
                   </span>
                 </div>

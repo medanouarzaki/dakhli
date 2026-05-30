@@ -107,11 +107,11 @@ export function GoalCard({ goal, locale, onAddProgress, onEdit, onDelete, onPlan
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>{formatTargetDate(goal.targetDate, locale)}</span>
           {achieved ? (
-            <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-emerald-600 font-medium">
+            <span className="rounded-full bg-success/10 px-2 py-0.5 text-success font-medium">
               {t("card.achieved")}
             </span>
           ) : overdue ? (
-            <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-red-600 font-medium">
+            <span className="rounded-full bg-destructive/10 px-2 py-0.5 text-destructive font-medium">
               {t("card.overdue")}
             </span>
           ) : daysRemaining !== null ? (
@@ -126,7 +126,7 @@ export function GoalCard({ goal, locale, onAddProgress, onEdit, onDelete, onPlan
           variant="outline"
           size="sm"
           onClick={onPlanClick}
-          className="w-full text-amber-700 dark:text-amber-400 border-amber-200 hover:bg-amber-50 dark:border-amber-800 dark:hover:bg-amber-950/30"
+          className="w-full text-warning border-warning/30 hover:bg-warning/5"
         >
           <Sparkles className="me-1.5 h-3.5 w-3.5" />
           {t("card.ai_plan")}
