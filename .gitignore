@@ -40,3 +40,6 @@ next-env.d.ts
 # Prisma / database secrets
 .env
 
+
+AUDIT_DUMP.md
+DASHBOARD_DUMP.md
