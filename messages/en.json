@@ -259,6 +259,24 @@
   "Settings": {
     "title": "Settings"
   },
+  "SavingsPlan": {
+    "section_title": "Personalized savings plan",
+    "btn_generate": "Generate AI plan",
+    "btn_generating": "Generating…",
+    "btn_regenerate": "Regenerate",
+    "recommended_monthly": "Recommended monthly savings",
+    "estimated_months": "Estimated time",
+    "months_unit": "months",
+    "levers_title": "Action levers",
+    "status_feasible": "Realistic plan",
+    "status_tight": "Tight plan",
+    "status_unrealistic": "Unrealistic plan",
+    "generated_at": "Generated on",
+    "empty_hint": "AI will analyze your income and expenses to suggest a personalized plan.",
+    "toast_success": "Savings plan generated",
+    "toast_error": "Error generating the plan",
+    "toast_reached": "Goal already achieved!"
+  },
   "DemoData": {
     "title": "Demo data",
     "description": "Generate a realistic transaction history to test the app without entering your real data.",

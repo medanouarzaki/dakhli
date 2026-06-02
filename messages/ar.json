@@ -259,6 +259,24 @@
   "Settings": {
     "title": "الإعدادات"
   },
+  "SavingsPlan": {
+    "section_title": "خطة ادخار مخصصة",
+    "btn_generate": "إنشاء خطة بالذكاء الاصطناعي",
+    "btn_generating": "جارٍ الإنشاء…",
+    "btn_regenerate": "إعادة إنشاء",
+    "recommended_monthly": "الادخار الشهري الموصى به",
+    "estimated_months": "المدة التقديرية",
+    "months_unit": "شهر",
+    "levers_title": "إجراءات مقترحة",
+    "status_feasible": "خطة واقعية",
+    "status_tight": "خطة متوترة",
+    "status_unrealistic": "خطة غير واقعية",
+    "generated_at": "تم الإنشاء في",
+    "empty_hint": "سيحلل الذكاء الاصطناعي دخلك ونفقاتك لاقتراح خطة مخصصة.",
+    "toast_success": "تم إنشاء خطة الادخار",
+    "toast_error": "خطأ أثناء إنشاء الخطة",
+    "toast_reached": "تم بلوغ الهدف بالفعل!"
+  },
   "DemoData": {
     "title": "البيانات التجريبية",
     "description": "أنشئ سجلاً واقعياً للمعاملات لاختبار التطبيق دون إدخال بياناتك الحقيقية.",

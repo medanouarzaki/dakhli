@@ -210,7 +210,8 @@ model Goal {
   updatedAt    DateTime  @updatedAt
   deletedAt    DateTime?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aiInsights AiInsight[]
 }
 
 enum ImportStatus {
@@ -277,9 +278,14 @@ model AiInsight {
   createdAt DateTime    @default(now())
   readAt    DateTime?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // nullable — only set for SAVINGS_PLAN insights scoped to a goal
+  goalId    String?
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal Goal? @relation(fields: [goalId], references: [id], onDelete: Cascade)
 
   @@index([userId, type, createdAt])
+  @@index([goalId])
 }
 
 // ─────────────── Planning module ───────────────

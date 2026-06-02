@@ -19,6 +19,7 @@ import { GoalsEmptyState } from "./GoalsEmptyState";
 import { AddProgressDialog } from "./AddProgressDialog";
 import { DeleteGoalDialog } from "./DeleteGoalDialog";
 import { SavingsPlanDialog } from "./SavingsPlanDialog";
+import { SavingsPlanCard, type SavingsPlanData } from "./SavingsPlanCard";
 import type { Locale } from "@/lib/ai/types/savings-plan";
 
 export type GoalDTO = {
@@ -33,9 +34,10 @@ export type GoalDTO = {
 type Props = {
   locale: Locale;
   initialGoals: GoalDTO[];
+  initialPlans: Record<string, SavingsPlanData>;
 };
 
-export function GoalsClient({ locale, initialGoals }: Props) {
+export function GoalsClient({ locale, initialGoals, initialPlans }: Props) {
   const t = useTranslations("Goals");
   const [goals, setGoals] = useState<GoalDTO[]>(initialGoals);
   const [createOpen, setCreateOpen] = useState(false);
@@ -140,17 +142,31 @@ export function GoalsClient({ locale, initialGoals }: Props) {
           />
         ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {goals.map((goal) => (
-              <GoalCard
-                key={goal.id}
-                goal={goal}
-                locale={locale}
-                onAddProgress={() => setAddingProgressGoal(goal)}
-                onEdit={() => setEditingGoal(goal)}
-                onDelete={() => setDeletingGoal(goal)}
-                onPlanClick={() => setPlanGoal(goal)}
-              />
-            ))}
+            {goals.map((goal) => {
+              const achieved = goal.currentMAD >= goal.targetMAD && goal.targetMAD > 0;
+              return (
+                <div key={goal.id} className="flex flex-col gap-3">
+                  <GoalCard
+                    goal={goal}
+                    locale={locale}
+                    onAddProgress={() => setAddingProgressGoal(goal)}
+                    onEdit={() => setEditingGoal(goal)}
+                    onDelete={() => setDeletingGoal(goal)}
+                    onPlanClick={() => setPlanGoal(goal)}
+                  />
+                  {!achieved && (
+                    <SavingsPlanCard
+                      goalId={goal.id}
+                      goalTitle={goal.title}
+                      targetMAD={goal.targetMAD}
+                      currentMAD={goal.currentMAD}
+                      initialPlan={initialPlans[goal.id] ?? null}
+                      locale={locale}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

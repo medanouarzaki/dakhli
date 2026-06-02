@@ -259,6 +259,24 @@
   "Settings": {
     "title": "Réglages"
   },
+  "SavingsPlan": {
+    "section_title": "Plan d'épargne personnalisé",
+    "btn_generate": "Générer un plan IA",
+    "btn_generating": "Génération…",
+    "btn_regenerate": "Régénérer",
+    "recommended_monthly": "Épargne mensuelle recommandée",
+    "estimated_months": "Délai estimé",
+    "months_unit": "mois",
+    "levers_title": "Leviers d'action",
+    "status_feasible": "Plan réaliste",
+    "status_tight": "Plan tendu",
+    "status_unrealistic": "Plan irréaliste",
+    "generated_at": "Généré le",
+    "empty_hint": "L'IA analysera vos revenus et dépenses pour vous proposer un plan personnalisé.",
+    "toast_success": "Plan d'épargne généré",
+    "toast_error": "Erreur lors de la génération",
+    "toast_reached": "Objectif déjà atteint !"
+  },
   "DemoData": {
     "title": "Données de démonstration",
     "description": "Générez un historique réaliste de transactions pour tester l'application sans saisir vos vraies données.",
