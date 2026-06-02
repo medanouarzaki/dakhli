@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { PrismaClient } from "@prisma/client";
 import { AdviceResponseSchema, AdviceError, type AdviceItem } from "./types/advice";
+import { normalizeItems } from "./normalize";
 
 const MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 2048;
@@ -243,51 +244,6 @@ export async function buildAdviceContext(
     largestTransactions,
     budgetsStatus,
   };
-}
-
-/**
- * Normalizes the array of advice items that Sonnet 4.6 returns.
- *
- * Sonnet sometimes uses different wrapper keys depending on the output language:
- *   - "items"          (FR / EN — what we ask for in the prompt)
- *   - "insights"       (AR — observed empirically; "items" doesn't translate naturally)
- *   - "advice", "recommendations", "tips" (defensive, possible drift)
- *
- * It also sometimes returns the array as a numeric-keyed object instead of a
- * proper array (observed on Arabic outputs).
- */
-function normalizeItems(parsed: unknown): unknown[] | null {
-  // Case A: parsed is a non-array object that may wrap the array under one of several keys
-  if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
-    const obj = parsed as Record<string, unknown>;
-
-    const WRAPPER_KEYS = ["items", "insights", "advice", "recommendations", "tips"] as const;
-    for (const key of WRAPPER_KEYS) {
-      if (key in obj) {
-        const inner = obj[key];
-        if (Array.isArray(inner)) return inner;
-        if (inner && typeof inner === "object") {
-          return objectToOrderedArray(inner as Record<string, unknown>);
-        }
-        return null;
-      }
-    }
-
-    // No known wrapper key — maybe parsed itself is a numeric-keyed object
-    return objectToOrderedArray(obj);
-  }
-
-  // Case B: parsed is already an array at the top level
-  if (Array.isArray(parsed)) return parsed;
-
-  return null;
-}
-
-function objectToOrderedArray(obj: Record<string, unknown>): unknown[] {
-  const entries = Object.entries(obj).filter(([k]) => /^\d+$/.test(k));
-  if (entries.length === 0) return [];
-  entries.sort(([a], [b]) => Number(a) - Number(b));
-  return entries.map(([, v]) => v);
 }
 
 function startOfWeek(d: Date): Date {

@@ -11,7 +11,8 @@
     "chat": "Chat IA",
     "goals": "Objectifs",
     "signOut": "Se déconnecter",
-    "settings": "Réglages"
+    "settings": "Réglages",
+    "planning": "Prévisionnel"
   },
   "Transactions": {
     "page_title": "Transactions",
@@ -179,6 +180,81 @@
     "emptyTitle": "Aucune donnée pour l'instant",
     "emptyDescription": "Générez des données de démonstration pour explorer l'application.",
     "emptyCta": "Générer des données démo"
+  },
+  "Planning": {
+    "title": "Prévisionnel",
+    "subtitle": "Combien il vous reste chaque mois — et est-ce que votre projet à venir tient.",
+    "recurring": {
+      "title": "Postes récurrents",
+      "revenues_title": "Revenus fixes",
+      "charges_title": "Charges fixes",
+      "label_label": "Libellé",
+      "label_placeholder": "Ex : Salaire, Loyer…",
+      "amount_label": "Montant (MAD)",
+      "type_label": "Type",
+      "type_revenue": "Revenu",
+      "type_charge": "Charge",
+      "periodicity_label": "Périodicité",
+      "periodicity_monthly": "Mensuel",
+      "periodicity_weekly": "Hebdomadaire",
+      "periodicity_weekly_short": "hebdo",
+      "month_abbr": "mois",
+      "add_btn": "Ajouter",
+      "empty": "Aucun poste pour l'instant",
+      "delete_confirm_title": "Supprimer ce poste ?",
+      "delete_cancel": "Annuler",
+      "delete_ok": "Supprimer",
+      "add_success": "Poste ajouté",
+      "delete_success": "Poste supprimé",
+      "error": "Une erreur est survenue"
+    },
+    "summary": {
+      "title": "Reste à vivre mensuel",
+      "revenue": "Revenus mensuels",
+      "charges": "Charges fixes mensuelles",
+      "remaining": "Reste à vivre (base)"
+    },
+    "exceptional": {
+      "title": "Charges exceptionnelles futures",
+      "label_label": "Libellé",
+      "label_placeholder": "Ex : Déménagement, Laptop…",
+      "amount_label": "Montant mensuel (MAD)",
+      "start_month_label": "Mois de début",
+      "duration_label": "Durée (mois)",
+      "month_abbr": "mois",
+      "add_btn": "Ajouter",
+      "empty": "Aucune charge exceptionnelle planifiée",
+      "delete_confirm_title": "Supprimer cette charge ?",
+      "delete_cancel": "Annuler",
+      "delete_ok": "Supprimer",
+      "add_success": "Charge ajoutée",
+      "delete_success": "Charge supprimée",
+      "error": "Une erreur est survenue"
+    },
+    "projection": {
+      "title": "Projection sur 12 mois",
+      "col_month": "Mois",
+      "col_revenue": "Revenus",
+      "col_fixed": "Charges fixes",
+      "col_exceptional": "Charges except.",
+      "col_remaining": "Reste",
+      "empty": "Ajoutez des postes récurrents pour voir la projection"
+    },
+    "analyze": {
+      "title": "Analyser mon plan",
+      "subtitle": "L'IA évalue la viabilité de votre plan et propose des leviers d'action.",
+      "btn": "Analyser mon plan",
+      "analyzing": "Analyse en cours…",
+      "success": "Analyse générée",
+      "error": "Une erreur est survenue",
+      "no_data_hint": "Ajoutez des postes récurrents pour activer l'analyse.",
+      "empty": "Lancez l'analyse pour obtenir un verdict sur votre plan.",
+      "levers_title": "Leviers d'action",
+      "generated_at": "Généré le",
+      "status_feasible": "Plan viable",
+      "status_tight": "Plan tendu",
+      "status_at_risk": "Plan à risque"
+    }
   },
   "Settings": {
     "title": "Réglages"

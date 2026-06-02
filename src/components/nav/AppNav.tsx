@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { LayoutDashboard, ListOrdered, MessageCircle, Target, Wallet } from "lucide-react";
+import { LayoutDashboard, ListOrdered, MessageCircle, Target, TrendingUp, Wallet } from "lucide-react";
 
 import { SignOutButton } from "@/components/sign-out-button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -26,6 +26,7 @@ export function AppNav({ locale, userName, userEmail }: Props) {
     { href: `/${locale}/transactions`, label: t("transactions"), icon: ListOrdered },
     { href: `/${locale}/budgets`, label: t("budgets"), icon: Wallet },
     { href: `/${locale}/goals`, label: t("goals"), icon: Target },
+    { href: `/${locale}/planning`, label: t("planning"), icon: TrendingUp },
     { href: `/${locale}/chat`, label: t("chat"), icon: MessageCircle },
   ];
 
@@ -61,7 +62,8 @@ export function AppNav({ locale, userName, userEmail }: Props) {
           <ThemeToggle />
           <SignOutButton
             locale={locale}
-            label={userName ?? userEmail}
+            name={userName}
+            email={userEmail}
           />
         </div>
       </div>

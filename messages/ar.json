@@ -11,7 +11,8 @@
     "chat": "الدردشة الذكية",
     "goals": "الأهداف",
     "signOut": "تسجيل الخروج",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "planning": "التخطيط"
   },
   "Transactions": {
     "page_title": "المعاملات",
@@ -179,6 +180,81 @@
     "emptyTitle": "لا توجد بيانات بعد",
     "emptyDescription": "أنشئ بيانات تجريبية لاستكشاف التطبيق.",
     "emptyCta": "إنشاء بيانات تجريبية"
+  },
+  "Planning": {
+    "title": "التخطيط المالي",
+    "subtitle": "كم يتبقى لك كل شهر — وهل مشروعك القادم قابل للتحقق.",
+    "recurring": {
+      "title": "البنود الدورية",
+      "revenues_title": "الإيرادات الثابتة",
+      "charges_title": "المصاريف الثابتة",
+      "label_label": "الوصف",
+      "label_placeholder": "مثال: الراتب، الإيجار…",
+      "amount_label": "المبلغ (درهم)",
+      "type_label": "النوع",
+      "type_revenue": "إيراد",
+      "type_charge": "مصروف",
+      "periodicity_label": "التكرار",
+      "periodicity_monthly": "شهري",
+      "periodicity_weekly": "أسبوعي",
+      "periodicity_weekly_short": "أسبوعي",
+      "month_abbr": "شهر",
+      "add_btn": "إضافة",
+      "empty": "لا توجد بنود حتى الآن",
+      "delete_confirm_title": "حذف هذا البند؟",
+      "delete_cancel": "إلغاء",
+      "delete_ok": "حذف",
+      "add_success": "تمت إضافة البند",
+      "delete_success": "تم حذف البند",
+      "error": "حدث خطأ ما"
+    },
+    "summary": {
+      "title": "المتبقي الشهري",
+      "revenue": "الإيرادات الشهرية",
+      "charges": "المصاريف الثابتة الشهرية",
+      "remaining": "المتبقي (الأساسي)"
+    },
+    "exceptional": {
+      "title": "المصاريف الاستثنائية المستقبلية",
+      "label_label": "الوصف",
+      "label_placeholder": "مثال: انتقال، حاسوب محمول…",
+      "amount_label": "المبلغ الشهري (درهم)",
+      "start_month_label": "شهر البداية",
+      "duration_label": "المدة (بالأشهر)",
+      "month_abbr": "شهر",
+      "add_btn": "إضافة",
+      "empty": "لا توجد مصاريف استثنائية مخططة",
+      "delete_confirm_title": "حذف هذا المصروف؟",
+      "delete_cancel": "إلغاء",
+      "delete_ok": "حذف",
+      "add_success": "تمت إضافة المصروف",
+      "delete_success": "تم حذف المصروف",
+      "error": "حدث خطأ ما"
+    },
+    "projection": {
+      "title": "توقع 12 شهراً",
+      "col_month": "الشهر",
+      "col_revenue": "الإيرادات",
+      "col_fixed": "المصاريف الثابتة",
+      "col_exceptional": "الاستثنائية",
+      "col_remaining": "المتبقي",
+      "empty": "أضف بنوداً دورية لعرض التوقع"
+    },
+    "analyze": {
+      "title": "تحليل خطتي",
+      "subtitle": "يقيّم الذكاء الاصطناعي جدوى خطتك ويقترح إجراءات.",
+      "btn": "تحليل خطتي",
+      "analyzing": "جارٍ التحليل…",
+      "success": "تم إنشاء التحليل",
+      "error": "حدث خطأ ما",
+      "no_data_hint": "أضف بنوداً دورية لتفعيل التحليل.",
+      "empty": "شغّل التحليل للحصول على حكم على خطتك.",
+      "levers_title": "إجراءات مقترحة",
+      "generated_at": "تم الإنشاء في",
+      "status_feasible": "خطة قابلة للتنفيذ",
+      "status_tight": "خطة متوترة",
+      "status_at_risk": "خطة في خطر"
+    }
   },
   "Settings": {
     "title": "الإعدادات"

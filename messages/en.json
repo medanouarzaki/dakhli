@@ -11,7 +11,8 @@
     "chat": "AI Chat",
     "goals": "Goals",
     "signOut": "Sign out",
-    "settings": "Settings"
+    "settings": "Settings",
+    "planning": "Planning"
   },
   "Transactions": {
     "page_title": "Transactions",
@@ -179,6 +180,81 @@
     "emptyTitle": "No data yet",
     "emptyDescription": "Generate demo data to explore the app.",
     "emptyCta": "Generate demo data"
+  },
+  "Planning": {
+    "title": "Planning",
+    "subtitle": "How much you have left each month — and whether your upcoming project fits.",
+    "recurring": {
+      "title": "Recurring items",
+      "revenues_title": "Fixed revenues",
+      "charges_title": "Fixed charges",
+      "label_label": "Label",
+      "label_placeholder": "e.g. Salary, Rent…",
+      "amount_label": "Amount (MAD)",
+      "type_label": "Type",
+      "type_revenue": "Revenue",
+      "type_charge": "Charge",
+      "periodicity_label": "Periodicity",
+      "periodicity_monthly": "Monthly",
+      "periodicity_weekly": "Weekly",
+      "periodicity_weekly_short": "weekly",
+      "month_abbr": "mo",
+      "add_btn": "Add",
+      "empty": "No items yet",
+      "delete_confirm_title": "Delete this item?",
+      "delete_cancel": "Cancel",
+      "delete_ok": "Delete",
+      "add_success": "Item added",
+      "delete_success": "Item deleted",
+      "error": "An error occurred"
+    },
+    "summary": {
+      "title": "Monthly remaining",
+      "revenue": "Monthly revenues",
+      "charges": "Fixed monthly charges",
+      "remaining": "Remaining (base)"
+    },
+    "exceptional": {
+      "title": "Future exceptional charges",
+      "label_label": "Label",
+      "label_placeholder": "e.g. Moving, Laptop…",
+      "amount_label": "Monthly amount (MAD)",
+      "start_month_label": "Start month",
+      "duration_label": "Duration (months)",
+      "month_abbr": "mo",
+      "add_btn": "Add",
+      "empty": "No exceptional charges planned",
+      "delete_confirm_title": "Delete this charge?",
+      "delete_cancel": "Cancel",
+      "delete_ok": "Delete",
+      "add_success": "Charge added",
+      "delete_success": "Charge deleted",
+      "error": "An error occurred"
+    },
+    "projection": {
+      "title": "12-month projection",
+      "col_month": "Month",
+      "col_revenue": "Revenue",
+      "col_fixed": "Fixed charges",
+      "col_exceptional": "Exceptional",
+      "col_remaining": "Remaining",
+      "empty": "Add recurring items to see the projection"
+    },
+    "analyze": {
+      "title": "Analyze my plan",
+      "subtitle": "AI evaluates the viability of your plan and suggests action levers.",
+      "btn": "Analyze my plan",
+      "analyzing": "Analyzing…",
+      "success": "Analysis generated",
+      "error": "An error occurred",
+      "no_data_hint": "Add recurring items to enable analysis.",
+      "empty": "Run the analysis to get a verdict on your plan.",
+      "levers_title": "Action levers",
+      "generated_at": "Generated on",
+      "status_feasible": "Viable plan",
+      "status_tight": "Tight plan",
+      "status_at_risk": "At-risk plan"
+    }
   },
   "Settings": {
     "title": "Settings"
