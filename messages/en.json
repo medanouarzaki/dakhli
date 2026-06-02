@@ -9,7 +9,9 @@
     "transactions": "Transactions",
     "budgets": "Budgets",
     "chat": "AI Chat",
-    "goals": "Goals"
+    "goals": "Goals",
+    "signOut": "Sign out",
+    "settings": "Settings"
   },
   "Transactions": {
     "page_title": "Transactions",
@@ -173,7 +175,30 @@
       "cta": "Create a transaction",
       "no_data_period": "No data for this period",
       "no_expense_period": "No expenses for this period"
-    }
+    },
+    "emptyTitle": "No data yet",
+    "emptyDescription": "Generate demo data to explore the app.",
+    "emptyCta": "Generate demo data"
+  },
+  "Settings": {
+    "title": "Settings"
+  },
+  "DemoData": {
+    "title": "Demo data",
+    "description": "Generate a realistic transaction history to test the app without entering your real data.",
+    "period": "Period",
+    "months3": "3 months",
+    "months6": "6 months",
+    "generate": "Generate demo data",
+    "generating": "Generating…",
+    "generateSuccess": "{count} transactions generated",
+    "reset": "Reset demo data",
+    "resetTitle": "Reset demo data?",
+    "resetConfirm": "This action only deletes demo transactions. Your real data is not affected.",
+    "resetCancel": "Cancel",
+    "resetConfirmBtn": "Reset",
+    "resetSuccess": "Demo data reset",
+    "error": "An error occurred"
   },
   "Chat": {
     "title": "AI Assistant",

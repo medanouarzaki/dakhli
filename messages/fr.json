@@ -9,7 +9,9 @@
     "transactions": "Transactions",
     "budgets": "Budgets",
     "chat": "Chat IA",
-    "goals": "Objectifs"
+    "goals": "Objectifs",
+    "signOut": "Se déconnecter",
+    "settings": "Réglages"
   },
   "Transactions": {
     "page_title": "Transactions",
@@ -173,7 +175,30 @@
       "cta": "Créer une transaction",
       "no_data_period": "Aucune donnée sur cette période",
       "no_expense_period": "Aucune dépense sur cette période"
-    }
+    },
+    "emptyTitle": "Aucune donnée pour l'instant",
+    "emptyDescription": "Générez des données de démonstration pour explorer l'application.",
+    "emptyCta": "Générer des données démo"
+  },
+  "Settings": {
+    "title": "Réglages"
+  },
+  "DemoData": {
+    "title": "Données de démonstration",
+    "description": "Générez un historique réaliste de transactions pour tester l'application sans saisir vos vraies données.",
+    "period": "Période",
+    "months3": "3 mois",
+    "months6": "6 mois",
+    "generate": "Générer des données démo",
+    "generating": "Génération…",
+    "generateSuccess": "{count} transactions générées",
+    "reset": "Réinitialiser les données démo",
+    "resetTitle": "Réinitialiser les données démo ?",
+    "resetConfirm": "Cette action supprime uniquement les transactions de démonstration. Vos données réelles ne sont pas affectées.",
+    "resetCancel": "Annuler",
+    "resetConfirmBtn": "Réinitialiser",
+    "resetSuccess": "Données démo réinitialisées",
+    "error": "Une erreur est survenue"
   },
   "Chat": {
     "title": "Assistant IA",
