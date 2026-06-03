@@ -2,6 +2,7 @@
 
 import * as Lucide from "lucide-react";
 import { AlertTriangle } from "lucide-react";
+import { formatMAD } from "@/lib/format/money";
 
 type AnomalyDTO = {
   id: string;
@@ -25,10 +26,7 @@ export function AnomalyCard({ anomaly, locale }: Props) {
     { day: "numeric", month: "short" }
   );
 
-  const amountFmt = anomaly.amountMAD.toLocaleString(
-    locale === "ar" ? "ar-MA" : locale === "en" ? "en-US" : "fr-FR",
-    { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-  );
+  const amountFmt = formatMAD(anomaly.amountMAD, locale, { fractionDigits: 2 });
 
   const IconCmp =
     anomaly.categoryIcon &&
@@ -62,7 +60,7 @@ export function AnomalyCard({ anomaly, locale }: Props) {
             </div>
           </div>
           <span className="shrink-0 text-sm font-semibold text-destructive">
-            −{amountFmt} MAD
+            −{amountFmt}
           </span>
         </div>
         {anomaly.reason && (

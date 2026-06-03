@@ -68,7 +68,7 @@ export default async function LandingPage({ params: { locale } }: Props) {
               {/* Left column */}
               <div className="flex flex-col gap-6">
                 <div className="inline-flex w-fit items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm">
-                  <span className="h-2 w-2 rounded-full bg-[#1A6E51]" />
+                  <span className="h-2 w-2 rounded-full bg-primary" />
                   <span className="text-muted-foreground">{t("hero.eyebrow")}</span>
                 </div>
 

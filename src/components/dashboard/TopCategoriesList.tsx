@@ -36,7 +36,7 @@ export async function TopCategoriesList({ rows, locale }: Props) {
             <span className="shrink-0 text-sm font-medium tabular-nums">
               {formatMAD(row.totalMAD, locale)}
             </span>
-            <span className="w-12 shrink-0 text-right text-xs text-muted-foreground">
+            <span className="w-12 shrink-0 text-end text-xs text-muted-foreground">
               ({row.percentOfTotal}%)
             </span>
           </div>

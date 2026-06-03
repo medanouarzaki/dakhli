@@ -20,6 +20,7 @@ import { AddProgressDialog } from "./AddProgressDialog";
 import { DeleteGoalDialog } from "./DeleteGoalDialog";
 import { SavingsPlanCard, type SavingsPlanData } from "./SavingsPlanCard";
 import type { Locale } from "@/lib/ai/types/anomaly";
+import { formatMAD } from "@/lib/format/money";
 
 export type GoalDTO = {
   id: string;
@@ -103,11 +104,7 @@ export function GoalsClient({ locale, initialGoals, initialPlans }: Props) {
       body: JSON.stringify({ amountMAD }),
     });
     if (res.ok) {
-      const formatted = new Intl.NumberFormat(locale, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(amountMAD);
-      toast.success(t("success.progress_added_fmt", { amount: formatted }));
+      toast.success(t("success.progress_added_fmt", { amount: formatMAD(amountMAD, locale, { fractionDigits: 2 }) }));
       setAddingProgressGoal(null);
       await refetchGoals();
     } else {

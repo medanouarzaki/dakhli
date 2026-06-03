@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { GoalDTO } from "./GoalsClient";
+import { formatMAD } from "@/lib/format/money";
 
 type Props = {
   goal: GoalDTO;
@@ -31,7 +32,7 @@ export function AddProgressDialog({ goal, locale, onSubmit, onClose }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formatAmount = (v: number) =>
-    new Intl.NumberFormat(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(v);
+    formatMAD(v, locale, { fractionDigits: 2 });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -81,11 +82,11 @@ export function AddProgressDialog({ goal, locale, onSubmit, onClose }: Props) {
                 inputMode="decimal"
                 value={value}
                 onChange={(e) => { setValue(e.target.value); setError(null); }}
-                className="pr-14"
+                className="pe-14"
                 disabled={isSubmitting}
                 autoFocus
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 select-none text-sm text-muted-foreground">
+              <span className="absolute end-3 top-1/2 -translate-y-1/2 select-none text-sm text-muted-foreground">
                 MAD
               </span>
             </div>

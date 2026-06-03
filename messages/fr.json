@@ -1,4 +1,7 @@
 {
+  "Meta": {
+    "description": "Gère tes finances personnelles au Maroc avec l'IA : suivi des dépenses, budgets, conseils et prévisions — en arabe, français ou anglais."
+  },
   "HomePage": {
     "title": "Dakhli",
     "subtitle": "Votre assistant financier personnel",
@@ -486,7 +489,7 @@
     },
     "progress_dialog": {
       "title": "Ajouter à mon épargne",
-      "subtitle_fmt": "{title} — {current}/{target} MAD",
+      "subtitle_fmt": "{title} — {current}/{target}",
       "amount_label": "Montant à ajouter (MAD)",
       "submit": "Ajouter",
       "cancel": "Annuler"
@@ -521,7 +524,7 @@
       "created": "Objectif créé",
       "updated": "Objectif mis à jour",
       "deleted": "Objectif supprimé",
-      "progress_added_fmt": "+{amount} MAD ajoutés"
+      "progress_added_fmt": "+{amount} ajoutés"
     },
     "ai_plan": {
       "title": "✨ Plan d'épargne IA",

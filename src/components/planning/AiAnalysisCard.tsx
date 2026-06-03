@@ -67,9 +67,8 @@ export function AiAnalysisCard({ initialInsight, locale, hasData }: Props) {
         generatedAt: data.generatedAt ?? new Date().toISOString(),
       });
       toast.success(t("analyze.success"));
-    } catch (err) {
+    } catch {
       toast.error(t("analyze.error"));
-      console.error("[planning/analyze]", err);
     } finally {
       setAnalyzing(false);
     }

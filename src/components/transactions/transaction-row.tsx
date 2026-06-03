@@ -125,7 +125,7 @@ export function TransactionRow({ tx, locale }: Props) {
       </TableCell>
 
       {/* Amount */}
-      <TableCell className="text-right">
+      <TableCell className="text-end">
         <div className="flex items-center justify-end gap-2 whitespace-nowrap">
           {tx.isAnomaly && <AnomalyBadge reason={pickLocalizedReason(tx.anomalyReason, locale as Locale)} />}
           <AmountDisplay
@@ -140,7 +140,7 @@ export function TransactionRow({ tx, locale }: Props) {
 
       {/* Actions — stopPropagation so row click doesn't fire when opening dialog */}
       <TableCell
-        className="w-10 text-right"
+        className="w-10 text-end"
         onClick={(e) => e.stopPropagation()}
       >
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

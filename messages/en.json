@@ -1,4 +1,7 @@
 {
+  "Meta": {
+    "description": "Manage your personal finances in Morocco with AI: expense tracking, budgets, tips and forecasts — in Arabic, French or English."
+  },
   "HomePage": {
     "title": "Dakhli",
     "subtitle": "Your personal finance assistant",
@@ -486,7 +489,7 @@
     },
     "progress_dialog": {
       "title": "Add to my savings",
-      "subtitle_fmt": "{title} — {current}/{target} MAD",
+      "subtitle_fmt": "{title} — {current}/{target}",
       "amount_label": "Amount to add (MAD)",
       "submit": "Add",
       "cancel": "Cancel"
@@ -521,7 +524,7 @@
       "created": "Goal created",
       "updated": "Goal updated",
       "deleted": "Goal deleted",
-      "progress_added_fmt": "+{amount} MAD added"
+      "progress_added_fmt": "+{amount} added"
     },
     "ai_plan": {
       "title": "✨ AI savings plan",

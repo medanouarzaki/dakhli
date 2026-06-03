@@ -31,7 +31,7 @@ export async function TransactionsList({ transactions, locale }: Props) {
             <TableHead>{t("columns.description")}</TableHead>
             <TableHead>{t("columns.category")}</TableHead>
             <TableHead>{t("columns.account")}</TableHead>
-            <TableHead className="text-right">{t("columns.amount")}</TableHead>
+            <TableHead className="text-end">{t("columns.amount")}</TableHead>
             {/* Empty header for the actions column */}
             <TableHead className="w-10" />
           </TableRow>

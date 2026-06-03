@@ -105,7 +105,7 @@ export function GoalForm({ mode, initialValues, onSubmit, onCancel }: Props) {
                     min="0"
                     inputMode="decimal"
                     placeholder={t("form.target_amount_placeholder")}
-                    className="pr-14"
+                    className="pe-14"
                     disabled={isSubmitting}
                     name={field.name}
                     ref={field.ref}
@@ -113,7 +113,7 @@ export function GoalForm({ mode, initialValues, onSubmit, onCancel }: Props) {
                     value={(field.value as string | number | undefined) ?? ""}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 select-none text-sm text-muted-foreground">
+                  <span className="absolute end-3 top-1/2 -translate-y-1/2 select-none text-sm text-muted-foreground">
                     MAD
                   </span>
                 </div>

@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Pencil, Trash2, PlusCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { formatMAD } from "@/lib/format/money";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import type { GoalDTO } from "./GoalsClient";
@@ -15,15 +16,6 @@ type Props = {
   onEdit: () => void;
   onDelete: () => void;
 };
-
-function formatAmount(value: number, locale: string): string {
-  const formatted = new Intl.NumberFormat(locale, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(value);
-  const currency = locale === "ar" ? "د.م." : "MAD";
-  return `${formatted} ${currency}`;
-}
 
 function formatTargetDate(isoDate: string | null, locale: string): string {
   if (!isoDate) return "—";
@@ -92,9 +84,9 @@ export function GoalCard({ goal, locale, onAddProgress, onEdit, onDelete }: Prop
         {/* Amounts */}
         <div className="flex items-center justify-between text-sm">
           <span className="tabular-nums">
-            {formatAmount(goal.currentMAD, locale)}{" "}
+            {formatMAD(goal.currentMAD, locale, { fractionDigits: 2 })}{" "}
             <span className="text-muted-foreground">{t("card.of_target")}</span>{" "}
-            {formatAmount(goal.targetMAD, locale)}
+            {formatMAD(goal.targetMAD, locale, { fractionDigits: 2 })}
           </span>
           <span className="font-semibold tabular-nums">{Math.round(percent)}%</span>
         </div>

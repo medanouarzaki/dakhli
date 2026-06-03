@@ -5,7 +5,7 @@ import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { AuthSessionProvider } from "@/components/providers/session-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
@@ -39,10 +39,27 @@ const plexArabic = IBM_Plex_Sans_Arabic({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Dakhli",
-  description: "Your personal finance assistant",
-};
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "Meta" });
+  const description = t("description");
+  return {
+    title: "Dakhli",
+    description,
+    metadataBase: new URL("https://dakhli-ma.vercel.app"),
+    openGraph: {
+      title: "Dakhli",
+      description,
+      type: "website",
+      siteName: "Dakhli",
+      locale,
+      url: `/${locale}`,
+    },
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

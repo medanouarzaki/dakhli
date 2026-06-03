@@ -1,4 +1,7 @@
 {
+  "Meta": {
+    "description": "أدِر ميزانيتك الشخصية في المغرب بمساعدة الذكاء الاصطناعي: تتبع المصاريف، الميزانيات، النصائح والتوقعات — بالعربية أو الفرنسية أو الإنجليزية."
+  },
   "HomePage": {
     "title": "دخلي",
     "subtitle": "مساعدك المالي الشخصي",
@@ -486,7 +489,7 @@
     },
     "progress_dialog": {
       "title": "أضف إلى ادخاري",
-      "subtitle_fmt": "{title} — {current}/{target} درهم",
+      "subtitle_fmt": "{title} — {current}/{target}",
       "amount_label": "المبلغ المضاف (درهم)",
       "submit": "أضف",
       "cancel": "إلغاء"
@@ -521,7 +524,7 @@
       "created": "تم إنشاء الهدف",
       "updated": "تم تحديث الهدف",
       "deleted": "تم حذف الهدف",
-      "progress_added_fmt": "+{amount} درهم أضيف"
+      "progress_added_fmt": "+{amount} أضيف"
     },
     "ai_plan": {
       "title": "✨ خطة الادخار الذكية",

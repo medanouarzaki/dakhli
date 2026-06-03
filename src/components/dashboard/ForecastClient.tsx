@@ -15,6 +15,7 @@ import {
   type Trend,
 } from "@/lib/ai/types/forecast";
 import { ForecastBreakdownChart } from "./ForecastBreakdownChart";
+import { formatMAD } from "@/lib/format/money";
 
 type Labels = {
   sectionTitle: string;
@@ -46,14 +47,6 @@ type Props = {
   initialGeneratedAt: string | null;
   labels: Labels;
 };
-
-function formatMAD(amount: number, locale: Locale): string {
-  const n = new Intl.NumberFormat(locale, {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-  return locale === "ar" ? `${n} د.م.` : `${n} MAD`;
-}
 
 function TrendIcon({ trend }: { trend: Trend }) {
   if (trend === "STABLE") return <Minus className="h-4 w-4 text-muted-foreground" />;

@@ -58,7 +58,7 @@ export async function WeekdayHeatmap({ cells, locale }: Props) {
             </div>
 
             {/* Values */}
-            <div className="flex items-baseline gap-1 text-right">
+            <div className="flex items-baseline gap-1 text-end">
               <span className="text-sm font-medium tabular-nums">
                 {formatMAD(cell.totalMAD, locale)}
               </span>
