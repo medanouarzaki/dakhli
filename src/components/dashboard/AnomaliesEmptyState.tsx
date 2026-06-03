@@ -9,7 +9,7 @@ type Props = {
 
 export function AnomaliesEmptyState({ title, subtitle }: Props) {
   return (
-    <div className="flex flex-col items-center gap-3 py-8 text-center">
+    <div className="flex flex-col items-center gap-3 py-10 text-center">
       <div className="rounded-full bg-success/10 p-3">
         <ShieldCheck className="h-6 w-6 text-success" />
       </div>

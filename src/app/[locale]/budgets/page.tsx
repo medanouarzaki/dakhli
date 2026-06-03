@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { Wallet } from "lucide-react";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -43,7 +44,10 @@ export default async function BudgetsPage({ params: { locale } }: Props) {
           {rows.length === 0 ? (
             /* Empty state */
             <div className="rounded-xl border bg-card shadow-sm p-12 text-center space-y-4">
-              <p className="font-medium">{t("empty.title")}</p>
+              <div className="mx-auto w-fit rounded-full bg-primary/10 p-3">
+                <Wallet className="h-6 w-6 text-primary" />
+              </div>
+              <p className="font-semibold">{t("empty.title")}</p>
               <p className="text-sm text-muted-foreground">{t("empty.subtitle")}</p>
               <Button asChild>
                 <Link href={`/${locale}/budgets/new`}>{t("empty.cta")}</Link>

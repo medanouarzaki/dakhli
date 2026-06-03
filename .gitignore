@@ -43,3 +43,6 @@ next-env.d.ts
 
 AUDIT_DUMP.md
 DASHBOARD_DUMP.md
+
+# local docs / audit fixtures (never committed)
+docs/
