@@ -33,11 +33,6 @@
       "subtitle": "Commencez à enregistrer vos dépenses et revenus",
       "cta": "+ Nouvelle transaction"
     },
-    "new_page": {
-      "title": "Nouvelle transaction",
-      "coming_soon": "Formulaire à venir (session T4)",
-      "back": "Retour"
-    },
     "form": {
       "title": "Nouvelle transaction",
       "subtitle": "Enregistrez une dépense ou un revenu",
@@ -66,7 +61,8 @@
       "error_validation": "Vérifiez les champs du formulaire",
       "error_server": "Une erreur est survenue. Réessayez.",
       "ai_suggestion": "Suggestion IA",
-      "ai_suggesting": "Analyse en cours…"
+      "ai_suggesting": "Analyse en cours…",
+      "no_accounts": "Aucun compte disponible."
     },
     "row_actions": {
       "delete": "Supprimer",
@@ -307,13 +303,6 @@
       "affordability": "Est-ce que je peux me permettre un achat de 2000 DH ?",
       "familyTransfers": "Combien j'ai envoyé à ma famille ce mois ?"
     },
-    "empty": {
-      "title": "Discutez avec Dakhli",
-      "subtitle": "Posez des questions sur vos dépenses, budgets et habitudes financières",
-      "suggestion_1": "Où est-ce que je dépense le plus ce mois ?",
-      "suggestion_2": "Des conseils pour réduire mes dépenses ?",
-      "suggestion_3": "Résume ma situation financière"
-    },
     "error": "Une erreur est survenue. Réessayez."
   },
   "auth": {
@@ -397,7 +386,6 @@
       },
       "import_button": "Importer {count} transactions sélectionnées",
       "import_pending": "Import en cours…",
-      "import_disabled_tooltip": "Fonctionnalité disponible au prochain déploiement",
       "cancel_button": "Annuler et recommencer"
     },
     "import": {
@@ -619,7 +607,7 @@
     "hero": {
       "eyebrow": "Finances personnelles · Maroc",
       "title": "Tes finances, enfin claires.",
-      "subtitle": "Suis tes dépenses, comprends tes habitudes, et laisse l'IA te conseiller — en darija, français ou anglais.",
+      "subtitle": "Suis tes dépenses, comprends tes habitudes, et laisse l'IA te conseiller — en arabe, français ou anglais.",
       "ctaPrimary": "Commencer gratuitement",
       "ctaSecondary": "J'ai déjà un compte",
       "trust": "100% gratuit · FR / EN / العربية · pensé pour le Maroc"
@@ -632,7 +620,7 @@
     },
     "features": {
       "title": "Une IA qui travaille pour ton argent",
-      "subtitle": "Sept fonctionnalités intelligentes, pensées pour ta réalité.",
+      "subtitle": "Huit fonctionnalités intelligentes, pensées pour ta réalité.",
       "categorize": {
         "title": "Catégorisation automatique",
         "desc": "Chaque transaction classée par l'IA, sans effort."
@@ -660,6 +648,10 @@
       "savings": {
         "title": "Plans d'épargne intelligents",
         "desc": "Atteins tes objectifs avec un plan calculé pour toi."
+      },
+      "planning": {
+        "title": "Prévisionnel",
+        "desc": "Déclare tes revenus et charges fixes, vois ton reste à vivre et projette tes 12 prochains mois — avec un verdict IA sur tes gros projets."
       }
     },
     "how": {
@@ -682,7 +674,7 @@
       "subtitle": "Dakhli parle ta langue et connaît ton quotidien.",
       "point1": "Dirham et multidevise pour tes transferts.",
       "point2": "Catégories locales : transferts famille, recharges, transport…",
-      "point3": "Darija, français, anglais — avec un vrai support de l'arabe.",
+      "point3": "Arabe, français, anglais — et un assistant qui comprend la darija.",
       "point4": "Des conseils calibrés sur le coût de la vie au Maroc."
     },
     "cta": {

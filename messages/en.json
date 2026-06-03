@@ -33,11 +33,6 @@
       "subtitle": "Start recording your expenses and income",
       "cta": "+ New transaction"
     },
-    "new_page": {
-      "title": "New transaction",
-      "coming_soon": "Form coming soon (session T4)",
-      "back": "Back"
-    },
     "form": {
       "title": "New transaction",
       "subtitle": "Record an expense or income",
@@ -66,7 +61,8 @@
       "error_validation": "Please check the form fields",
       "error_server": "Something went wrong. Please try again.",
       "ai_suggestion": "AI suggestion",
-      "ai_suggesting": "Analyzing…"
+      "ai_suggesting": "Analyzing…",
+      "no_accounts": "No account available."
     },
     "row_actions": {
       "delete": "Delete",
@@ -307,13 +303,6 @@
       "affordability": "Can I afford a 2000 MAD purchase?",
       "familyTransfers": "How much did I send to family this month?"
     },
-    "empty": {
-      "title": "Chat with Dakhli",
-      "subtitle": "Ask questions about your spending, budgets, and financial habits",
-      "suggestion_1": "Where do I spend the most this month?",
-      "suggestion_2": "Tips to reduce my expenses?",
-      "suggestion_3": "Summarise my financial situation"
-    },
     "error": "Something went wrong. Please try again."
   },
   "auth": {
@@ -397,7 +386,6 @@
       },
       "import_button": "Import {count} selected transactions",
       "import_pending": "Importing…",
-      "import_disabled_tooltip": "Feature available in the next deployment",
       "cancel_button": "Cancel and start over"
     },
     "import": {
@@ -619,7 +607,7 @@
     "hero": {
       "eyebrow": "Personal Finance · Morocco",
       "title": "Your finances, finally clear.",
-      "subtitle": "Track your spending, understand your habits, and let AI guide you — in Darija, French, or English.",
+      "subtitle": "Track your spending, understand your habits, and let AI guide you — in Arabic, French, or English.",
       "ctaPrimary": "Get started for free",
       "ctaSecondary": "I already have an account",
       "trust": "100% free · FR / EN / العربية · built for Morocco"
@@ -632,7 +620,7 @@
     },
     "features": {
       "title": "AI that works for your money",
-      "subtitle": "Seven smart features, built for your reality.",
+      "subtitle": "Eight smart features, built for your reality.",
       "categorize": {
         "title": "Automatic categorization",
         "desc": "Every transaction sorted by AI, effortlessly."
@@ -660,6 +648,10 @@
       "savings": {
         "title": "Smart savings plans",
         "desc": "Reach your goals with a plan calculated for you."
+      },
+      "planning": {
+        "title": "Planning",
+        "desc": "Declare your fixed income and charges, see your disposable income, and project the next 12 months — with an AI verdict on big upcoming projects."
       }
     },
     "how": {
@@ -682,7 +674,7 @@
       "subtitle": "Dakhli speaks your language and knows your daily life.",
       "point1": "Dirham and multi-currency for your transfers.",
       "point2": "Local categories: family transfers, top-ups, transport…",
-      "point3": "Darija, French, English — with real Arabic support.",
+      "point3": "Arabic, French, English — and an assistant that understands Darija.",
       "point4": "Tips calibrated to the Moroccan cost of living."
     },
     "cta": {

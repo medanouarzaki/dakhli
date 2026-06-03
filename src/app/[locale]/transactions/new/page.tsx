@@ -59,7 +59,7 @@ export default async function NewTransactionPage({ params: { locale } }: Props) 
           {accounts.length === 0 ? (
             <div className="rounded-lg border bg-card p-6 text-center space-y-4">
               <p className="text-sm text-muted-foreground">
-                Aucun compte disponible.
+                {t("form.no_accounts")}
               </p>
               <Button variant="outline" asChild>
                 <Link href={`/${locale}/transactions`}>{t("form.back")}</Link>

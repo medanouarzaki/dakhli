@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
 import {
   ArrowRight,
+  CalendarDays,
   Check,
   FileText,
   FileUp,
@@ -37,6 +38,7 @@ export default async function LandingPage({ params: { locale } }: Props) {
     { key: "advice", icon: Lightbulb },
     { key: "pdf", icon: FileText },
     { key: "savings", icon: PiggyBank },
+    { key: "planning", icon: CalendarDays },
   ] as const;
 
   const howSteps = [
@@ -136,7 +138,7 @@ export default async function LandingPage({ params: { locale } }: Props) {
             <p className="mt-3 text-muted-foreground text-lg">{t("features.subtitle")}</p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {features.map(({ key, icon: Icon }) => (
               <div key={key} className="rounded-xl border bg-card p-5 transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md hover:shadow-foreground/5">
                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
